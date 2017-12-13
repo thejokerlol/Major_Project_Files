@@ -1,0 +1,11 @@
+Project Objectives:
+
+To implement a Memory Management Unit
+
+To implement a Interrupt Controller
+
+To implement a DMA Controller
+
+To implement a DRAM Controller with AXI Interface
+
+To integrate everything with the processor
