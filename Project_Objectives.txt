@@ -9,3 +9,6 @@ To implement a DMA Controller
 To implement a DRAM Controller with AXI Interface
 
 To integrate everything with the processor
+
+
+Project Timeline
