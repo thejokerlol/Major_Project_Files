@@ -299,32 +299,10 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
     end
     
     //selecting the highest priority interrupt for CPU Interface0
-    reg[5:0] counter;
-    reg[7:0] temp_priority;
-    always@(*)
+    integer i;
+    for(i=0;i<=63;i=i+1)
     begin
-        HP_ID0=0;//set to the least priority i.e, the highest value....actually I don't know how to put it
-        temp_priority=8'd255;
-        for(counter=0;counter<=63;counter=counter+1)//64 interrupt IDs
-        begin
-            //for each priority value select the value with the highest priority
-            if(counter<32)//PPIs
-            begin
-                if(ICDISER0[counter]==1'b1 && ICDIPR0[counter[6:2]][(8*(counter[1:0])+7):8*counter[1:0]]<temp_priority && interrupt_states0==2'd1)//if it is enabled 
-                begin
-                    HP_ID0=counter;
-                    temp_priority=ICDIPR0[counter[6:2]][(8*(counter[1:0])+7):8*counter[1:0]];
-                end
-            end
-            else//SPIs
-            begin
-                if(ICDISER_S[counter[5:2]]==1'b1 && ICDIPR_S[counter[6:2]][(8*(counter[1:0])+7):8*counter[1:0]]<temp_priority && interrupt_states_S==2'd1)
-                begin
-                    HP_ID0=counter;
-                    temp_priority=ICDIPR_S[counter[6:2]][(8*(counter[1:0])+7):8*counter[1:0]];
-                end
-            end
-        end
+        
     end
     
     //selecting the highest priority for CPU Interface1
