@@ -23,6 +23,8 @@
 module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,reset,PPI_1,PPI_2,PPI_3,PPI_4,SPI,IRQ,FIQ
 
     );
+    
+    
     //CPU ID is got from the transaction ID of the AXI bus
     
     input[1:0] CPU_ID;//used to distinguish between the banked registers
@@ -69,12 +71,14 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
     reg[31:0] ICDICER0;//Interrupt Clear Enable Register(RW)
     reg[31:0] ICDISPR0;//Interrupt Set Pending Register(RW)
     reg[31:0] ICDICPR0;//Interrupt Clear Pending Register(RW)
+    reg[31:0] ICDISR0;//Interrupt Security Registers(RW)
     reg[31:0] ICDABR0;//Active Bit Register(RO)
     //for handling the priority of 32 interrupts each one of 8 bits we need 8 registers
     reg[31:0] ICDIPR0 [0:7];//Interrupt Priority Register(RW) 
-    reg[31:0] ICDIPTR;//Interrupt Processor Target Register(RO)
-    reg[31:0] ICDICFR;//Interrupt Configuration Register(RW)
-    reg[31:0] ICDSGIR;//Software generated Interrupt Register(WO)
+    reg[31:0] ICDIPTR0[0:7];//Interrupt Processor Target Register(RO)
+    reg[31:0] ICDICFR0[0:1];//Interrupt Configuration Register(RW) 2 bits for each interrupt 1:N model or N:N model?
+    reg[31:0] ICDSGIR0;//Software generated Interrupt Register(WO)
+    
     
     
     //Registers of Interrupts of CPU 1(Banked)
@@ -82,36 +86,55 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
     reg[31:0] ICDICER1;//Interrupt Clear Enable Register(RW)
     reg[31:0] ICDISPR1;//Interrupt Set Pending Register(RW)
     reg[31:0] ICDICPR1;//Interrupt Clear Pending Register(RW)
+    reg[31:0] ICDISR1;//Interrupt Security Registers(RW)
+    reg[31:0] ICDABR1;//Active Bit Register(RO)
     //for handling the priority of 32 interrupts each one of 8 bits we need 8 registers
-    reg[31:0] ICDIPR1 [0:7];//Interrupt Priority Register(RW) 
+    reg[31:0] ICDIPR1 [0:7];//Interrupt Priority Register(RW)
+    reg[31:0] ICDIPTR1[0:7];//Interrupt Processor Target Register(RO) 8 bits for each interrupt
+    reg[31:0] ICDICFR1[0:1];//Interrupt Configuration Register(RW) 2 bits for each interrupt 1:N model or N:N model?
+    reg[31:0] ICDSGIR1;//Software generated Interrupt Register(WO)
         
     //Registers of Inerrupts of CPU 2(Banked)
     reg[31:0] ICDISER2;//Interrupt Set Enable Register(RW)
     reg[31:0] ICDICER2;//Interrupt Clear Enable Register(RW)
     reg[31:0] ICDISPR2;//Interrupt Set Pending Register(RW)
-    reg[31:0] ICDICPR2;//Interrupt Clear Pending Register(RW)    
+    reg[31:0] ICDICPR2;//Interrupt Clear Pending Register(RW)
+    reg[31:0] ICDISR2;//Interrupt Security Registers(RW)
+    reg[31:0] ICDABR2;//Active Bit Register(RO)    
     //for handling the priority of 32 interrupts each one of 8 bits we need 8 registers
-    reg[31:0] ICDIPR2 [0:7];//Interrupt Priority Register(RW) 
+    reg[31:0] ICDIPR2 [0:7];//Interrupt Priority Register(RW)
+    reg[31:0] ICDIPTR2[0:7];//Interrupt Processor Target Register(RO)  8 bits for each interrupt
+    reg[31:0] ICDICFR2[0:1];//Interrupt Configuration Register(RW) 2 bits for each interrupt 1:N model or N:N model?
+    reg[31:0] ICDSGIR2;//Software generated Interrupt Register(WO)
     
     //Registers of Interrupts of CPU 3(Banked)
     reg[31:0] ICDISER3;//Interrupt Set Enable Register(RW)
     reg[31:0] ICDICER3;//Interrupt Clear Enable Register(RW)
     reg[31:0] ICDISPR3;//Interrupt Set Pending Register(RW)
     reg[31:0] ICDICPR3;//Interrupt Clear Pending Register(RW)
+    reg[31:0] ICDISR3;//Interrupt Security Registers(RW)
+    reg[31:0] ICDABR3;//Active Bit Register(RO)
     //for handling the priority of 32 interrupts each one of 8 bits we need 8 registers
-    reg[31:0] ICDIPR3 [0:7];//Interrupt Priority Register(RW) 
+    reg[31:0] ICDIPR3 [0:7];//Interrupt Priority Register(RW)
+    reg[31:0] ICDIPTR3[0:7];//Interrupt Processor Target Register(RO)  8 bits for each interrupt
+    reg[31:0] ICDICFR3[0:1];//Interrupt Configuration Register(RW) 2 bits for each interrupt 1:N model or N:N model?
+    reg[31:0] ICDSGIR3;//Software generated Interrupt Register(WO)
     
     //Registers of SPIs for 32 to 64
     reg[31:0] ICDISER_S;
     reg[31:0] ICDICER_S;
     reg[31:0] ICDISPR_S;
     reg[31:0] ICDICPR_S;
+    reg[31:0] ICDISR_S;
     //for handling the priority of 32 interrupts each one of 8 bits we need 8 registers
     reg[31:0] ICDIPR_S [8:15];//Interrupt Priority Register(RW) 
+    reg[31:0] ICDIPTR_S[8:15];//Interrupt Processor Target Register(RO) 8 bits for each register
+    reg[31:0] ICDICFR_S[0:1];//Interrupt Configuration Register(RW) 2 bits for each interrupt 1:N model or N:N model?
+    reg[31:0] ICDSGIR_S;//Software generated Interrupt Register(WO)
     
     
     //address information
-    parameter DISTRIBUTOR_BASE_ADDRESS=0;
+    parameter DISTRIBUTOR_BASE_ADDRESS=32'h0;//should be a parameter because should be synthesizable for various base addresses 
     
     
     //states of various interrupts in CPU0
@@ -177,127 +200,1421 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
                 begin
                     if(read)
                     begin
-                        data_out<=ICDDCR;
+                        data_out<=ICDDCR;//Distributor control register(enables or disables forwarding of pending interrupts to the CPU Interfaces)
                     end
                     else
                     begin
                         ICDDCR<=data_in;
                     end
                 end
-                DISTRIBUTOR_BASE_ADDRESS+12'h4://Interrupt Controller Type register(ICTR)
+                DISTRIBUTOR_BASE_ADDRESS+12'h4://Interrupt Controller Type register(ICTR),Read Only
                 begin
                     if(read)
                     begin
-                        data_out<=ICDICTR;
+                        data_out<=ICDICTR;//For 4 CPU Interfaces and 64 Interrupt lines  For this specific case the value is 0x61
                     end
                 end
                 DISTRIBUTOR_BASE_ADDRESS+12'h8://Distributor Implementor Identification Register(IIDR)
                 begin
                     if(read)
                     begin
-                        data_out<=ICDIIDR;
+                        data_out<=ICDIIDR;//can be set to 0 for time sake....irrelevant to the implementation
                     end
                     
                 end
                 DISTRIBUTOR_BASE_ADDRESS+12'h100://set enable registers(ISER) for banked registers 0,1,2,3
                 begin
+                    case(CPU_ID)
+                        2'd0:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICDISER0;
+                            end
+                            else
+                            begin
+                                ICDISER0<=data_in;
+                            end
+                        end
+                        2'd1:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICDISER1;
+                            end
+                            else
+                            begin
+                                ICDISER1<=data_in;
+                            end
+                        end
+                        2'd2:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICDISER2;
+                            end
+                            else
+                            begin
+                                ICDISER2<=data_in;
+                            end
+                        end
+                        2'd3:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICDISER3;
+                            end
+                            else
+                            begin
+                                ICDISER3<=data_in;
+                            end
+                        end
+                    endcase
                     
                 end
                 DISTRIBUTOR_BASE_ADDRESS+12'h104://set enable for SPIs
                 begin
+                    if(read)
+                    begin
+                        data_out<=ICDISER_S;
+                    end
+                    else
+                    begin
+                        ICDISER_S<=data_in;
+                    end
                 
                 end
                 DISTRIBUTOR_BASE_ADDRESS+12'h180://clear enable for banked registers 0,1,2,3
                 begin
-                
+                     case(CPU_ID)
+                           2'd0:
+                           begin
+                               if(read)
+                               begin
+                                   data_out<=ICDICER0;
+                               end
+                               else
+                               begin
+                                   ICDICER0<=data_in;
+                               end
+                           end
+                           2'd1:
+                           begin
+                               if(read)
+                               begin
+                                   data_out<=ICDICER1;
+                               end
+                               else
+                               begin
+                                   ICDICER1<=data_in;
+                               end
+                           end
+                           2'd2:
+                           begin
+                               if(read)
+                               begin
+                                   data_out<=ICDICER2;
+                               end
+                               else
+                               begin
+                                   ICDICER2<=data_in;
+                               end
+                           end
+                           2'd3:
+                           begin
+                               if(read)
+                               begin
+                                   data_out<=ICDICER3;
+                               end
+                               else
+                               begin
+                                   ICDICER3<=data_in;
+                               end
+                           end
+                       endcase            
                 end
                 DISTRIBUTOR_BASE_ADDRESS+12'h184://clear enable for SPIs
                 begin
-                
+                    if(read)
+                    begin
+                        data_out<=ICDICER_S;
+                    end
+                    else
+                    begin
+                        ICDICER_S<=data_in;
+                    end
                 end
                 DISTRIBUTOR_BASE_ADDRESS+12'h200://set pending register for banked registers 0,1,2,3
                 begin
-                
+                    case(CPU_ID)
+                       2'd0:
+                       begin
+                           if(read)
+                           begin
+                               data_out<=ICDISPR0;
+                           end
+                           else
+                           begin
+                               ICDISPR0<=data_in;
+                           end
+                       end
+                       2'd1:
+                       begin
+                           if(read)
+                           begin
+                               data_out<=ICDISPR1;
+                           end
+                           else
+                           begin
+                               ICDISPR1<=data_in;
+                           end
+                       end
+                       2'd2:
+                       begin
+                           if(read)
+                           begin
+                               data_out<=ICDISPR2;
+                           end
+                           else
+                           begin
+                               ICDISPR2<=data_in;
+                           end
+                       end
+                       2'd3:
+                       begin
+                           if(read)
+                           begin
+                               data_out<=ICDISPR3;
+                           end
+                           else
+                           begin
+                               ICDISPR3<=data_in;
+                           end
+                       end
+                   endcase
                 end
                 DISTRIBUTOR_BASE_ADDRESS+12'h204://set pending register for SPIs
                 begin
-                
+                    if(read)
+                    begin
+                        data_out<=ICDISPR_S;
+                    end
+                    else
+                    begin
+                        ICDISPR_S<=data_in;
+                    end
                 end
                 DISTRIBUTOR_BASE_ADDRESS+12'h280://clear pending register for banked registers 0,1,2,3
                 begin
-                
+                    case(CPU_ID)
+                       2'd0:
+                       begin
+                           if(read)
+                           begin
+                               data_out<=ICDICPR0;
+                           end
+                           else
+                           begin
+                               ICDICPR0<=data_in;
+                           end
+                       end
+                       2'd1:
+                       begin
+                           if(read)
+                           begin
+                               data_out<=ICDICPR1;
+                           end
+                           else
+                           begin
+                               ICDICPR1<=data_in;
+                           end
+                       end
+                       2'd2:
+                       begin
+                           if(read)
+                           begin
+                               data_out<=ICDICPR2;
+                           end
+                           else
+                           begin
+                               ICDICPR2<=data_in;
+                           end
+                       end
+                       2'd3:
+                       begin
+                           if(read)
+                           begin
+                               data_out<=ICDICPR3;
+                           end
+                           else
+                           begin
+                               ICDICPR3<=data_in;
+                           end
+                       end
+                   endcase
                 end
                 DISTRIBUTOR_BASE_ADDRESS+12'h284://clear pending register for SPIs
                 begin
-                
+                    if(read)
+                    begin
+                        data_out<=ICDICPR_S;
+                    end
+                    else
+                    begin
+                        ICDICPR_S<=data_in;
+                    end
                 end
                 DISTRIBUTOR_BASE_ADDRESS+12'h400://priority register 0(Banked)
                 begin
-                
+                    case(CPU_ID)
+                        2'b00:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICDIPR0[0];
+                            end
+                            else
+                            begin
+                                ICDIPR0[0]<=data_in;
+                            end
+                        end
+                        2'b01:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICDIPR1[0];
+                            end
+                            else
+                            begin
+                                ICDIPR1[0]<=data_in;
+                            end
+                        end
+                        2'b10:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICDIPR2[0];
+                            end
+                            else
+                            begin
+                                ICDIPR2[0]<=data_in;
+                            end
+                        end
+                        2'b11:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICDIPR3[0];
+                            end
+                            else
+                            begin
+                                ICDIPR3[0]<=data_in;
+                            end
+                        end    
+                    endcase
                 end
                 DISTRIBUTOR_BASE_ADDRESS+12'h400+12'd4://priority register 1(Banked)
                 begin
-                
+                  case(CPU_ID)
+                    2'b00:
+                    begin
+                        if(read)
+                        begin
+                            data_out<=ICDIPR0[1];
+                        end
+                        else
+                        begin
+                            ICDIPR0[1]<=data_in;
+                        end
+                    end
+                    2'b01:
+                    begin
+                        if(read)
+                        begin
+                            data_out<=ICDIPR1[1];
+                        end
+                        else
+                        begin
+                            ICDIPR1[1]<=data_in;
+                        end
+                    end
+                    2'b10:
+                    begin
+                        if(read)
+                        begin
+                            data_out<=ICDIPR2[1];
+                        end
+                        else
+                        begin
+                            ICDIPR2[1]<=data_in;
+                        end
+                    end
+                    2'b11:
+                    begin
+                        if(read)
+                        begin
+                            data_out<=ICDIPR3[1];
+                        end
+                        else
+                        begin
+                            ICDIPR3[1]<=data_in;
+                        end
+                    end    
+                endcase
                 end
                 DISTRIBUTOR_BASE_ADDRESS+12'h400+12'd8://priority register 2(Banked)
                 begin
+                    case(CPU_ID)
+                        2'b00:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICDIPR0[2];
+                            end
+                            else
+                            begin
+                                ICDIPR0[2]<=data_in;
+                            end
+                        end
+                        2'b01:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICDIPR1[2];
+                            end
+                            else
+                            begin
+                                ICDIPR1[2]<=data_in;
+                            end
+                        end
+                        2'b10:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICDIPR2[2];
+                            end
+                            else
+                            begin
+                                ICDIPR2[2]<=data_in;
+                            end
+                        end
+                        2'b11:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICDIPR3[2];
+                            end
+                            else
+                            begin
+                                ICDIPR3[2]<=data_in;
+                            end
+                        end    
+                    endcase
                 
                 end
                 DISTRIBUTOR_BASE_ADDRESS+12'h400+12'd12://priority register 3(Banked)
                 begin
-                
+                    case(CPU_ID)
+                        2'b00:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICDIPR0[3];
+                            end
+                            else
+                            begin
+                                ICDIPR0[3]<=data_in;
+                            end
+                        end
+                        2'b01:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICDIPR1[3];
+                            end
+                            else
+                            begin
+                                ICDIPR1[3]<=data_in;
+                            end
+                        end
+                        2'b10:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICDIPR2[3];
+                            end
+                            else
+                            begin
+                                ICDIPR2[3]<=data_in;
+                            end
+                        end
+                        2'b11:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICDIPR3[3];
+                            end
+                            else
+                            begin
+                                ICDIPR3[3]<=data_in;
+                            end
+                        end    
+                    endcase
                 end
                 DISTRIBUTOR_BASE_ADDRESS+12'h400+12'd16://priority register 4(Banked)
                 begin
-                
+                    case(CPU_ID)
+                        2'b00:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICDIPR0[4];
+                            end
+                            else
+                            begin
+                                ICDIPR0[4]<=data_in;
+                            end
+                        end
+                        2'b01:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICDIPR1[4];
+                            end
+                            else
+                            begin
+                                ICDIPR1[4]<=data_in;
+                            end
+                        end
+                        2'b10:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICDIPR2[4];
+                            end
+                            else
+                            begin
+                                ICDIPR2[4]<=data_in;
+                            end
+                        end
+                        2'b11:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICDIPR3[4];
+                            end
+                            else
+                            begin
+                                ICDIPR3[4]<=data_in;
+                            end
+                        end    
+                    endcase
                 end
                 DISTRIBUTOR_BASE_ADDRESS+12'h400+12'd20://priority register 5(Banked)
                 begin
-                
+                     case(CPU_ID)
+                        2'b00:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICDIPR0[5];
+                            end
+                            else
+                            begin
+                                ICDIPR0[5]<=data_in;
+                            end
+                        end
+                        2'b01:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICDIPR1[5];
+                            end
+                            else
+                            begin
+                                ICDIPR1[5]<=data_in;
+                            end
+                        end
+                        2'b10:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICDIPR2[5];
+                            end
+                            else
+                            begin
+                                ICDIPR2[5]<=data_in;
+                            end
+                        end
+                        2'b11:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICDIPR3[5];
+                            end
+                            else
+                            begin
+                                ICDIPR3[5]<=data_in;
+                            end
+                        end    
+                    endcase
                 end
                 DISTRIBUTOR_BASE_ADDRESS+12'h400+12'd24://priority register 6(Banked)
                 begin
+                    case(CPU_ID)
+                        2'b00:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICDIPR0[6];
+                            end
+                            else
+                            begin
+                                ICDIPR0[6]<=data_in;
+                            end
+                        end
+                        2'b01:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICDIPR1[6];
+                            end
+                            else
+                            begin
+                                ICDIPR1[6]<=data_in;
+                            end
+                        end
+                        2'b10:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICDIPR2[6];
+                            end
+                            else
+                            begin
+                                ICDIPR2[6]<=data_in;
+                            end
+                        end
+                        2'b11:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICDIPR3[6];
+                            end
+                            else
+                            begin
+                                ICDIPR3[6]<=data_in;
+                            end
+                        end    
+                    endcase
                 
                 end
                 DISTRIBUTOR_BASE_ADDRESS+12'h400+12'd28://priority register 7(Banked)
                 begin
-                
+                    case(CPU_ID)
+                        2'b00:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICDIPR0[7];
+                            end
+                            else
+                            begin
+                                ICDIPR0[7]<=data_in;
+                            end
+                        end
+                        2'b01:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICDIPR1[7];
+                            end
+                            else
+                            begin
+                                ICDIPR1[7]<=data_in;
+                            end
+                        end
+                        2'b10:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICDIPR2[7];
+                            end
+                            else
+                            begin
+                                ICDIPR2[7]<=data_in;
+                            end
+                        end
+                        2'b11:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICDIPR3[7];
+                            end
+                            else
+                            begin
+                                ICDIPR3[7]<=data_in;
+                            end
+                        end    
+                    endcase
                 end
                 DISTRIBUTOR_BASE_ADDRESS+12'h400+12'd32://priority register 8(SPI)
                 begin
-                
+                    if(read)
+                    begin
+                        data_out<=ICDIPR_S[8];
+                    end
+                    else
+                    begin
+                        ICDIPR_S[8]<=data_in;
+                    end
                 end
                 DISTRIBUTOR_BASE_ADDRESS+12'h400+12'd36://priority register 9(SPI)
                 begin
-                
+                    if(read)
+                    begin
+                        data_out<=ICDIPR_S[9];
+                    end
+                    else
+                    begin
+                        ICDIPR_S[9]<=data_in;
+                    end
                 end
                 DISTRIBUTOR_BASE_ADDRESS+12'h400+12'd40://priority register 10(SPI)
                 begin
-                
+                    if(read)
+                    begin
+                        data_out<=ICDIPR_S[10];
+                    end
+                    else
+                    begin
+                        ICDIPR_S[10]<=data_in;
+                    end
                 end
                 DISTRIBUTOR_BASE_ADDRESS+12'h400+12'd44://priority register 11(SPI)
                 begin
-                
+                    if(read)
+                    begin
+                        data_out<=ICDIPR_S[11];
+                    end
+                    else
+                    begin
+                        ICDIPR_S[11]<=data_in;
+                    end
                 end
                 DISTRIBUTOR_BASE_ADDRESS+12'h400+12'd48://priority register 12(SPI)
                 begin
-                
+                    if(read)
+                    begin
+                        data_out<=ICDIPR_S[12];
+                    end
+                    else
+                    begin
+                        ICDIPR_S[12]<=data_in;
+                    end
                 end
                 DISTRIBUTOR_BASE_ADDRESS+12'h400+12'd52://priority register 13(SPI)
                 begin
+                    if(read)
+                    begin
+                        data_out<=ICDIPR_S[13];
+                    end
+                    else
+                    begin
+                        ICDIPR_S[13]<=data_in;
+                    end
                 end
                 DISTRIBUTOR_BASE_ADDRESS+12'h400+12'd56://priority register 14(SPI)
                 begin
+                    if(read)
+                    begin
+                        data_out<=ICDIPR_S[14];
+                    end
+                    else
+                    begin
+                        ICDIPR_S[14]<=data_in;
+                    end
                 end
                 DISTRIBUTOR_BASE_ADDRESS+12'h400+12'd60://priority register 15(SPI)
                 begin
+                    if(read)
+                    begin
+                        data_out<=ICDIPR_S[15];
+                    end
+                    else
+                    begin
+                        ICDIPR_S[15]<=data_in;
+                    end    
+                end
+                DISTRIBUTOR_BASE_ADDRESS+12'h800://Interrupt processor target registers(Target register0 banked)
+                begin
+                    case(CPU_ID)
+                    2'd0:
+                    begin
+                        if(read)
+                        begin
+                            data_out<=ICDIPTR0[0];
+                        end
+                        else
+                        begin
+                            ICDIPTR0[0]<=data_in;
+                        end
+                    end
+                    2'd1:
+                    begin
+                        if(read)
+                        begin
+                            data_out<=ICDIPTR1[0];
+                        end
+                        else
+                        begin
+                            ICDIPTR1[0]<=data_in;
+                        end
+                        
+                    end
+                    2'd2:
+                    begin
+                        if(read)
+                        begin
+                            data_out<=ICDIPTR2[0];
+                        end
+                        else
+                        begin
+                            ICDIPTR2[0]=data_in;
+                        end
+                    end
+
+                    2'd3:
+                    begin
+                        if(read)
+                        begin
+                            data_out<=ICDIPTR3[0];
+                        end
+                        else
+                        begin
+                            ICDIPTR3[0]<=data_in;
+                        end
+                    end
+                    endcase
+                end
+                DISTRIBUTOR_BASE_ADDRESS+12'h800+12'd4://Interrupt processor target registers(Target register1 banked)
+                begin
+                    case(CPU_ID)
+                    2'd0:
+                    begin
+                        if(read)
+                        begin
+                            data_out<=ICDIPTR0[1];
+                        end
+                        else
+                        begin
+                            ICDIPTR0[1]<=data_in;
+                        end
+                    end
+                    2'd1:
+                    begin
+                        if(read)
+                        begin
+                            data_out<=ICDIPTR1[1];
+                        end
+                        else
+                        begin
+                            ICDIPTR1[1]<=data_in;
+                        end
+                        
+                    end
+                    2'd2:
+                    begin
+                        if(read)
+                        begin
+                            data_out<=ICDIPTR2[1];
+                        end
+                        else
+                        begin
+                            ICDIPTR2[1]=data_in;
+                        end
+                    end
+
+                    2'd3:
+                    begin
+                        if(read)
+                        begin
+                            data_out<=ICDIPTR3[1];
+                        end
+                        else
+                        begin
+                            ICDIPTR3[1]<=data_in;
+                        end
+                    end
+                    endcase
+                end
+                DISTRIBUTOR_BASE_ADDRESS+12'h800+12'd8://Interrupt processor target registers(Target register2 banked)
+                begin
+                    case(CPU_ID)
+                    2'd0:
+                    begin
+                        if(read)
+                        begin
+                            data_out<=ICDIPTR0[2];
+                        end
+                        else
+                        begin
+                            ICDIPTR0[2]<=data_in;
+                        end
+                    end
+                    2'd1:
+                    begin
+                        if(read)
+                        begin
+                            data_out<=ICDIPTR1[2];
+                        end
+                        else
+                        begin
+                            ICDIPTR1[2]<=data_in;
+                        end
+                        
+                    end
+                    2'd2:
+                    begin
+                        if(read)
+                        begin
+                            data_out<=ICDIPTR2[2];
+                        end
+                        else
+                        begin
+                            ICDIPTR2[2]=data_in;
+                        end
+                    end
+
+                    2'd3:
+                    begin
+                        if(read)
+                        begin
+                            data_out<=ICDIPTR3[2];
+                        end
+                        else
+                        begin
+                            ICDIPTR3[2]<=data_in;
+                        end
+                    end
+                    endcase
+                end
+                DISTRIBUTOR_BASE_ADDRESS+12'h800+12'd12://Interrupt processor target registers(Target register3 banked)
+                begin
+                    case(CPU_ID)
+                    2'd0:
+                    begin
+                        if(read)
+                        begin
+                            data_out<=ICDIPTR0[3];
+                        end
+                        else
+                        begin
+                            ICDIPTR0[3]<=data_in;
+                        end
+                    end
+                    2'd1:
+                    begin
+                        if(read)
+                        begin
+                            data_out<=ICDIPTR1[3];
+                        end
+                        else
+                        begin
+                            ICDIPTR1[3]<=data_in;
+                        end
+                        
+                    end
+                    2'd2:
+                    begin
+                        if(read)
+                        begin
+                            data_out<=ICDIPTR2[3];
+                        end
+                        else
+                        begin
+                            ICDIPTR2[3]=data_in;
+                        end
+                    end
+
+                    2'd3:
+                    begin
+                        if(read)
+                        begin
+                            data_out<=ICDIPTR3[3];
+                        end
+                        else
+                        begin
+                            ICDIPTR3[3]<=data_in;
+                        end
+                    end
+                    endcase
+                end
+                DISTRIBUTOR_BASE_ADDRESS+12'h800+12'd16://Interrupt processor target registers(Target register4 banked)
+                begin
+                    case(CPU_ID)
+                    2'd0:
+                    begin
+                        if(read)
+                        begin
+                            data_out<=ICDIPTR0[4];
+                        end
+                        else
+                        begin
+                            ICDIPTR0[4]<=data_in;
+                        end
+                    end
+                    2'd1:
+                    begin
+                        if(read)
+                        begin
+                            data_out<=ICDIPTR1[4];
+                        end
+                        else
+                        begin
+                            ICDIPTR1[4]<=data_in;
+                        end
+                        
+                    end
+                    2'd2:
+                    begin
+                        if(read)
+                        begin
+                            data_out<=ICDIPTR2[4];
+                        end
+                        else
+                        begin
+                            ICDIPTR2[4]=data_in;
+                        end
+                    end
+
+                    2'd3:
+                    begin
+                        if(read)
+                        begin
+                            data_out<=ICDIPTR3[4];
+                        end
+                        else
+                        begin
+                            ICDIPTR3[4]<=data_in;
+                        end
+                    end
+                    endcase
+                end
+                DISTRIBUTOR_BASE_ADDRESS+12'h800+12'd20://Interrupt processor target registers(Target register5 banked)
+                begin
+                    case(CPU_ID)
+                    2'd0:
+                    begin
+                        if(read)
+                        begin
+                            data_out<=ICDIPTR0[5];
+                        end
+                        else
+                        begin
+                            ICDIPTR0[5]<=data_in;
+                        end
+                    end
+                    2'd1:
+                    begin
+                        if(read)
+                        begin
+                            data_out<=ICDIPTR1[5];
+                        end
+                        else
+                        begin
+                            ICDIPTR1[5]<=data_in;
+                        end
+                        
+                    end
+                    2'd2:
+                    begin
+                        if(read)
+                        begin
+                            data_out<=ICDIPTR2[5];
+                        end
+                        else
+                        begin
+                            ICDIPTR2[5]=data_in;
+                        end
+                    end
+
+                    2'd3:
+                    begin
+                        if(read)
+                        begin
+                            data_out<=ICDIPTR3[5];
+                        end
+                        else
+                        begin
+                            ICDIPTR3[5]<=data_in;
+                        end
+                    end
+                    endcase
+                end
+                DISTRIBUTOR_BASE_ADDRESS+12'h800+12'd24://Interrupt processor target registers(Target register6 banked)
+                begin
+                    case(CPU_ID)
+                    2'd0:
+                    begin
+                        if(read)
+                        begin
+                            data_out<=ICDIPTR0[6];
+                        end
+                        else
+                        begin
+                            ICDIPTR0[6]<=data_in;
+                        end
+                    end
+                    2'd1:
+                    begin
+                        if(read)
+                        begin
+                            data_out<=ICDIPTR1[6];
+                        end
+                        else
+                        begin
+                            ICDIPTR1[6]<=data_in;
+                        end
+                        
+                    end
+                    2'd2:
+                    begin
+                        if(read)
+                        begin
+                            data_out<=ICDIPTR2[6];
+                        end
+                        else
+                        begin
+                            ICDIPTR2[6]=data_in;
+                        end
+                    end
+
+                    2'd3:
+                    begin
+                        if(read)
+                        begin
+                            data_out<=ICDIPTR3[6];
+                        end
+                        else
+                        begin
+                            ICDIPTR3[6]<=data_in;
+                        end
+                    end
+                    endcase
+                end
+                DISTRIBUTOR_BASE_ADDRESS+12'h800+12'd28://Interrupt processor target registers(Target register7 banked)
+                begin
+                    case(CPU_ID)
+                    2'd0:
+                    begin
+                        if(read)
+                        begin
+                            data_out<=ICDIPTR0[7];
+                        end
+                        else
+                        begin
+                            ICDIPTR0[7]<=data_in;
+                        end
+                    end
+                    2'd1:
+                    begin
+                        if(read)
+                        begin
+                            data_out<=ICDIPTR1[7];
+                        end
+                        else
+                        begin
+                            ICDIPTR1[7]<=data_in;
+                        end
+                        
+                    end
+                    2'd2:
+                    begin
+                        if(read)
+                        begin
+                            data_out<=ICDIPTR2[7];
+                        end
+                        else
+                        begin
+                            ICDIPTR2[7]<=data_in;
+                        end
+                    end
+
+                    2'd3:
+                    begin
+                        if(read)
+                        begin
+                            data_out<=ICDIPTR3[7];
+                        end
+                        else
+                        begin
+                            ICDIPTR3[7]<=data_in;
+                        end
+                    end
+                    endcase
+                end
+                DISTRIBUTOR_BASE_ADDRESS+12'h800+12'd32:
+                begin
+                    if(read)
+                    begin
+                        data_out<=ICDIPTR_S[0];
+                    end
+                    else
+                    begin
+                        ICDIPTR_S[0]<=data_in;
+                    end
+                end
+                DISTRIBUTOR_BASE_ADDRESS+12'h800+12'd36:
+                begin
+                    if(read)
+                    begin
+                        data_out<=ICDIPTR_S[1];
+                    end
+                    else
+                    begin
+                        ICDIPTR_S[1]<=data_in;
+                    end
+                end
+                DISTRIBUTOR_BASE_ADDRESS+12'h800+12'd40:
+                begin
+                    if(read)
+                    begin
+                        data_out<=ICDIPTR_S[2];
+                    end
+                    else
+                    begin
+                        ICDIPTR_S[2]<=data_in;
+                    end
+                end
+                DISTRIBUTOR_BASE_ADDRESS+12'h800+12'd44:
+                begin
+                    if(read)
+                    begin
+                        data_out<=ICDIPTR_S[3];
+                    end
+                    else
+                    begin
+                        ICDIPTR_S[3]<=data_in;
+                    end
+                end
+                DISTRIBUTOR_BASE_ADDRESS+12'h800+12'd48:
+                begin
+                    if(read)
+                    begin
+                        data_out<=ICDIPTR_S[4];
+                    end
+                    else
+                    begin
+                        ICDIPTR_S[4]<=data_in;
+                    end
+                end
+                DISTRIBUTOR_BASE_ADDRESS+12'h800+12'd52:
+                begin
+                    if(read)
+                    begin
+                        data_out<=ICDIPTR_S[5];
+                    end
+                    else
+                    begin
+                        ICDIPTR_S[5]<=data_in;
+                    end
+                end
+                DISTRIBUTOR_BASE_ADDRESS+12'h800+12'd56:
+                begin
+                    if(read)
+                    begin
+                        data_out<=ICDIPTR_S[6];
+                    end
+                    else
+                    begin
+                        ICDIPTR_S[6]<=data_in;
+                    end
+                end                                                                                   
+                DISTRIBUTOR_BASE_ADDRESS+12'h800+12'd60:
+                begin
+                    if(read)
+                    begin
+                        data_out<=ICDIPTR_S[7];
+                    end
+                    else
+                    begin
+                        ICDIPTR_S[7]<=data_in;
+                    end
+                end                                                                
+                DISTRIBUTOR_BASE_ADDRESS+12'hC00://Interrupt configuration registers
+                begin
+                    case(CPU_ID)
+                        2'b00:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICDICFR0[0];
+                            end
+                            else
+                            begin
+                                ICDICFR0[0]<=data_in;
+                            end
+                        end
+                        2'b01:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICDICFR1[0];
+                            end
+                            else
+                            begin
+                                ICDICFR1[0]<=data_in;
+                            end
+                        end
+                        2'b10:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICDICFR2[0];
+                            end
+                            else
+                            begin
+                                ICDICFR2[0]<=data_in;
+                            end
+                        end
+                        2'b11:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICDICFR3[0];
+                            end
+                            else
+                            begin
+                                ICDICFR3[0]<=data_in;
+                            end
+                        end
+                    endcase
+                end
+                DISTRIBUTOR_BASE_ADDRESS+12'hC00+12'd4:
+                begin
+                    case(CPU_ID)
+                        2'b00:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICDICFR0[1];
+                            end
+                            else
+                            begin
+                                ICDICFR0[1]<=data_in;
+                            end
+                        end
+                        2'b01:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICDICFR1[1];
+                            end
+                            else
+                            begin
+                                ICDICFR1[1]<=data_in;
+                            end
+                        end
+                        2'b10:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICDICFR2[1];
+                            end
+                            else
+                            begin
+                                ICDICFR2[1]<=data_in;
+                            end
+                        end
+                        2'b11:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICDICFR3[1];
+                            end
+                            else
+                            begin
+                                ICDICFR3[1]<=data_in;
+                            end
+                        end
+                    endcase
+                end
+                DISTRIBUTOR_BASE_ADDRESS+12'hC00+12'd8://configuration registers for SPIs
+                begin
+                    if(read)
+                    begin
+                        data_out<=ICDICFR_S[0];
+                    end
+                    else
+                    begin
+                        ICDICFR_S[0]<=data_in;
+                    end
+                end
+                DISTRIBUTOR_BASE_ADDRESS+12'hC00+12'd12:
+                begin
+                    if(read)
+                    begin
+                        data_out<=ICDICFR_S[1];
+                    end
+                    else
+                    begin
+                        ICDICFR_S[1]<=data_in;
+                    end
+                end
+                DISTRIBUTOR_BASE_ADDRESS+12'hF00://Software Generated Interrupt registers
+                begin
+                    case(CPU_ID)
+                        2'b00:
+                        begin
+                            if(!read)
+                            begin
+                                ICDSGIR0<=data_in;
+                            end
+                        end
+                        2'b01:
+                        begin
+                            if(!read)
+                            begin
+                                ICDSGIR1<=data_in;
+                            end
+                        end
+                        2'b10:
+                        begin
+                            if(!read)
+                            begin
+                                ICDSGIR2<=data_in;
+                            end
+                        end
+                        2'b11:
+                        begin
+                            if(!read)
+                            begin
+                                ICDSGIR3<=data_in;
+                            end
+                        end
+                    endcase
                 end                
                 endcase
             end
             
         end
     end
+    //Section Configuration registers end
+    /*
     
+    The end of distributor control registers configuration logic
+    
+    
+    
+    */
+    
+    
+    
+    
+    
+    
+/*    
     //selecting the highest priority interrupt for CPU Interface0
     integer i;
     for(i=0;i<=63;i=i+1)
@@ -388,7 +1705,7 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
                 end
             end
         end
-    end 
+    end*/ 
     
         
 endmodule
