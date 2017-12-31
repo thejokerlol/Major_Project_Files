@@ -1600,6 +1600,53 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
             
         end
     end
+    
+    always@(posedge clk)
+    begin
+        case(inerrupt_states0[0])
+        2'b00://inactive state
+        begin
+            if(PPI_0[0]==1'b0)
+            begin
+                interrupt_states0[0]=2'b00;//inactive state
+            end
+            else
+            begin
+                interrupt_states0[0]=2'b01;//pending state
+            end
+        end
+        2'b01://pending state
+        begin
+            if(ICDICFR[0]==1'b0)//level sensitive
+            begin
+                if(PPI_0[0]==1'b0)
+                begin
+                    interrupt_states0[0]=2'b00;
+                end
+                else
+                begin
+                    interrupt_states0[0]=2'b01;
+                end
+            end
+            else//edge triggered
+            begin
+                
+            end
+        end
+        2'b10://active state
+        begin
+        
+        end
+        2'b11://active and pending state
+        begin
+        
+        end
+        endcase
+    end
+    
+    
+    
+    
     //Section Configuration registers end
     /*
     
@@ -1610,7 +1657,37 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
     */
     
     
+    //Interrupt State Machine
     
+    always@(posedge clk or negedge reset)
+    begin
+        case(interrupt_states0[0])
+            2'b00:
+            begin
+            end
+            2'b01:
+            begin
+            end
+            2'b10:
+            begin
+            end
+            2'b11:
+            begin
+            end
+        endcase
+    end
+    
+    
+    
+    //Interrupt Configuring as edge triggered or level sensitive 
+    //configure logic for first processor 
+
+    
+    // always@(
+    
+    //Interrupt state change logic
+    
+    //always@(
     
     
     
