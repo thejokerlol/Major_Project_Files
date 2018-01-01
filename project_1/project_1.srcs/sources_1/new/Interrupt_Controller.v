@@ -133,8 +133,67 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
     reg[31:0] ICDSGIR_S;//Software generated Interrupt Register(WO)
     
     
+    
+    
+    /*
+    
+    Internal registers of CPU Interfaces
+    
+    
+    */
+    
+    //Single for all CPU Interfaces
+    
+    reg[31:0] ICCICR;//CPU Interface Control Register
+    
+    //for CPU Interface register set 0(Banked)
+    
+    reg[31:0] ICCPMR0;//CPU Interface Priority Mask Register
+    reg[31:0] ICCBPR0;//CPU Interface Binary Point Register
+    reg[31:0] ICCIAR0;//Interrupt Acknowledge Register
+    reg[31:0] ICCEOIR0;//End of Interrupt Register
+    reg[31:0] ICCRPR0;//Running Priority Register
+    reg[31:0] ICCHPIR0;//Highest Pending Interrupt Register
+    reg[31:0] ICCABPR0;//Aliased Binary Point Register
+    reg[31:0] ICCIIDR0;//CPU Interface Identification Register
+    
+    //for CPU Interface register set 1(Banked)
+    
+    reg[31:0] ICCPMR1;//CPU Interface Priority Mask Register
+    reg[31:0] ICCBPR1;//CPU Interface Binary Point Register
+    reg[31:0] ICCIAR1;//Interrupt Acknowledge Register
+    reg[31:0] ICCEOIR1;//End of Interrupt Register
+    reg[31:0] ICCRPR1;//Running Priority Register
+    reg[31:0] ICCHPIR1;//Highest Pending Interrupt Register
+    reg[31:0] ICCABPR1;//Aliased Binary Point Register
+    reg[31:0] ICCIIDR1;//CPU Interface Identification Register   
+    
+    //CPU Interface register set 2(Banked)
+    
+    reg[31:0] ICCPMR2;//CPU Interface Priority Mask Register
+    reg[31:0] ICCBPR2;//CPU Interface Binary Point Register
+    reg[31:0] ICCIAR2;//Interrupt Acknowledge Register
+    reg[31:0] ICCEOIR2;//End of Interrupt Register
+    reg[31:0] ICCRPR2;//Running Priority Register
+    reg[31:0] ICCHPIR2;//Highest Pending Interrupt Register
+    reg[31:0] ICCABPR2;//Aliased Binary Point Register
+    reg[31:0] ICCIIDR2;//CPU Interface Identification Register
+    
+    
+    //CPU Interface register set 3(Banked)
+    
+    reg[31:0] ICCPMR3;//CPU Interface Priority Mask Register
+    reg[31:0] ICCBPR3;//CPU Interface Binary Point Register
+    reg[31:0] ICCIAR3;//Interrupt Acknowledge Register
+    reg[31:0] ICCEOIR3;//End of Interrupt Register
+    reg[31:0] ICCRPR3;//Running Priority Register
+    reg[31:0] ICCHPIR3;//Highest Pending Interrupt Register
+    reg[31:0] ICCABPR3;//Aliased Binary Point Register
+    reg[31:0] ICCIIDR3;//CPU Interface Identification Register
+    
     //address information
-    parameter DISTRIBUTOR_BASE_ADDRESS=32'h0;//should be a parameter because should be synthesizable for various base addresses 
+    parameter DISTRIBUTOR_BASE_ADDRESS=32'h0;//should be a parameter because should be synthesizable for various base addresses
+    parameter CPU_INTERFACE_BASE_ADDRESS=32'h0; //should be a parameter because should be synthesizable for various base addresses
     
     
     //states of various interrupts in CPU0
@@ -1567,34 +1626,376 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
                     case(CPU_ID)
                         2'b00:
                         begin
-                            if(!read)
+                            if(!read)//SGI is write only
                             begin
                                 ICDSGIR0<=data_in;
                             end
                         end
                         2'b01:
                         begin
-                            if(!read)
+                            if(!read)//SGI is write only
                             begin
                                 ICDSGIR1<=data_in;
                             end
                         end
                         2'b10:
                         begin
-                            if(!read)
+                            if(!read)//SGI is write only
                             begin
                                 ICDSGIR2<=data_in;
                             end
                         end
                         2'b11:
                         begin
-                            if(!read)
+                            if(!read)//SGI is write only
                             begin
                                 ICDSGIR3<=data_in;
                             end
                         end
                     endcase
-                end                
+                end
+                CPU_INTERFACE_BASE_ADDRESS+8'h0://ICCICR register (RW) not banked
+                begin
+                    if(read)
+                    begin
+                        data_out<=ICCICR;
+                    end
+                    else
+                    begin
+                        ICCICR<=data_in;
+                    end
+                end
+                CPU_INTERFACE_BASE_ADDRESS+8'h04://ICCPPMR register (RW) banked
+                begin
+                    case(CPU_ID)
+                        2'b00:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICCPMR0;
+                            end
+                            else
+                            begin
+                                ICCPMR0<=data_in;
+                            end
+                        end
+                        2'b01:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICCPMR1;
+                            end
+                            else
+                            begin
+                                ICCPMR1<=data_in;
+                            end
+                        end
+                        2'b10:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICCPMR2;
+                            end
+                            else
+                            begin
+                                ICCPMR2<=data_in;
+                            end
+                        end
+                        2'b11:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICCPMR3;
+                            end
+                            else
+                            begin
+                                ICCPMR3<=data_in;
+                            end
+                        end
+                    endcase
+                end
+                CPU_INTERFACE_BASE_ADDRESS+8'h08://Binary point register(RW) banked
+                begin
+                    case(CPU_ID)
+                        2'b00:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICCBPR0;
+                            end
+                            else
+                            begin
+                                ICCBPR0<=data_in;
+                            end
+                        end
+                        2'b01:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICCBPR1;
+                            end
+                            else
+                            begin
+                                ICCBPR1<=data_in;
+                            end
+                        end
+                        2'b10:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICCBPR2;
+                            end
+                            else
+                            begin
+                                ICCBPR2<=data_in;
+                            end
+                        end
+                        2'b11:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICCBPR3;
+                            end
+                            else
+                            begin
+                                ICCBPR3<=data_in;
+                            end
+                        end
+                    endcase
+                end
+                CPU_INTERFACE_BASE_ADDRESS+8'h0C://Interrupt Acknowledge register(RO) banked
+                begin
+                    case(CPU_ID)
+                        2'b00:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICCIAR0;
+                            end
+                        end
+                        2'b01:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICCIAR1;
+                            end
+                        end
+                        2'b10:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICCIAR2;
+                            end
+                        end
+                        2'b11:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICCIAR3;
+                            end
+                        end
+                    endcase
+                end
+                CPU_INTERFACE_BASE_ADDRESS+8'h10://End of Interrupt Register(WO) banked
+                begin
+                    case(CPU_ID)
+                        2'b00:
+                        begin
+                            if(!read)
+                            begin
+                                ICCEOIR0<=data_in;
+                            end
+                        end
+                        2'b01:
+                        begin
+                            if(!read)
+                            begin
+                                ICCEOIR1<=data_in;
+                            end
+                        end
+                        2'b10:
+                        begin
+                            if(!read)
+                            begin
+                                ICCEOIR2<=data_in;
+                            end
+                        end
+                        2'b11:
+                        begin
+                            if(!read)
+                            begin
+                                ICCEOIR3<=data_in;
+                            end
+                        end
+                    endcase
+                end
+                CPU_INTERFACE_BASE_ADDRESS+8'h14://Running priority Register(RO) banked
+                begin
+                    case(CPU_ID)
+                        2'b00:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICCRPR0;
+                            end
+                        end
+                        2'b01:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICCRPR1;
+                            end
+                        end
+                        2'b10:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICCRPR2;
+                            end
+                        end
+                        2'b11:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICCRPR3;
+                            end
+                        end
+                    endcase
+                end
+                CPU_INTERFACE_BASE_ADDRESS+8'h18://Highest priority Interrupt register(RO) banked
+                begin
+                    case(CPU_ID)
+                        2'b00:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICCHPIR0;
+                            end
+                        end
+                        2'b01:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICCHPIR1;
+                            end
+                        end
+                        2'b10:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICCHPIR2;
+                            end
+                        end
+                        2'b11:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICCHPIR3;
+                            end
+                        end
+                    endcase
+                end
+                CPU_INTERFACE_BASE_ADDRESS+8'h1C://Aliased binary point register(RW) banked
+                begin
+                    case(CPU_ID)
+                        2'b00:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICCABPR0;
+                            end
+                            else
+                            begin
+                                ICCABPR0<=data_in;
+                            end
+                            
+                        end
+                        2'b01:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICCABPR1;
+                            end
+                            else
+                            begin
+                                ICCABPR1<=data_in;
+                            end
+                        end
+                        2'b10:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICCABPR2;
+                            end
+                            else
+                            begin
+                                ICCABPR2<=data_in;
+                            end
+                        end
+                        2'b11:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICCABPR3;
+                            end
+                            else
+                            begin
+                                ICCABPR3<=data_in;
+                            end
+                        end
+                    endcase
+                end
+                CPU_INTERFACE_BASE_ADDRESS+8'hFC:
+                begin
+                    case(CPU_ID)
+                        2'b00:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICCIIDR0;
+                            end
+                            else
+                            begin
+                                ICCIIDR0<=data_in;
+                            end
+                            
+                        end
+                        2'b01:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICCIIDR1;
+                            end
+                            else
+                            begin
+                                ICCIIDR1<=data_in;
+                            end
+                        end
+                        2'b10:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICCIIDR2;
+                            end
+                            else
+                            begin
+                                ICCIIDR2<=data_in;
+                            end
+                        end
+                        2'b11:
+                        begin
+                            if(read)
+                            begin
+                                data_out<=ICCIIDR3;
+                            end
+                            else
+                            begin
+                                ICCIIDR3<=data_in;
+                            end
+                        end
+                    endcase
+                end
+                                
                 endcase
             end
             
@@ -1606,7 +2007,7 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
         case(inerrupt_states0[0])
         2'b00://inactive state
         begin
-            if(PPI_0[0]==1'b0)
+            if(PPI_1[0]==1'b0)
             begin
                 interrupt_states0[0]=2'b00;//inactive state
             end
@@ -1617,9 +2018,9 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
         end
         2'b01://pending state
         begin
-            if(ICDICFR[0]==1'b0)//level sensitive
+            if(ICDICFR0[0]==1'b0)//level sensitive
             begin
-                if(PPI_0[0]==1'b0)
+                if(PPI_2[0]==1'b0)
                 begin
                     interrupt_states0[0]=2'b00;
                 end
