@@ -88,6 +88,7 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
     reg[31:0] ICDICPR1;//Interrupt Clear Pending Register(RW)
     reg[31:0] ICDISR1;//Interrupt Security Registers(RW)
     reg[31:0] ICDABR1;//Active Bit Register(RO)
+    
     //for handling the priority of 32 interrupts each one of 8 bits we need 8 registers
     reg[31:0] ICDIPR1 [0:7];//Interrupt Priority Register(RW)
     reg[31:0] ICDIPTR1[0:7];//Interrupt Processor Target Register(RO) 8 bits for each interrupt
@@ -203,7 +204,7 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
         for active,interrupt state is 2
         for active and pending,interrupt state is 3
     */
-    reg[31:0] interrupt_states0[1:0];
+    reg[1:0] interrupt_states0[0:31];
     
     //states of various interrupts in CPU1
     /*
@@ -212,7 +213,7 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
         for active,interrupt state is 2
         for active and pending,interrupt state is 3
     */
-    reg[31:0] interrupt_states1[1:0];
+    reg[1:0] interrupt_states1[0:31];
     
     //states of various interrupts in CPU2
     /*
@@ -221,7 +222,7 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
         for active,interrupt state is 2
         for active and pending,interrupt state is 3
     */
-    reg[31:0] interrupt_states2[1:0];
+    reg[1:0] interrupt_states2[0:31];
     
     //states of various interrupts in CPU0
     /*
@@ -230,7 +231,7 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
         for active,interrupt state is 2
         for active and pending,interrupt state is 3
     */
-    reg[31:0] interrupt_states3[1:0];
+    reg[1:0] interrupt_states3[0:31];
     
     //states of various interrupts in shared interrupts
     /*
@@ -240,7 +241,7 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
         for active,interrupt state is 2
         for active and pending,interrupt state is 3
     */
-    reg[31:0] interrupt_states_S[1:0];
+    reg[1:0] interrupt_states_S[32:63];
     
     //Register read write logic
     always@(posedge clk or negedge reset)
@@ -1417,88 +1418,88 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
                 begin
                     if(read)
                     begin
-                        data_out<=ICDIPTR_S[0];
+                        data_out<=ICDIPTR_S[8];
                     end
                     else
                     begin
-                        ICDIPTR_S[0]<=data_in;
+                        ICDIPTR_S[8]<=data_in;
                     end
                 end
                 DISTRIBUTOR_BASE_ADDRESS+12'h800+12'd36:
                 begin
                     if(read)
                     begin
-                        data_out<=ICDIPTR_S[1];
+                        data_out<=ICDIPTR_S[9];
                     end
                     else
                     begin
-                        ICDIPTR_S[1]<=data_in;
+                        ICDIPTR_S[9]<=data_in;
                     end
                 end
                 DISTRIBUTOR_BASE_ADDRESS+12'h800+12'd40:
                 begin
                     if(read)
                     begin
-                        data_out<=ICDIPTR_S[2];
+                        data_out<=ICDIPTR_S[10];
                     end
                     else
                     begin
-                        ICDIPTR_S[2]<=data_in;
+                        ICDIPTR_S[10]<=data_in;
                     end
                 end
                 DISTRIBUTOR_BASE_ADDRESS+12'h800+12'd44:
                 begin
                     if(read)
                     begin
-                        data_out<=ICDIPTR_S[3];
+                        data_out<=ICDIPTR_S[11];
                     end
                     else
                     begin
-                        ICDIPTR_S[3]<=data_in;
+                        ICDIPTR_S[11]<=data_in;
                     end
                 end
                 DISTRIBUTOR_BASE_ADDRESS+12'h800+12'd48:
                 begin
                     if(read)
                     begin
-                        data_out<=ICDIPTR_S[4];
+                        data_out<=ICDIPTR_S[12];
                     end
                     else
                     begin
-                        ICDIPTR_S[4]<=data_in;
+                        ICDIPTR_S[12]<=data_in;
                     end
                 end
                 DISTRIBUTOR_BASE_ADDRESS+12'h800+12'd52:
                 begin
                     if(read)
                     begin
-                        data_out<=ICDIPTR_S[5];
+                        data_out<=ICDIPTR_S[13];
                     end
                     else
                     begin
-                        ICDIPTR_S[5]<=data_in;
+                        ICDIPTR_S[13]<=data_in;
                     end
                 end
                 DISTRIBUTOR_BASE_ADDRESS+12'h800+12'd56:
                 begin
                     if(read)
                     begin
-                        data_out<=ICDIPTR_S[6];
+                        data_out<=ICDIPTR_S[14];
                     end
                     else
                     begin
-                        ICDIPTR_S[6]<=data_in;
+                        ICDIPTR_S[14]<=data_in;
                     end
                 end                                                                                   
                 DISTRIBUTOR_BASE_ADDRESS+12'h800+12'd60:
                 begin
                     if(read)
                     begin
-                        data_out<=ICDIPTR_S[7];
+                        data_out<=ICDIPTR_S[15];
                     end
                     else
                     begin
-                        ICDIPTR_S[7]<=data_in;
+                        ICDIPTR_S[15]<=data_in;
                     end
                 end                                                                
                 DISTRIBUTOR_BASE_ADDRESS+12'hC00://Interrupt configuration registers
@@ -2002,7 +2003,7 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
         end
     end
     
-    always@(posedge clk)
+/*    always@(posedge clk)
     begin
         case(inerrupt_states0[0])
         2'b00://inactive state
@@ -2043,7 +2044,7 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
         
         end
         endcase
-    end
+    end*/
     
     
     
@@ -2056,29 +2057,132 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
     
     
     */
-    
+    parameter INACTIVE=2'b00;
+    parameter PENDING=2'b01;
+    parameter ACTIVE=2'b10;
+    parameter ACTIVE_AND_PENDING=2'b11;
     
     //Interrupt State Machine
     
-    always@(posedge clk or negedge reset)
+    always@(posedge clk or negedge reset or PPI_1[16])
     begin
         case(interrupt_states0[0])
-            2'b00:
+            INACTIVE://Inactive state
             begin
+                if(PPI_1[16]==1'b1)
+                    interrupt_states0[0]<=PENDING;
+                else
+                    interrupt_states0[0]<=INACTIVE;
             end
-            2'b01:
+            PENDING://pending state
             begin
+                if(read && (address==32'h0))//interrupt acknowledge(should occur only if this is the interuupt being acknowledged) the address should be changed
+                    interrupt_states0[0]<=ACTIVE;
+                else
+                    interrupt_states0[0]<=PENDING;
             end
-            2'b10:
+            ACTIVE://active state
             begin
+                if(read && (address==32'h0))//end of interrupt service routine the address should be changed
+                    interrupt_states0[0]<=INACTIVE;
+                else
+                    interrupt_states0[0]<=ACTIVE;
             end
-            2'b11:
+            ACTIVE_AND_PENDING://active and pending state
             begin
+                if(read && (address==32'h0))//end of interrupt service routine
+                    interrupt_states0[0]<=PENDING;
+                else
+                    interrupt_states0[0]<=ACTIVE_AND_PENDING;
             end
         endcase
     end
     
+    reg[5:0] Interrupt_IDs[0:63];//Interrupt IDs from 0 to 63
+    wire[5:0] HP_ID[0:62];//Highest priority intermediate registers
+    wire[7:0] output_priority[0:62];//output priority registers
+    wire enabled[0:62];//intermediate enable signals
+    wire[0:1] priority_state[0:62];//outut priority states
     
+    integer k;
+    
+    always@(*)
+    begin
+        for(k=0;k<64;k=k+1)
+        begin
+            if(k==0)
+            begin
+                Interrupt_IDs[k]=0;
+            end
+            else
+            begin
+                Interrupt_IDs[k]=Interrupt_IDs[k-1]+1;
+            end
+        end
+    end
+    
+    
+    //Finding the highest priority interrupt generation for processor 1 excluding the processor targets...next include the processor target register too
+    genvar i;
+    
+    generate
+        for(i=0;i<63;i=i+1)
+        begin
+            if(i<31)
+            begin
+                
+                if(i==0)
+                begin
+                    
+                    Priority_Check P1(
+                        Interrupt_IDs[i],Interrupt_IDs[i+1],
+                        ICDISER0[i],ICDISER0[i+1],
+                        ICDIPR0[i/4][(8*(i%4))+7:(8*(i%4))],ICDIPR0[(i+1)/4][(8*((i+1)%4))+7:(8*((i+1)%4))],
+                        
+                        interrupt_states0[i],interrupt_states0[i+1],
+                        
+                        HP_ID[i],
+                        output_priority[i],
+                        enabled[i],
+                        priority_state[i]
+                    );
+                end
+                else
+                begin
+                    
+                    Priority_Check P1(
+                                    HP_ID[i-1],Interrupt_IDs[i+1],
+                                    enabled[i-1],ICDISER0[i+1],
+                                    output_priority[i-1],ICDIPR0[(i+1)/4][(8*((i+1)%4))+7:(8*((i+1)%4))],
+                                    
+                                    priority_state[i-1],interrupt_states0[i+1],
+                                    
+                                    HP_ID[i],
+                                    output_priority[i],
+                                    enabled[i],
+                                    priority_state[i]
+                                );
+                end
+            end
+            else
+            begin
+                
+                Priority_Check P1(
+                                    HP_ID[i-1],Interrupt_IDs[i+1],
+                                    enabled[i-1],ICDISER_S[(i-32)+1],
+                                    output_priority[i-1],ICDIPR_S[(i+1)/4][(8*((i+1)%4))+7:(8*((i+1)%4))],
+                                    
+                                    priority_state[i-1],interrupt_states_S[i+1],
+                                    
+                                    HP_ID[i],
+                                    output_priority[i],
+                                    enabled[i],
+                                    priority_state[i]
+                                );
+            
+            end
+        end
+    endgenerate
     
     //Interrupt Configuring as edge triggered or level sensitive 
     //configure logic for first processor 

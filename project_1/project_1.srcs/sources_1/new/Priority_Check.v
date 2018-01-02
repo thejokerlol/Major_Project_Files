@@ -48,7 +48,7 @@ module Priority_Check(
     input[1:0] interrupt_states1;
     input[1:0] interrupt_states2;
     
-    output reg[7:0] HP_ID;
+    output reg[5:0] HP_ID;
     output reg[7:0] output_priority;
     output reg enabled;
     output reg[1:0] priority_state;//the state of the highest priority
