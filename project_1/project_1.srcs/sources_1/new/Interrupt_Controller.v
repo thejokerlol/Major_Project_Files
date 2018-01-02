@@ -2103,6 +2103,7 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
     wire[7:0] output_priority[0:62];//output priority registers
     wire enabled[0:62];//intermediate enable signals
     wire[0:1] priority_state[0:62];//outut priority states
+    wire[3:0] out_target_proc_list[0:62];//target processors of output highest priority interrupt
     
     integer k;
     
@@ -2135,32 +2136,36 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
                 begin
                     
                     Priority_Check P1(
-                        Interrupt_IDs[i],Interrupt_IDs[i+1],
+                        Interrupt_IDs[i],Interrupt_IDs[i+1],0,
                         ICDISER0[i],ICDISER0[i+1],
                         ICDIPR0[i/4][(8*(i%4))+7:(8*(i%4))],ICDIPR0[(i+1)/4][(8*((i+1)%4))+7:(8*((i+1)%4))],
                         
                         interrupt_states0[i],interrupt_states0[i+1],
+                        ICDIPTR0[i/8][(4*(i%8))+7:(4*(i%8))],ICDIPTR0[(i+1)/8][(4*((i+1)%8))+7:(4*((i+1)%8))],
                         
                         HP_ID[i],
                         output_priority[i],
                         enabled[i],
-                        priority_state[i]
+                        priority_state[i],
+                        out_target_proc_list[i]
                     );
                 end
                 else
                 begin
                     
                     Priority_Check P1(
-                                    HP_ID[i-1],Interrupt_IDs[i+1],
+                                    HP_ID[i-1],Interrupt_IDs[i+1],0,
                                     enabled[i-1],ICDISER0[i+1],
                                     output_priority[i-1],ICDIPR0[(i+1)/4][(8*((i+1)%4))+7:(8*((i+1)%4))],
                                     
                                     priority_state[i-1],interrupt_states0[i+1],
+                                    out_target_proc_list[i-1],ICDIPTR0[(i+1)/8][(4*((i+1)%8))+7:(4*((i+1)%8))],
                                     
                                     HP_ID[i],
                                     output_priority[i],
                                     enabled[i],
-                                    priority_state[i]
+                                    priority_state[i],
+                                    out_target_proc_list[i]
                                 );
                 end
             end
@@ -2168,16 +2173,18 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
             begin
                 
                 Priority_Check P1(
-                                    HP_ID[i-1],Interrupt_IDs[i+1],
+                                    HP_ID[i-1],Interrupt_IDs[i+1],0,
                                     enabled[i-1],ICDISER_S[(i-32)+1],
                                     output_priority[i-1],ICDIPR_S[(i+1)/4][(8*((i+1)%4))+7:(8*((i+1)%4))],
                                     
                                     priority_state[i-1],interrupt_states_S[i+1],
+                                    out_target_proc_list[i-1],ICDIPTR_S[(i+1)/8][(4*((i+1)%8))+7:(4*((i+1)%8))],
                                     
                                     HP_ID[i],
                                     output_priority[i],
                                     enabled[i],
-                                    priority_state[i]
+                                    priority_state[i],
+                                    out_target_proc_list[i]
                                 );
             
             end
