@@ -20,7 +20,10 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,reset,PPI_1,PPI_2,PPI_3,PPI_4,SPI,IRQ,FIQ
+module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,reset,
+                    PPI_1,PPI_2,PPI_3,PPI_4,SPI,IRQ0,FIQ0,IRQ1,FIQ1,
+                    IRQ2,FIQ2,IRQ3,FIQ3
+        
 
     );
     
@@ -48,8 +51,20 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
     reg[5:0] HP_ID2;//Highest Priority Interrupt ID for CPU interface2
     reg[5:0] HP_ID3;//Highest Priority Interrupt ID for CPU interface3
     
-    output IRQ;
-    output FIQ;
+    
+    /*
+    
+    IRQs and FIQs for all processors
+    
+    */
+    output reg IRQ0;
+    output reg FIQ0;
+    output reg IRQ1;
+    output reg FIQ1;
+    output reg IRQ2;
+    output reg FIQ2;
+    output reg IRQ3;
+    output reg FIQ3;
     
     
     /*
@@ -242,6 +257,19 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
         for active and pending,interrupt state is 3
     */
     reg[1:0] interrupt_states_S[32:63];
+    
+    
+    
+    /*
+    intermediate signals for the priority logic
+    */
+    reg[5:0] Interrupt_IDs[0:63];//Interrupt IDs from 0 to 63
+    wire[5:0] HP_ID[0:62];//Highest priority intermediate registers
+    wire[7:0] output_priority[0:62];//output priority registers
+    wire enabled[0:62];//intermediate enable signals
+    wire[0:1] priority_state[0:62];//output priority states
+    wire[3:0] out_target_proc_list[0:62];//target processors of output highest priority interrupt
+        
     
     //Register read write logic
     always@(posedge clk or negedge reset)
@@ -2062,48 +2090,10 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
     parameter ACTIVE=2'b10;
     parameter ACTIVE_AND_PENDING=2'b11;
     
-    //Interrupt State Machine
     
-    always@(posedge clk or negedge reset or PPI_1[16])
-    begin
-        case(interrupt_states0[0])
-            INACTIVE://Inactive state
-            begin
-                if(PPI_1[16]==1'b1)
-                    interrupt_states0[0]<=PENDING;
-                else
-                    interrupt_states0[0]<=INACTIVE;
-            end
-            PENDING://pending state
-            begin
-                if(read && (address==32'h0))//interrupt acknowledge(should occur only if this is the interuupt being acknowledged) the address should be changed
-                    interrupt_states0[0]<=ACTIVE;
-                else
-                    interrupt_states0[0]<=PENDING;
-            end
-            ACTIVE://active state
-            begin
-                if(read && (address==32'h0))//end of interrupt service routine the address should be changed
-                    interrupt_states0[0]<=INACTIVE;
-                else
-                    interrupt_states0[0]<=ACTIVE;
-            end
-            ACTIVE_AND_PENDING://active and pending state
-            begin
-                if(read && (address==32'h0))//end of interrupt service routine
-                    interrupt_states0[0]<=PENDING;
-                else
-                    interrupt_states0[0]<=ACTIVE_AND_PENDING;
-            end
-        endcase
-    end
     
-    reg[5:0] Interrupt_IDs[0:63];//Interrupt IDs from 0 to 63
-    wire[5:0] HP_ID[0:62];//Highest priority intermediate registers
-    wire[7:0] output_priority[0:62];//output priority registers
-    wire enabled[0:62];//intermediate enable signals
-    wire[0:1] priority_state[0:62];//outut priority states
-    wire[3:0] out_target_proc_list[0:62];//target processors of output highest priority interrupt
+    
+    
     
     integer k;
     
@@ -2123,6 +2113,121 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
     end
     
     
+    
+    //Interrupt State Machines for SGIs for interrupt 0
+    //genvar int_num;
+    
+    reg CPU_ID_SGI;
+    always@(posedge clk or negedge reset)
+    begin
+        case(interrupt_states0[0])
+            INACTIVE:
+            begin
+                if(enable_RW && !read && (address == DISTRIBUTOR_BASE_ADDRESS+12'hF00))//for a software generated interrupt a write to the SGI register, a CPUID doesn't matter i guess
+                begin
+                    if(data_in[3:0]==0)//If the interrupt ID matches
+                    begin
+                        interrupt_states0[0]<=PENDING;
+                        //ICCIAR0<={19'h0,1'b0,CPU_ID,10'd0};//generation of  a interrupt but i guess it's not here only if this is the highest priority interrupt
+                        //form the interrupt processor target registers and the CPU ID should be
+                        CPU_ID_SGI <= CPU_ID;//temporary save 
+                    end
+                    else
+                        interrupt_states0[0]<=INACTIVE;
+                end
+            end
+            PENDING:
+            begin
+                if(enable_RW && read && (address == CPU_INTERFACE_BASE_ADDRESS+8'h0C))//a read to the interrupt acknowledge register
+                begin
+                    if(ICCIAR0[9:0]==0)
+                    begin
+                        interrupt_states0[0]<=ACTIVE;
+                    end
+                    else
+                    begin
+                        interrupt_states0[0]<=PENDING;
+                    end
+                    
+                end
+            end
+            ACTIVE:
+            begin
+                if(read && (address==CPU_INTERFACE_BASE_ADDRESS+8'h10))//a write to the CPU interface EOIR register
+                begin
+                    if(data_in[9:0]==0)
+                        interrupt_states0[0]<=INACTIVE;
+                    else
+                        interrupt_states0[0]<=ACTIVE;
+                end
+            end
+            ACTIVE_AND_PENDING:
+            begin
+                if(read && (address==CPU_INTERFACE_BASE_ADDRESS+8'h10))//a write to the CPU interface EOIR register
+                begin
+                    if(data_in[9:0]==0)
+                        interrupt_states0[0]<=PENDING;
+                    else
+                        interrupt_states0[0]<=ACTIVE;
+                end
+            end
+        endcase
+    end
+    
+    always@(*)
+    begin
+        
+    end
+    //Interrupt state machine
+    always@(posedge clk or negedge reset or PPI_1[16])
+    begin
+        case(interrupt_states0[16])
+            INACTIVE://Inactive state
+            begin
+                if(PPI_1[16]==1'b1)//only level triggered interrupt for now
+                    interrupt_states0[16]<=PENDING;
+                else
+                    interrupt_states0[16]<=INACTIVE;
+            end
+            PENDING://pending state
+            begin
+                if(enable_RW && read && (address == CPU_INTERFACE_BASE_ADDRESS+8'h0C))//a read to the interrupt acknowledge register
+                begin
+                    if(ICCIAR0[9:0]==16)
+                    begin
+                        interrupt_states0[16]<=ACTIVE;
+                    end
+                    else
+                    begin
+                        interrupt_states0[16]<=PENDING;
+                    end
+                    
+                end
+            end
+            ACTIVE://active state
+            begin
+                if(read && (address==CPU_INTERFACE_BASE_ADDRESS+8'h10))//a write to the CPU interface EOIR register
+                begin
+                    if(data_in[9:0]==16)
+                        interrupt_states0[16]<=INACTIVE;
+                    else
+                        interrupt_states0[16]<=ACTIVE;
+                end
+            end
+            ACTIVE_AND_PENDING://active and pending state
+            begin
+                if(read && (address==CPU_INTERFACE_BASE_ADDRESS+8'h10))//a write to the CPU interface EOIR register
+                begin
+                    if(data_in[9:0]==16)
+                        interrupt_states0[16]<=PENDING;
+                    else
+                        interrupt_states0[16]<=ACTIVE;
+                end
+            end
+        endcase
+    end
+    
+    
     //Finding the highest priority interrupt generation for processor 1 excluding the processor targets...next include the processor target register too
     genvar i;
     
@@ -2134,7 +2239,7 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
                 
                 if(i==0)
                 begin
-                    
+                  
                     Priority_Check P1(
                         Interrupt_IDs[i],Interrupt_IDs[i+1],0,
                         ICDISER0[i],ICDISER0[i+1],
@@ -2190,6 +2295,38 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
             end
         end
     endgenerate
+    
+    //CPU Interface logic for processor 0
+    always@(posedge clk)
+    begin
+        if(ICCICR[0])
+        begin
+            if(enabled[62])
+            begin
+                if(output_priority[62]<ICCPMR0[7:0])//priority masking
+                begin
+                    IRQ0=1'b1;
+                    //form the interrupt acknowledge register here
+                end
+                else
+                begin
+                    IRQ0=1'b0;
+                end
+            end
+            else
+            begin
+                IRQ0=1'b0;
+            end
+            
+        end
+        else
+        begin
+            IRQ0=1'b0;
+        end
+    end
+    
+    
+    
     
     //Interrupt Configuring as edge triggered or level sensitive 
     //configure logic for first processor 
