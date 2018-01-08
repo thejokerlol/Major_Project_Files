@@ -2114,65 +2114,79 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
     
     
     
-    //Interrupt State Machines for SGIs for interrupt 0
-    //genvar int_num;
+    //Interrupt State Machines for SGIs for interrupts bit only for a single processor
+    genvar int_num;
+    reg[1:0] SGI_CPU_regs[0:15];
     
     reg CPU_ID_SGI;
-    always@(posedge clk or negedge reset)
-    begin
-        case(interrupt_states0[0])
-            INACTIVE:
+    generate
+        for(int_num=0;int_num<16;int_num=int_num+1)
+        begin
+            always@(posedge clk or negedge reset)
             begin
-                if(enable_RW && !read && (address == DISTRIBUTOR_BASE_ADDRESS+12'hF00))//for a software generated interrupt a write to the SGI register, a CPUID doesn't matter i guess
-                begin
-                    if(data_in[3:0]==0)//If the interrupt ID matches
+                case(interrupt_states0[int_num])
+                    INACTIVE:
                     begin
-                        interrupt_states0[0]<=PENDING;
-                        //ICCIAR0<={19'h0,1'b0,CPU_ID,10'd0};//generation of  a interrupt but i guess it's not here only if this is the highest priority interrupt
-                        //form the interrupt processor target registers and the CPU ID should be
-                        CPU_ID_SGI <= CPU_ID;//temporary save 
+                        if(enable_RW && !read && (address == DISTRIBUTOR_BASE_ADDRESS+12'hF00))//for a software generated interrupt a write to the SGI register, a CPUID doesn't matter i guess
+                        begin
+                            if(data_in[3:0]==int_num && data_in[16]==1'b1)//If the interrupt ID matches and the target processor list has the current processor in it's field i.e., data_in[16] is the bit for processor 0
+                            begin
+                                interrupt_states0[int_num]<=PENDING;
+                                //ICCIAR0<={19'h0,1'b0,CPU_ID,10'd0};//generation of  a interrupt but i guess it's not here only if this is the highest priority interrupt
+                                //form the interrupt processor target registers and the CPU ID should be
+                                CPU_ID_SGI <= CPU_ID;//temporary save
+                                SGI_CPU_regs[int_num] <= CPU_ID;//saving the CPU ID which generaed the SGI 
+                            end
+                            else
+                            begin
+                                interrupt_states0[int_num]<=INACTIVE;
+                            end
+                        end
                     end
-                    else
-                        interrupt_states0[0]<=INACTIVE;
-                end
-            end
-            PENDING:
-            begin
-                if(enable_RW && read && (address == CPU_INTERFACE_BASE_ADDRESS+8'h0C))//a read to the interrupt acknowledge register
-                begin
-                    if(ICCIAR0[9:0]==0)
+                    PENDING:
                     begin
-                        interrupt_states0[0]<=ACTIVE;
+                        if(enable_RW && read && (address == CPU_INTERFACE_BASE_ADDRESS+8'h0C))//a read to the interrupt acknowledge register
+                        begin
+                            if(ICCIAR0[5:0]==Interrupt_IDs[int_num])
+                            begin
+                                interrupt_states0[int_num]<=ACTIVE;
+                            end
+                            else
+                            begin
+                                interrupt_states0[int_num]<=PENDING;
+                            end
+                            
+                        end
                     end
-                    else
+                    ACTIVE:
                     begin
-                        interrupt_states0[0]<=PENDING;
+                        if(read && (address==CPU_INTERFACE_BASE_ADDRESS+8'h10))//a write to the CPU interface EOIR register
+                        begin
+                            if(data_in[5:0]==Interrupt_IDs[int_num])
+                            begin
+                                interrupt_states0[int_num]<=INACTIVE;
+                            end
+                            else
+                            begin
+                                interrupt_states0[int_num]<=ACTIVE;
+                            end
+                        end
                     end
-                    
-                end
+                    ACTIVE_AND_PENDING:
+                    begin
+                        if(read && (address==CPU_INTERFACE_BASE_ADDRESS+8'h10))//a write to the CPU interface EOIR register
+                        begin
+                            if(data_in[5:0]==Interrupt_IDs[int_num])
+                                interrupt_states0[int_num]<=PENDING;
+                            else
+                                interrupt_states0[int_num]<=ACTIVE;
+                        end
+                    end
+                endcase
             end
-            ACTIVE:
-            begin
-                if(read && (address==CPU_INTERFACE_BASE_ADDRESS+8'h10))//a write to the CPU interface EOIR register
-                begin
-                    if(data_in[9:0]==0)
-                        interrupt_states0[0]<=INACTIVE;
-                    else
-                        interrupt_states0[0]<=ACTIVE;
-                end
-            end
-            ACTIVE_AND_PENDING:
-            begin
-                if(read && (address==CPU_INTERFACE_BASE_ADDRESS+8'h10))//a write to the CPU interface EOIR register
-                begin
-                    if(data_in[9:0]==0)
-                        interrupt_states0[0]<=PENDING;
-                    else
-                        interrupt_states0[0]<=ACTIVE;
-                end
-            end
-        endcase
-    end
+        end
+    endgenerate
+    
     
     always@(*)
     begin
@@ -2296,7 +2310,8 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
         end
     endgenerate
     
-    //CPU Interface logic for processor 0
+    integer interrupt_number;
+    //CPU Interface logic for processor 0 while signalling itself write to the IAR register
     always@(posedge clk)
     begin
         if(ICCICR[0])
@@ -2305,8 +2320,28 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
             begin
                 if(output_priority[62]<ICCPMR0[7:0])//priority masking
                 begin
-                    IRQ0=1'b1;
+                    IRQ0<=1'b1;
                     //form the interrupt acknowledge register here
+                    if(HP_ID[62]<16)//if it's a software generated interrupt
+                    begin
+                        for(interrupt_number=0;interrupt_number<16;interrupt_number=interrupt_number+1)
+                        begin
+                            if(Interrupt_IDs[interrupt_number]==HP_ID[62])
+                            begin
+                                ICCIAR0<={19'h0,SGI_CPU_regs[interrupt_number],HP_ID[62]};
+                            end
+                        end
+                    end
+                    else//if it's a private peripheral interrupt
+                    begin
+                        for(interrupt_number=0;interrupt_number<16;interrupt_number=interrupt_number+1)
+                        begin
+                            if(Interrupt_IDs[interrupt_number]==HP_ID[62])
+                            begin
+                                ICCIAR0<={19'h0,2'b00,HP_ID[62]};
+                            end
+                        end
+                    end
                 end
                 else
                 begin

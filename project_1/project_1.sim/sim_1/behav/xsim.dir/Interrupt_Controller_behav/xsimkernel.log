@@ -1,7 +1,4 @@
-Running: xsim.dir/Interrupt_Controller_behav/xsimk.exe -simmode gui -wdb Interrupt_Controller_behav.wdb -simrunnum 0 -socket 50395
+Running: xsim.dir/Interrupt_Controller_behav/xsimk.exe -simmode gui -wdb Interrupt_Controller_behav.wdb -simrunnum 0 -socket 49817
 Design successfully loaded
-Design Loading Memory Usage: 18280 KB (Peak: 18280 KB)
-Design Loading CPU Usage: 140 ms
-Simulation completed
-Simulation Memory Usage: 18756 KB (Peak: 18756 KB)
-Simulation CPU Usage: 171 ms
+Design Loading Memory Usage: 18444 KB (Peak: 18444 KB)
+Design Loading CPU Usage: 234 ms
