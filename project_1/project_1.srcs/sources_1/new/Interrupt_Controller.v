@@ -264,6 +264,7 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
     intermediate signals for the priority logic
     */
     reg[5:0] Interrupt_IDs[0:63];//Interrupt IDs from 0 to 63
+    reg[1:0] CPU_NOs[0:3];//CPU IDs one ID for each CPU
     wire[5:0] HP_ID[0:62];//Highest priority intermediate registers
     wire[7:0] output_priority[0:62];//output priority registers
     wire enabled[0:62];//intermediate enable signals
@@ -2112,7 +2113,22 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
         end
     end
     
+    integer CPU_no;
     
+    always@(*)
+    begin
+        for(CPU_no=0;CPU_no<4;CPU_no=CPU_no+1)
+        begin
+            if(CPU_no==0)
+            begin
+                CPU_NOs[CPU_no]=0;
+            end
+            else
+            begin
+                CPU_NOs[CPU_no]=CPU_NOs[CPU_no-1]+1;
+            end
+        end
+    end
     
     //Interrupt State Machines for SGIs for interrupts bit only for a single processor
     genvar int_num;
@@ -2188,58 +2204,140 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
     endgenerate
     
     
-    always@(*)
-    begin
-        
-    end
-    //Interrupt state machine
-    always@(posedge clk or negedge reset or PPI_1[16])
-    begin
-        case(interrupt_states0[16])
-            INACTIVE://Inactive state
+    genvar interrupt_number_PPI;
+    
+    //Interrupt state machines for PPIs
+    generate 
+        for(interrupt_number_PPI=16;interrupt_number_PPI<32;interrupt_number_PPI=interrupt_number_PPI+1)
+        begin
+            always@(posedge clk or negedge reset or PPI_1[interrupt_number_PPI])
             begin
-                if(PPI_1[16]==1'b1)//only level triggered interrupt for now
-                    interrupt_states0[16]<=PENDING;
-                else
-                    interrupt_states0[16]<=INACTIVE;
-            end
-            PENDING://pending state
-            begin
-                if(enable_RW && read && (address == CPU_INTERFACE_BASE_ADDRESS+8'h0C))//a read to the interrupt acknowledge register
-                begin
-                    if(ICCIAR0[9:0]==16)
+                case(interrupt_states0[interrupt_number_PPI])
+                    INACTIVE://Inactive state
                     begin
-                        interrupt_states0[16]<=ACTIVE;
+                        if(PPI_1[interrupt_number_PPI]==1'b1)//only level triggered interrupt for now or may be edge triggered
+                        begin
+                            interrupt_states0[interrupt_number_PPI]<=PENDING;
+                        end
+                        else
+                        begin
+                            interrupt_states0[interrupt_number_PPI]<=INACTIVE;
+                        end
                     end
-                    else
+                    PENDING://pending state
                     begin
-                        interrupt_states0[16]<=PENDING;
+                        if(enable_RW && read && (address == CPU_INTERFACE_BASE_ADDRESS+8'h0C))//a read to the interrupt acknowledge register
+                        begin
+                            if(ICCIAR0[5:0]==Interrupt_IDs[interrupt_number_PPI])
+                            begin
+                                interrupt_states0[interrupt_number_PPI]<=ACTIVE;
+                            end
+                            else
+                            begin
+                                interrupt_states0[interrupt_number_PPI]<=PENDING;
+                            end
+                            
+                        end
                     end
-                    
-                end
+                    ACTIVE://active state
+                    begin
+                        if(read && (address==CPU_INTERFACE_BASE_ADDRESS+8'h10))//a write to the CPU interface EOIR register
+                        begin
+                            if(data_in[5:0]==Interrupt_IDs[interrupt_number_PPI])
+                            begin
+                                interrupt_states0[interrupt_number_PPI]<=INACTIVE;
+                            end
+                            else
+                            begin
+                                interrupt_states0[interrupt_number_PPI]<=ACTIVE;
+                            end
+                        end
+                    end
+                    ACTIVE_AND_PENDING://active and pending state
+                    begin
+                        if(read && (address==CPU_INTERFACE_BASE_ADDRESS+8'h10))//a write to the CPU interface EOIR register
+                        begin
+                            if(data_in[5:0]==Interrupt_IDs[interrupt_number_PPI])
+                            begin
+                                interrupt_states0[interrupt_number_PPI]<=PENDING;
+                            end
+                            else
+                            begin
+                                interrupt_states0[interrupt_number_PPI]<=ACTIVE;
+                            end
+                        end
+                    end
+                endcase
             end
-            ACTIVE://active state
+        end
+    endgenerate
+    
+    genvar interrupt_number_SPI;
+    //Interrupt state machines for SPIs, should be modified a little bit
+    generate
+        for(interrupt_number_SPI=32;interrupt_number_SPI<64;interrupt_number_SPI=interrupt_number_SPI+1)
+        begin
+            always@(posedge clk or negedge reset or SPI[interrupt_number_SPI])
             begin
-                if(read && (address==CPU_INTERFACE_BASE_ADDRESS+8'h10))//a write to the CPU interface EOIR register
-                begin
-                    if(data_in[9:0]==16)
-                        interrupt_states0[16]<=INACTIVE;
-                    else
-                        interrupt_states0[16]<=ACTIVE;
-                end
+                case(interrupt_states_S[interrupt_number_SPI])
+                    INACTIVE://Inactive state
+                    begin
+                        if(SPI[interrupt_number_SPI]==1'b1)//only level triggered interrupt for now or may be edge triggered
+                        begin
+                            interrupt_states_S[interrupt_number_SPI]<=PENDING;
+                        end
+                        else
+                        begin
+                            interrupt_states_S[interrupt_number_SPI]<=INACTIVE;
+                        end
+                    end
+                    PENDING://pending state
+                    begin
+                        if(enable_RW && read && (address == CPU_INTERFACE_BASE_ADDRESS+8'h0C))//a read to the interrupt acknowledge register
+                        begin
+                            if(ICCIAR0[5:0]==Interrupt_IDs[interrupt_number_SPI])
+                            begin
+                                interrupt_states_S[interrupt_number_SPI]<=ACTIVE;
+                            end
+                            else
+                            begin
+                                interrupt_states_S[interrupt_number_SPI]<=PENDING;
+                            end
+                            
+                        end
+                    end
+                    ACTIVE://active state
+                    begin
+                        if(read && (address==CPU_INTERFACE_BASE_ADDRESS+8'h10))//a write to the CPU interface EOIR register
+                        begin
+                            if(data_in[5:0]==Interrupt_IDs[interrupt_number_SPI])
+                            begin
+                                interrupt_states_S[interrupt_number_SPI]<=INACTIVE;
+                            end
+                            else
+                            begin
+                                interrupt_states_S[interrupt_number_SPI]<=ACTIVE;
+                            end
+                        end
+                    end
+                    ACTIVE_AND_PENDING://active and pending state
+                    begin
+                        if(read && (address==CPU_INTERFACE_BASE_ADDRESS+8'h10))//a write to the CPU interface EOIR register
+                        begin
+                            if(data_in[5:0]==Interrupt_IDs[interrupt_number_SPI])
+                            begin
+                                interrupt_states_S[interrupt_number_SPI]<=PENDING;
+                            end
+                            else
+                            begin
+                                interrupt_states_S[interrupt_number_SPI]<=ACTIVE;
+                            end
+                        end
+                    end
+                endcase
             end
-            ACTIVE_AND_PENDING://active and pending state
-            begin
-                if(read && (address==CPU_INTERFACE_BASE_ADDRESS+8'h10))//a write to the CPU interface EOIR register
-                begin
-                    if(data_in[9:0]==16)
-                        interrupt_states0[16]<=PENDING;
-                    else
-                        interrupt_states0[16]<=ACTIVE;
-                end
-            end
-        endcase
-    end
+        end    
+    endgenerate
     
     
     //Finding the highest priority interrupt generation for processor 1 excluding the processor targets...next include the processor target register too
@@ -2332,9 +2430,9 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
                             end
                         end
                     end
-                    else//if it's a private peripheral interrupt
+                    else//if it's a private peripheral interrupt or a shared peripheral interrupt
                     begin
-                        for(interrupt_number=0;interrupt_number<16;interrupt_number=interrupt_number+1)
+                        for(interrupt_number=16;interrupt_number<64;interrupt_number=interrupt_number+1)
                         begin
                             if(Interrupt_IDs[interrupt_number]==HP_ID[62])
                             begin

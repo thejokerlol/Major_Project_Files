@@ -2,15 +2,14 @@
 # Webtalk v2015.2 (64-bit)
 # SW Build 1266856 on Fri Jun 26 16:35:25 MDT 2015
 # IP Build 1264090 on Wed Jun 24 14:22:01 MDT 2015
-# Start of session at: Mon Jan 08 14:53:58 2018
-# Process ID: 8000
+# Start of session at: Tue Jan 09 11:41:09 2018
+# Process ID: 9240
 # Log file: C:/Users/vamsi/Desktop/MAJOR_PROJECT/Major_Project_Files/project_1/project_1.sim/sim_1/behav/webtalk.log
 # Journal file: C:/Users/vamsi/Desktop/MAJOR_PROJECT/Major_Project_Files/project_1/project_1.sim/sim_1/behav\webtalk.jou
 #-----------------------------------------------------------
 source C:/Users/vamsi/Desktop/MAJOR_PROJECT/Major_Project_Files/project_1/project_1.sim/sim_1/behav/xsim.dir/Interrupt_Controller_behav/webtalk/xsim_webtalk.tcl -notrace
-webtalk_transmit: Time (s): cpu = 00:00:00 ; elapsed = 00:00:05 . Memory (MB): peak = 60.656 ; gain = 0.008
 
     while executing
-"webtalk_transmit -clientid 1315507377 -regid "211223928_0_0_462" -xml C:/Users/vamsi/Desktop/MAJOR_PROJECT/Major_Project_Files/project_1/project_1.sim..."
+"webtalk_transmit -clientid 2633194194 -regid "211223928_0_0_462" -xml C:/Users/vamsi/Desktop/MAJOR_PROJECT/Major_Project_Files/project_1/project_1.sim..."
     (file "C:/Users/vamsi/Desktop/MAJOR_PROJECT/Major_Project_Files/project_1/project_1.sim/sim_1/behav/xsim.dir/Interrupt_Controller_behav/webtalk/xsim_webtalk...." line 41)
-INFO: [Common 17-206] Exiting Webtalk at Mon Jan 08 14:54:03 2018...
+INFO: [Common 17-206] Exiting Webtalk at Tue Jan 09 11:41:13 2018...
