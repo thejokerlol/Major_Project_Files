@@ -285,7 +285,8 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
     begin
         if(!reset)//active low signal
         begin
-            ICDDCR=0;//disable all the interrupts before programming the interrupt controller
+            ICDDCR<=0;//disable all the interrupts before programming the interrupt controller
+            ICCRPR0<={24'd0,8'hFF};
         end
         else
         begin
@@ -2463,6 +2464,102 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
         end
     endgenerate
     
+    //to find highest priority active interrupt for interrupt preemption on a CPU interface
+    reg[31:0] HP_Active_Interrupt0;
+    integer int_num_act;//acctive interrupt number
+    always@(*)
+    begin
+        HP_Active_Interrupt0={24'd0,8'hFF};//this is the value oon reset
+        for(int_num_act=0;int_num_act<64;int_num_act=int_num_act+1)
+        begin
+            if((interrupt_states0[int_num_act] == ACTIVE)&& (int_num_act<32))
+            begin
+                case(HP_ID[int_num_act])
+                    2'b00:
+                    begin
+                        if(ICDIPR0[int_num_act/4][7:0]<ICCRPR0[7:0])
+                        begin
+                            HP_Active_Interrupt0={24'd0,ICDIPR0[int_num_act/4][7:0]};
+                        end
+                    
+                    end
+                    2'b01:
+                    begin
+                        if(ICDIPR0[int_num_act/4][15:8]<ICCRPR0[7:0])
+                        begin
+                            HP_Active_Interrupt0={24'd0,ICDIPR0[int_num_act/4][15:8]};
+                        end
+                    end
+                    2'b10:
+                    begin
+                        if(ICDIPR0[int_num_act/4][23:16]<ICCRPR0[7:0])
+                        begin
+                            HP_Active_Interrupt0={24'd0,ICDIPR0[int_num_act/4][23:16]};
+                        end
+                    end
+                    2'b11:
+                    begin
+                        if(ICDIPR0[int_num_act/4][31:24]<ICCRPR0[7:0])
+                        begin
+                            HP_Active_Interrupt0={24'd0,ICDIPR0[int_num_act/4][31:24]};
+                        end
+                    end
+                
+                endcase
+                
+            end
+            else
+            begin
+               case(HP_ID[int_num_act])
+                2'b00:
+                begin
+                    if(ICDIPR_S[int_num_act/4][7:0]<ICCRPR0[7:0])
+                    begin
+                        HP_Active_Interrupt0={24'd0,ICDIPR_S[int_num_act/4][7:0]};
+                    end
+                
+                end
+                2'b01:
+                begin
+                    if(ICDIPR_S[int_num_act/4][15:8]<ICCRPR0[7:0])
+                    begin
+                        HP_Active_Interrupt0={24'd0,ICDIPR_S[int_num_act/4][15:8]};
+                    end
+                end
+                2'b10:
+                begin
+                    if(ICDIPR_S[int_num_act/4][23:16]<ICCRPR0[7:0])
+                    begin
+                        HP_Active_Interrupt0={24'd0,ICDIPR_S[int_num_act/4][23:16]};
+                    end
+                end
+                2'b11:
+                begin
+                    if(ICDIPR_S[int_num_act/4][31:24]<ICCRPR0[7:0])
+                    begin
+                        HP_Active_Interrupt0={24'd0,ICDIPR_S[int_num_act/4][31:24]};
+                    end
+                end
+            
+            endcase 
+                
+            end
+        end
+    end
+    
+    always@(posedge clk or negedge reset)
+    begin
+        if(!reset)
+        begin
+            ICCRPR0<={24'd0,8'hFF};
+        end
+        else
+        begin
+            ICCRPR0<=HP_Active_Interrupt0;
+        end
+    end
+    
+    
     integer interrupt_number_ICC;
     //CPU Interface logic for processor 0 while signalling itself write to the IAR register
     always@(posedge clk)
@@ -2471,7 +2568,7 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
         begin
             if(enabled[62])
             begin
-                if(output_priority[62]<ICCPMR0[7:0])//priority masking
+                if(output_priority[62]<ICCPMR0[7:0] && output_priority[62]<ICCRPR0[7:0])//priority masking and preemption conttrol
                 begin
                     IRQ0<=1'b1;
                     //form the interrupt acknowledge register here
