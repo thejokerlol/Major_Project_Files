@@ -52,6 +52,12 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
     reg[5:0] HP_ID3;//Highest Priority Interrupt ID for CPU interface3
     
     
+    
+    reg[16:31] PPI_1_assert;//PPI asserts for CPU0
+    reg[16:31] PPI_2_assert;//PPI asserts for CPU1
+    reg[16:31] PPI_3_assert;//PPI asserts for CPU2
+    reg[16:31] PPI_4_assert;//PPI asserts for CPU3
+    
     /*
     
     IRQs and FIQs for all processors
@@ -65,6 +71,8 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
     output reg FIQ2;
     output reg IRQ3;
     output reg FIQ3;
+    
+    
     
     
     /*
@@ -2130,6 +2138,53 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
         end
     end
     
+    //code for PPI asserts for according to configuration(level triggered or edge triggered)
+    genvar interrupt_number;
+    generate
+        for(interrupt_number=16;interrupt_number<32;interrupt_number=interrupt_number+1)
+        begin
+            always@(PPI_1[interrupt_number] or interrupt_states0[interrupt_number])
+            begin
+                case(interrupt_states0[interrupt_number])
+                    INACTIVE:
+                    begin
+                        if(ICDICFR0[(2*interrupt_number)+1]==1'b0)//level sensitive interrupts
+                        begin
+                            PPI_1_assert[interrupt_number]=PPI_1[interrupt_number];
+                        end
+                        else//edge triggered interrupts
+                        begin
+                            if(PPI_1[interrupt_number]==1'b1)
+                            begin
+                                PPI_1_assert[interrupt_number]=1'b1;
+                            end
+                            else
+                            begin
+                                
+                            end
+                        end
+                    end
+                    PENDING:
+                    begin
+                        
+                    end
+                    ACTIVE:
+                    begin
+                        
+                    end
+                    ACTIVE_AND_PENDING:
+                    begin
+                    end
+                endcase
+            end
+        end
+    endgenerate
+/*    always@(PPI_1)
+    begin
+        if(PPI==1'
+    end*/
+    
+    
     //Interrupt State Machines for SGIs for interrupts bit only for a single processor
     genvar int_num;
     reg[1:0] SGI_CPU_regs[0:15];
@@ -2408,11 +2463,11 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
         end
     endgenerate
     
-    integer interrupt_number;
+    integer interrupt_number_ICC;
     //CPU Interface logic for processor 0 while signalling itself write to the IAR register
     always@(posedge clk)
     begin
-        if(ICCICR[0])
+        if(ICCICR[0])//check if the CPU interface is enabled
         begin
             if(enabled[62])
             begin
@@ -2422,19 +2477,19 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
                     //form the interrupt acknowledge register here
                     if(HP_ID[62]<16)//if it's a software generated interrupt
                     begin
-                        for(interrupt_number=0;interrupt_number<16;interrupt_number=interrupt_number+1)
+                        for(interrupt_number_ICC=0;interrupt_number_ICC<16;interrupt_number_ICC=interrupt_number_ICC+1)
                         begin
-                            if(Interrupt_IDs[interrupt_number]==HP_ID[62])
+                            if(Interrupt_IDs[interrupt_number_ICC]==HP_ID[62])
                             begin
-                                ICCIAR0<={19'h0,SGI_CPU_regs[interrupt_number],HP_ID[62]};
+                                ICCIAR0<={19'h0,SGI_CPU_regs[interrupt_number_ICC],HP_ID[62]};
                             end
                         end
                     end
                     else//if it's a private peripheral interrupt or a shared peripheral interrupt
                     begin
-                        for(interrupt_number=16;interrupt_number<64;interrupt_number=interrupt_number+1)
+                        for(interrupt_number_ICC=16;interrupt_number_ICC<64;interrupt_number_ICC=interrupt_number_ICC+1)
                         begin
-                            if(Interrupt_IDs[interrupt_number]==HP_ID[62])
+                            if(Interrupt_IDs[interrupt_number_ICC]==HP_ID[62])
                             begin
                                 ICCIAR0<={19'h0,2'b00,HP_ID[62]};
                             end
