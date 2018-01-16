@@ -22,7 +22,7 @@
 
 module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,reset,
                     PPI_1,PPI_2,PPI_3,PPI_4,SPI,IRQ0,FIQ0,IRQ1,FIQ1,
-                    IRQ2,FIQ2,IRQ3,FIQ3
+                    IRQ2,FIQ2,IRQ3,FIQ3,RW_err,ready
         
 
     );
@@ -73,7 +73,8 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
     output reg FIQ3;
     
     
-    
+    output ready;
+    output RW_err;
     
     /*
     Internal Registers of the distributor
@@ -2259,6 +2260,12 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
         end
     endgenerate
     
+    /*
+    
+    Interrupts for multiple processors
+    
+    */
+    genvar processor_number;
     
     genvar interrupt_number_PPI;
     
