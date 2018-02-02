@@ -221,50 +221,15 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
     parameter CPU_INTERFACE_BASE_ADDRESS=32'h0; //should be a parameter because should be synthesizable for various base addresses
     
     
-    //states of various interrupts in CPU0
+    //states of various interrupts in all CPUs
     /*
         for inactive,interrupt state is 0
         for pending,interrupt state is 1
         for active,interrupt state is 2
         for active and pending,interrupt state is 3
     */
-    reg[1:0] interrupt_states0[0:31];
+    reg[1:0] interrupt_states[0:3][0:31];
     
-    //states of various interrupts in CPU1
-    /*
-        for inactive,interrupt state is 0
-        for pending,interrupt state is 1
-        for active,interrupt state is 2
-        for active and pending,interrupt state is 3
-    */
-    reg[1:0] interrupt_states1[0:31];
-    
-    //states of various interrupts in CPU2
-    /*
-        for inactive,interrupt state is 0
-        for pending,interrupt state is 1
-        for active,interrupt state is 2
-        for active and pending,interrupt state is 3
-    */
-    reg[1:0] interrupt_states2[0:31];
-    
-    //states of various interrupts in CPU0
-    /*
-        for inactive,interrupt state is 0
-        for pending,interrupt state is 1
-        for active,interrupt state is 2
-        for active and pending,interrupt state is 3
-    */
-    reg[1:0] interrupt_states3[0:31];
-    
-    //states of various interrupts in shared interrupts
-    /*
-        Since SPIs are handled using 1:N model only a single state regs can be maintained for all processors
-        for inactive,interrupt state is 0
-        for pending,interrupt state is 1
-        for active,interrupt state is 2
-        for active and pending,interrupt state is 3
-    */
     reg[1:0] interrupt_states_S[32:63];
     
     
@@ -2042,51 +2007,6 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
         end
     end
     
-/*    always@(posedge clk)
-    begin
-        case(inerrupt_states0[0])
-        2'b00://inactive state
-        begin
-            if(PPI_1[0]==1'b0)
-            begin
-                interrupt_states0[0]=2'b00;//inactive state
-            end
-            else
-            begin
-                interrupt_states0[0]=2'b01;//pending state
-            end
-        end
-        2'b01://pending state
-        begin
-            if(ICDICFR0[0]==1'b0)//level sensitive
-            begin
-                if(PPI_2[0]==1'b0)
-                begin
-                    interrupt_states0[0]=2'b00;
-                end
-                else
-                begin
-                    interrupt_states0[0]=2'b01;
-                end
-            end
-            else//edge triggered
-            begin
-                
-            end
-        end
-        2'b10://active state
-        begin
-        
-        end
-        2'b11://active and pending state
-        begin
-        
-        end
-        endcase
-    end*/
-    
-    
-    
     
     //Section Configuration registers end
     /*
@@ -2099,12 +2019,7 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
     parameter INACTIVE=2'b00;
     parameter PENDING=2'b01;
     parameter ACTIVE=2'b10;
-    parameter ACTIVE_AND_PENDING=2'b11;
-    
-    
-    
-    
-    
+    parameter ACTIVE_AND_PENDING=2'b11; 
     
     integer k;
     
@@ -2176,6 +2091,7 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
                     end
                     ACTIVE_AND_PENDING:
                     begin
+                    
                     end
                 endcase
             end
@@ -2266,71 +2182,73 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
     
     */
     genvar processor_number;
-    
     genvar interrupt_number_PPI;
     
     //Interrupt state machines for PPIs
-    generate 
-        for(interrupt_number_PPI=16;interrupt_number_PPI<32;interrupt_number_PPI=interrupt_number_PPI+1)
-        begin
-            always@(posedge clk or negedge reset or PPI_1[interrupt_number_PPI])
+    generate
+        for(processor_number=0;processor_number<4;processor_number=processor_number+1)
+        begin 
+            for(interrupt_number_PPI=16;interrupt_number_PPI<32;interrupt_number_PPI=interrupt_number_PPI+1)
             begin
-                case(interrupt_states0[interrupt_number_PPI])
-                    INACTIVE://Inactive state
-                    begin
-                        if(PPI_1[interrupt_number_PPI]==1'b1)//only level triggered interrupt for now or may be edge triggered
+                always@(posedge clk or negedge reset or PPI_1[interrupt_number_PPI])
+                begin
+                    case(interrupt_states0[interrupt_number_PPI])
+                        INACTIVE://Inactive state
                         begin
-                            interrupt_states0[interrupt_number_PPI]<=PENDING;
-                        end
-                        else
-                        begin
-                            interrupt_states0[interrupt_number_PPI]<=INACTIVE;
-                        end
-                    end
-                    PENDING://pending state
-                    begin
-                        if(enable_RW && read && (address == CPU_INTERFACE_BASE_ADDRESS+8'h0C))//a read to the interrupt acknowledge register
-                        begin
-                            if(ICCIAR0[5:0]==Interrupt_IDs[interrupt_number_PPI])
-                            begin
-                                interrupt_states0[interrupt_number_PPI]<=ACTIVE;
-                            end
-                            else
+                            if(PPI_1[interrupt_number_PPI]==1'b1)//only level triggered interrupt for now or may be edge triggered
                             begin
                                 interrupt_states0[interrupt_number_PPI]<=PENDING;
                             end
-                            
-                        end
-                    end
-                    ACTIVE://active state
-                    begin
-                        if(read && (address==CPU_INTERFACE_BASE_ADDRESS+8'h10))//a write to the CPU interface EOIR register
-                        begin
-                            if(data_in[5:0]==Interrupt_IDs[interrupt_number_PPI])
+                            else
                             begin
                                 interrupt_states0[interrupt_number_PPI]<=INACTIVE;
                             end
-                            else
-                            begin
-                                interrupt_states0[interrupt_number_PPI]<=ACTIVE;
-                            end
                         end
-                    end
-                    ACTIVE_AND_PENDING://active and pending state
-                    begin
-                        if(read && (address==CPU_INTERFACE_BASE_ADDRESS+8'h10))//a write to the CPU interface EOIR register
+                        PENDING://pending state
                         begin
-                            if(data_in[5:0]==Interrupt_IDs[interrupt_number_PPI])
+                            if(enable_RW && read && (address == CPU_INTERFACE_BASE_ADDRESS+8'h0C))//a read to the interrupt acknowledge register
                             begin
-                                interrupt_states0[interrupt_number_PPI]<=PENDING;
-                            end
-                            else
-                            begin
-                                interrupt_states0[interrupt_number_PPI]<=ACTIVE;
+                                if(ICCIAR0[5:0]==Interrupt_IDs[interrupt_number_PPI])
+                                begin
+                                    interrupt_states0[interrupt_number_PPI]<=ACTIVE;
+                                end
+                                else
+                                begin
+                                    interrupt_states0[interrupt_number_PPI]<=PENDING;
+                                end
+                                
                             end
                         end
-                    end
-                endcase
+                        ACTIVE://active state
+                        begin
+                            if(read && (address==CPU_INTERFACE_BASE_ADDRESS+8'h10))//a write to the CPU interface EOIR register
+                            begin
+                                if(data_in[5:0]==Interrupt_IDs[interrupt_number_PPI])
+                                begin
+                                    interrupt_states0[interrupt_number_PPI]<=INACTIVE;
+                                end
+                                else
+                                begin
+                                    interrupt_states0[interrupt_number_PPI]<=ACTIVE;
+                                end
+                            end
+                        end
+                        ACTIVE_AND_PENDING://active and pending state
+                        begin
+                            if(read && (address==CPU_INTERFACE_BASE_ADDRESS+8'h10))//a write to the CPU interface EOIR register
+                            begin
+                                if(data_in[5:0]==Interrupt_IDs[interrupt_number_PPI])
+                                begin
+                                    interrupt_states0[interrupt_number_PPI]<=PENDING;
+                                end
+                                else
+                                begin
+                                    interrupt_states0[interrupt_number_PPI]<=ACTIVE;
+                                end
+                            end
+                        end
+                    endcase
+                end
             end
         end
     endgenerate
@@ -2558,7 +2476,7 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
     begin
         if(!reset)
         begin
-            ICCRPR0<={24'd0,8'hFF};
+            ICCRPR0<={24'd0,8'hFF};//default value of the register
         end
         else
         begin
@@ -2616,114 +2534,6 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
             IRQ0=1'b0;
         end
     end
-    
-    
-    
-    
-    //Interrupt Configuring as edge triggered or level sensitive 
-    //configure logic for first processor 
-
-    
-    // always@(
-    
-    //Interrupt state change logic
-    
-    //always@(
-    
-    
-    
-/*    
-    //selecting the highest priority interrupt for CPU Interface0
-    integer i;
-    for(i=0;i<=63;i=i+1)
-    begin
-        
-    end
-    
-    //selecting the highest priority for CPU Interface1
-    reg[5:0] counter1;
-    reg[7:0] temp_priority1;
-    always@(*)
-    begin
-        HP_ID1=0;//set to the least priority i.e, the highest value....actually I don't know how to put it
-        temp_priority1=8'd255;
-        for(counter1=0;counter1<=63;counter1=counter1+1)//64 interrupt IDs
-        begin
-            //for each priority value select the value with the highest priority
-            if(counter1<32)//PPIs
-            begin
-                if(ICDISER1[counter1]==1'b1 && ICDIPR0[counter1[6:2]][(8*(counter1[1:0])+7):8*counter1[1:0]]<temp_priority1 && interrupt_states1==2'd1)//if it is enabled 
-                begin
-                    HP_ID1=counter1;
-                    temp_priority1=ICDIPR1[counter1[6:2]][(8*(counter1[1:0])+7):8*counter1[1:0]];
-                end
-            end
-            else//SPIs
-            begin
-                if(ICDISER_S[counter1[5:2]]==1'b1 && ICDIPR_S[counter1[6:2]][(8*(counter1[1:0])+7):8*counter1[1:0]]<temp_priority1 && interrupt_states_S==2'd1)
-                begin
-                    HP_ID1=counter1;
-                    temp_priority1=ICDIPR_S[counter1[6:2]][(8*(counter1[1:0])+7):8*counter1[1:0]];
-                end
-            end
-        end
-    end 
-    //selecting the highest priority for CPU Interface2
-    reg[5:0] counter2;
-    reg[7:0] temp_priority2;
-    always@(*)
-    begin
-        HP_ID2=0;//set to the least priority i.e, the highest value....actually I don't know how to put it
-        temp_priority2=8'd255;
-        for(counter2=0;counter2<=63;counter2=counter2+1)//64 interrupt IDs
-        begin
-            //for each priority value select the value with the highest priority
-            if(counter2<32)//PPIs
-            begin
-                if(ICDISER2[counter2]==1'b1 && ICDIPR2[counter2[6:2]][(8*(counter2[1:0])+7):8*counter2[1:0]]<temp_priority2 && interrupt_states2==2'd1)//if it is enabled 
-                begin
-                    HP_ID2=counter2;
-                    temp_priority2=ICDIPR2[counter1[6:2]][(8*(counter2[1:0])+7):8*counter2[1:0]];
-                end
-            end
-            else//SPIs
-            begin
-                if(ICDISER_S[counter2[5:2]]==1'b1 && ICDIPR_S[counter2[6:2]][(8*(counter2[1:0])+7):8*counter2[1:0]]<temp_priority2 && interrupt_states_S==2'd1)
-                begin
-                    HP_ID2=counter2;
-                    temp_priority2=ICDIPR_S[counter2[6:2]][(8*(counter2[1:0])+7):8*counter2[1:0]];
-                end
-            end
-        end
-    end 
-    //selecting the highest priority for CPU Interface3
-    reg[5:0] counter3;
-    reg[7:0] temp_priority3;
-    always@(*)
-    begin
-        HP_ID3=0;//set to the least priority i.e, the highest value....actually I don't know how to put it
-        temp_priority3=8'd255;
-        for(counter3=0;counter3<=63;counter3=counter3+1)//64 interrupt IDs
-        begin
-            //for each priority value select the value with the highest priority
-            if(counter3<32)//PPIs
-            begin
-                if(ICDISER3[counter3]==1'b1 && ICDIPR3[counter3[6:2]][(8*(counter3[1:0])+7):8*counter3[1:0]]<temp_priority3 && interrupt_states3==2'd1)//if it is enabled 
-                begin
-                    HP_ID3=counter3;
-                    temp_priority3=ICDIPR3[counter3[6:2]][(8*(counter3[1:0])+7):8*counter3[1:0]];
-                end
-            end
-            else//SPIs
-            begin
-                if(ICDISER_S[counter3[5:2]]==1'b1 && ICDIPR_S[counter3[6:2]][(8*(counter3[1:0])+7):8*counter3[1:0]]<temp_priority3 && interrupt_states_S==2'd1)
-                begin
-                    HP_ID3=counter3;
-                    temp_priority3=ICDIPR_S[counter3[6:2]][(8*(counter3[1:0])+7):8*counter3[1:0]];
-                end
-            end
-        end
-    end*/ 
     
         
 endmodule
