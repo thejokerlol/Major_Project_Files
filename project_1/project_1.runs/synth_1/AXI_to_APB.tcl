@@ -5,6 +5,8 @@
 debug::add_scope template.lib 1
 set_msg_config -id {HDL 9-1061} -limit 100000
 set_msg_config -id {HDL 9-1654} -limit 100000
+set_msg_config -id {Synth 8-256} -limit 10000
+set_msg_config -id {Synth 8-638} -limit 10000
 create_project -in_memory -part xc7a100tcsg324-1
 
 set_param project.compositeFile.enableAutoGeneration 0
@@ -13,10 +15,7 @@ set_property webtalk.parent_dir C:/Users/vamsi/Desktop/MAJOR_PROJECT/Major_Proje
 set_property parent.project_path C:/Users/vamsi/Desktop/MAJOR_PROJECT/Major_Project_Files/project_1/project_1.xpr [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
-read_verilog -library xil_defaultlib {
-  C:/Users/vamsi/Desktop/MAJOR_PROJECT/Major_Project_Files/project_1/project_1.srcs/sources_1/new/Priority_Check.v
-  C:/Users/vamsi/Desktop/MAJOR_PROJECT/Major_Project_Files/project_1/project_1.srcs/sources_1/new/Interrupt_Controller.v
-}
-synth_design -top Interrupt_Controller -part xc7a100tcsg324-1
-write_checkpoint -noxdef Interrupt_Controller.dcp
-catch { report_utilization -file Interrupt_Controller_utilization_synth.rpt -pb Interrupt_Controller_utilization_synth.pb }
+read_verilog -library xil_defaultlib C:/Users/vamsi/Desktop/MAJOR_PROJECT/Major_Project_Files/project_1/project_1.srcs/sources_1/new/AXI_to_APB.v
+synth_design -top AXI_to_APB -part xc7a100tcsg324-1
+write_checkpoint -noxdef AXI_to_APB.dcp
+catch { report_utilization -file AXI_to_APB_utilization_synth.rpt -pb AXI_to_APB_utilization_synth.pb }

@@ -1,0 +1,8 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/vamsi/Desktop/MAJOR_PROJECT/Major_Project_Files/project_1/project_1.sim/sim_1/synth/func/AXI_2_APB_TestBench_func_synth.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module AXI_to_APB
+INFO: [VRFC 10-311] analyzing module glbl
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/vamsi/Desktop/MAJOR_PROJECT/Major_Project_Files/project_1/project_1.srcs/sim_1/imports/new/AXI_2_APB_TestBench.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module AXI_2_APB_TestBench
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/vamsi/Desktop/MAJOR_PROJECT/Major_Project_Files/project_1/project_1.sim/sim_1/synth/func/glbl.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module glbl
+WARNING: [VRFC 10-1195] overwriting previous definition of module glbl [C:/Users/vamsi/Desktop/MAJOR_PROJECT/Major_Project_Files/project_1/project_1.sim/sim_1/synth/func/glbl.v:6]

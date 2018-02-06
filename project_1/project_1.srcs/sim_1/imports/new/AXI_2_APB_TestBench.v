@@ -31,13 +31,13 @@ module AXI_2_APB_TestBench(
     reg[31:0] ARADDR;
     reg ARVALID;
     wire ARREADY;
-    reg[1:0] ARSIZE;
+    reg ARSIZE;
     reg[1:0] ARLEN;
              
     reg[31:0] AWADDR;
     reg AWVALID;
     wire AWREADY;
-    reg[1:0] AWSIZE;
+    reg AWSIZE;
     reg[1:0] AWLEN;
              
     wire[31:0] RDATA;
@@ -146,12 +146,13 @@ module AXI_2_APB_TestBench(
             
             
         initial
-            #300 $finish;
+            #400 $finish;
             
             
         initial
         begin
         //write testing
+            #100
             #2 ARESET=1'b1;
             #1 ARESET=1'b0;
             #7 AWADDR=32'd45;

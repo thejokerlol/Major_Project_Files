@@ -135,6 +135,15 @@ module AXI_to_APB(
      parameter PENABLE_READ_SIGNAL=4'b0111;//PENABLE=1'b1
      parameter READ_DATA_TRANSFERRED_STATE=4'b1000;//PENABLE=1'b0
     
+    //if you want to reset the device it's the same for AXI and APB
+    always@(*)
+    begin
+        PRESET=ARESET;
+    end
+    
+    
+    
+    
     /*
         state transition on a clock edge
     */
@@ -156,16 +165,22 @@ module AXI_to_APB(
     */
     always@(*)//ideally it shouldn't be (*) but it should be (present_state and inputs)
     begin
+        next_state=IDLE_STATE;
         case(present_state)
             IDLE_STATE:
             begin
-                if(ARVALID==1'b1)
+                next_state=IDLE_STATE;
+                if(ARVALID==1'b1 && AWVALID==1'b0)
                 begin
                     next_state=READ_ADDRESS_RECEIVED_STATE;
                 end
-                else if(AWVALID==1'b1)
+                else if(ARVALID==1'b0 && AWVALID==1'b1)
                 begin
                     next_state=WRITE_ADDRESS_RECEIVED_STATE;
+                end
+                else if(ARVALID==1'b1 && AWVALID==1'b1)
+                begin
+                    next_state=READ_ADDRESS_RECEIVED_STATE;
                 end
                 else
                 begin
@@ -174,6 +189,7 @@ module AXI_to_APB(
             end
             WRITE_ADDRESS_RECEIVED_STATE://In this state WREADY=1
             begin
+                next_state=WRITE_ADDRESS_RECEIVED_STATE;
                 if(WVALID==0)
                 begin
                     next_state=WRITE_ADDRESS_RECEIVED_STATE;
@@ -189,6 +205,7 @@ module AXI_to_APB(
             end
             PENABLE_SIGNAL:
             begin
+                next_state=PENABLE_SIGNAL;
                 if(PREADY)
                 begin
                     next_state=DATA_TRANSFERRED_STATE;
@@ -200,6 +217,7 @@ module AXI_to_APB(
             end
             DATA_TRANSFERRED_STATE:
             begin
+                next_state=DATA_TRANSFERRED_STATE;
                 if(sampled_wlen!=0 && WVALID==0)
                 begin
                     next_state=DATA_TRANSFERRED_STATE;
@@ -215,6 +233,7 @@ module AXI_to_APB(
             end
             TRANSFER_COMPLETE_STATE:
             begin
+                next_state=TRANSFER_COMPLETE_STATE;
                 if(BREADY==1)
                 begin
                     next_state=IDLE_STATE;
@@ -231,6 +250,7 @@ module AXI_to_APB(
             end
             PENABLE_READ_SIGNAL:
             begin
+                next_state=PENABLE_READ_SIGNAL;
                 if(PREADY==1'b1)
                 begin
                     next_state=READ_DATA_TRANSFERRED_STATE;
@@ -242,6 +262,7 @@ module AXI_to_APB(
             end
             READ_DATA_TRANSFERRED_STATE:
             begin
+                next_state=READ_DATA_TRANSFERRED_STATE;
                 if(RREADY==1'b0)
                 begin
                     next_state=READ_DATA_TRANSFERRED_STATE;
@@ -268,6 +289,16 @@ module AXI_to_APB(
     //state outputs
     always@(*)
     begin
+           ARREADY=1'b0;
+           AWREADY=1'b0;
+           RVALID=1'b0;
+           WREADY=1'b0;
+           BVALID=1'b0;
+           
+           //APB outputs
+           PSEL=1'b0;
+           PENABLE=1'b0;
+           PWRITE=1'b0;
         case(present_state)
             IDLE_STATE:
             begin
@@ -401,21 +432,21 @@ module AXI_to_APB(
         if(present_state==IDLE_STATE && ARVALID==1'b1)
         begin
             sampled_address<=ARADDR;
-            sampled_wlen<=ARLEN;
+            //sampled_wlen<=ARLEN;
         end
         else if(present_state==IDLE_STATE && AWVALID==1'b1)
         begin
             sampled_address<=AWADDR;
-            sampled_wlen<=AWLEN;
+            //sampled_wlen<=AWLEN;
         end
-        else if((present_state==PENABLE_SIGNAL && PREADY==1'b1) && (present_state==PENABLE_READ_SIGNAL && PREADY==1'b1))//decrement the address
+        else if((present_state==PENABLE_SIGNAL && PREADY==1'b1) || (present_state==PENABLE_READ_SIGNAL && PREADY==1'b1))//decrement the address
         begin
             sampled_address<=sampled_address-4;
         end
         else
         begin
             sampled_address<=sampled_address;
-            sampled_wlen<=sampled_wlen;
+            //sampled_wlen<=sampled_wlen;
         end
     end
     
@@ -425,6 +456,18 @@ module AXI_to_APB(
         if((present_state==WRITE_ADDRESS_RECEIVED_STATE && WVALID==1) || (present_state==DATA_TRANSFERRED_STATE && WVALID==1'b1) || (present_state==PENABLE_READ_SIGNAL && PREADY==1'b1))
         begin
             sampled_wlen<=sampled_wlen-1;
+        end
+        else if(present_state==IDLE_STATE && ARVALID==1'b1)
+        begin
+            sampled_wlen<=ARLEN;
+        end
+        else if(present_state==IDLE_STATE && AWVALID==1'b1)
+        begin
+            sampled_wlen<=AWLEN;
+        end
+        else
+        begin
+            sampled_wlen<=sampled_wlen;
         end
             
     end
@@ -450,6 +493,7 @@ module AXI_to_APB(
         begin
             PWDATA<=WDATA;
             PADDR<=sampled_address;
+            
         end
         else if(present_state==READ_DATA_TRANSFERRED_STATE )
         begin

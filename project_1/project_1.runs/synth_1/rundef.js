@@ -23,7 +23,7 @@ eval( EAInclude(ISEJScriptLib) );
 
 
 ISEStep( "vivado",
-         "-log Interrupt_Controller.vds -m64 -mode batch -messageDb vivado.pb -notrace -source Interrupt_Controller.tcl" );
+         "-log AXI_to_APB.vds -m64 -mode batch -messageDb vivado.pb -notrace -source AXI_to_APB.tcl" );
 
 
 

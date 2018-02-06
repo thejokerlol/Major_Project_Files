@@ -12,5 +12,5 @@ Time Resolution for simulation is 1ps
 Compiling module xil_defaultlib.AXI_to_APB
 Compiling module xil_defaultlib.AXI_2_APB_TestBench
 Compiling module xil_defaultlib.glbl
-Waiting for 2 sub-compilation(s) to finish...
+Waiting for 1 sub-compilation(s) to finish...
 Built simulation snapshot AXI_2_APB_TestBench_behav
