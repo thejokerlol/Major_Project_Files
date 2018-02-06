@@ -133,7 +133,7 @@ module AXI_to_APB(
      parameter TRANSFER_COMPLETE_STATE=4'b0101;//BVALID=1, once BREADY=1 go to idle
      parameter READ_ADDRESS_RECEIVED_STATE=4'B0110;//ARREADY=0 and AWREADY=0
      parameter PENABLE_READ_SIGNAL=4'b0111;//PENABLE=1'b1
-     parameter READ_DATA_TRANSFERRED_STATE=4'b1000;
+     parameter READ_DATA_TRANSFERRED_STATE=4'b1000;//PENABLE=1'b0
     
     /*
         state transition on a clock edge
@@ -215,7 +215,7 @@ module AXI_to_APB(
             end
             TRANSFER_COMPLETE_STATE:
             begin
-                if(BVALID==1)
+                if(BREADY==1)
                 begin
                     next_state=IDLE_STATE;
                 end
@@ -246,7 +246,7 @@ module AXI_to_APB(
                 begin
                     next_state=READ_DATA_TRANSFERRED_STATE;
                 end
-                else if(RREADY==1'b1 && sampled_rlen!=0)
+                else if(RREADY==1'b1 && sampled_wlen!=0)
                 begin
                     next_state=READ_ADDRESS_RECEIVED_STATE;
                 end
@@ -255,6 +255,7 @@ module AXI_to_APB(
                     next_state= IDLE_STATE;
                 end
             end
+           
             
         endcase
         
@@ -326,7 +327,7 @@ module AXI_to_APB(
                 ARREADY=1'b0;
                 AWREADY=1'b0;
                 RVALID=1'b0;
-                WREADY=1'b0;
+                WREADY=1'b1;
                 BVALID=1'b0;
                 
                 //APB outputs
@@ -407,7 +408,7 @@ module AXI_to_APB(
             sampled_address<=AWADDR;
             sampled_wlen<=AWLEN;
         end
-        else if(present_state==DATA_TRANSFERRED_STATE && WVALID==1'b1 && sampled_wlen!=1'b0)//increment the address
+        else if((present_state==PENABLE_SIGNAL && PREADY==1'b1) && (present_state==PENABLE_READ_SIGNAL && PREADY==1'b1))//decrement the address
         begin
             sampled_address<=sampled_address-4;
         end
@@ -421,7 +422,7 @@ module AXI_to_APB(
     //decrement the sampled length
     always@(posedge ACLK)
     begin
-        if((present_state==WRITE_ADDRESS_RECEIVED_STATE && WVALID==1) && (present_state==DATA_TRANSFERRED_STATE && WVALID==1))
+        if((present_state==WRITE_ADDRESS_RECEIVED_STATE && WVALID==1) || (present_state==DATA_TRANSFERRED_STATE && WVALID==1'b1) || (present_state==PENABLE_READ_SIGNAL && PREADY==1'b1))
         begin
             sampled_wlen<=sampled_wlen-1;
         end
@@ -431,7 +432,7 @@ module AXI_to_APB(
     //write data sample LOGIC
     always@(posedge ACLK)
     begin
-        if(present_state==WRITE_ADDRESS_RECEIVED_STATE && WVALID==1'b1)
+        if((present_state==WRITE_ADDRESS_RECEIVED_STATE && WVALID==1'b1) || (present_state==DATA_TRANSFERRED_STATE && WVALID==1'b1))
         begin
             sampled_wdata<=WDATA;
         end
@@ -442,12 +443,16 @@ module AXI_to_APB(
         
     end
     
-    //write data on PWDATA bus
+    //write data on PWDATA bus and also address sampling
     always@(posedge ACLK)
     begin
-        if(present_state==WRITE_DATA_RECEIVED_STATE && BRESP==2'b00)
+        if((present_state==WRITE_ADDRESS_RECEIVED_STATE && WVALID==1'b1) || (present_state==DATA_TRANSFERRED_STATE && WVALID==1'b1))
         begin
-            PWDATA<=sampled_wdata;
+            PWDATA<=WDATA;
+            PADDR<=sampled_address;
+        end
+        else if(present_state==READ_DATA_TRANSFERRED_STATE )
+        begin
             PADDR<=sampled_address;
         end
     end
@@ -456,9 +461,9 @@ module AXI_to_APB(
     //error handling
     always@(posedge ACLK)
     begin
-        if(present_state==WRITE_DATA_RECEIVED_STATE && PREADY==1'b1 && BRESP==2'b00)//change the logic since if one thing is error the whole burst should be an error
+        if(present_state==PENABLE_SIGNAL && PREADY==1'b1 && BRESP==2'b00)//change the logic since if one thing is error the whole burst should be an error
         begin
-            if(PSLVERR==1'b1)
+            if(PSLVERR==1'b0)
             begin
                 BRESP<=2'b00;
             end
@@ -472,4 +477,14 @@ module AXI_to_APB(
             BRESP<=2'b00;//no error
         end
     end
+    
+    //Read address sampling  
+    always@(posedge ACLK)
+    begin
+        if(present_state==PENABLE_READ_SIGNAL && PREADY==1'b1 && PSLVERR==1'b0)
+        begin
+            RDATA<=PRDATA;
+        end
+    end
+    
 endmodule

@@ -62,9 +62,9 @@ module AXI_2_APB_TestBench(
     wire PENABLE;
     wire PWRITE;
     wire[31:0] PWDATA;
-    wire PREADY;
+    reg PREADY;
     reg[31:0] PRDATA;
-    wire PSLVERR;
+    reg PSLVERR;
     
     AXI_to_APB A1(
         
@@ -127,12 +127,18 @@ module AXI_2_APB_TestBench(
             AWVALID=0;
             AWSIZE=0;
             AWLEN=0;
-            
+           
             RREADY=0;
+           
             WDATA=0;
             WVALID=0;
             
             BREADY=0;
+            
+            
+            //APB Signals
+            PREADY=1'b0;
+            PSLVERR=1'b0;
         end
         
         always
@@ -140,11 +146,12 @@ module AXI_2_APB_TestBench(
             
             
         initial
-            #100 $finish;
+            #300 $finish;
             
             
         initial
         begin
+        //write testing
             #2 ARESET=1'b1;
             #1 ARESET=1'b0;
             #7 AWADDR=32'd45;
@@ -154,8 +161,45 @@ module AXI_2_APB_TestBench(
             #10 WVALID=1'b1;
                 WDATA=32'd56;
                 
+            
+                
+            #10 PREADY=1'b1;
+                
+                
             #10 WDATA=32'd78;
                 WVALID=1'b1;
+                PREADY=1'b0;
+                
+            #20 PREADY=1'b1;
+            #30 WVALID=1'b0;
+                
+            #10 BREADY=1'b1;
+                AWVALID=1'b0;
+            #20 BREADY=1'b0;
+            
+        //Read testing
+        
+            #10 ARADDR=32'd78;
+                ARVALID=1'b1;
+                ARLEN=2'b10;
+                PREADY=1'b0;
+            #30 PRDATA=32'd70;
+                PREADY=1'b1;
+                ARVALID=1'b0;
+            #10 PREADY=1'b0;    
+            #30 PRDATA=32'd47;
+                PREADY=1'b1;
+                
+            #10 PREADY=1'b0;
+                RREADY=1'b1;
+            #10 RREADY=1'b0;
+            
+            #10 PREADY=1'b1;
+            #10 PREADY=1'b0;
+            #20 RREADY=1'b1;
+            #10 RREADY=1'b0;
+                   
+            
             
         end    
         
