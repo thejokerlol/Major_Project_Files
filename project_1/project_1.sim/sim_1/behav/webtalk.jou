@@ -2,9 +2,9 @@
 # Webtalk v2015.2 (64-bit)
 # SW Build 1266856 on Fri Jun 26 16:35:25 MDT 2015
 # IP Build 1264090 on Wed Jun 24 14:22:01 MDT 2015
-# Start of session at: Wed Feb 07 00:45:00 2018
-# Process ID: 25864
+# Start of session at: Fri Feb 16 02:05:33 2018
+# Process ID: 6148
 # Log file: C:/Users/vamsi/Desktop/MAJOR_PROJECT/Major_Project_Files/project_1/project_1.sim/sim_1/behav/webtalk.log
 # Journal file: C:/Users/vamsi/Desktop/MAJOR_PROJECT/Major_Project_Files/project_1/project_1.sim/sim_1/behav\webtalk.jou
 #-----------------------------------------------------------
-source C:/Users/vamsi/Desktop/MAJOR_PROJECT/Major_Project_Files/project_1/project_1.sim/sim_1/behav/xsim.dir/AXI_2_APB_TestBench_behav/webtalk/xsim_webtalk.tcl -notrace
+source C:/Users/vamsi/Desktop/MAJOR_PROJECT/Major_Project_Files/project_1/project_1.sim/sim_1/behav/xsim.dir/Interrupt_Controller_TestBench_behav/webtalk/xsim_webtalk.tcl -notrace

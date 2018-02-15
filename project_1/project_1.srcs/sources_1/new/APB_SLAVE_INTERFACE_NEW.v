@@ -41,7 +41,8 @@ module APB_SLAVE_INTERFACE_NEW(
     datain,
     dataout,
     read,
-    enable
+    enable,
+    RW_error
     
     );
     
@@ -73,6 +74,7 @@ module APB_SLAVE_INTERFACE_NEW(
         PRDATA=read_data;
         enable=(PSEL) && (!ENABLE);
         PSLVERR=RW_error;
+        PREADY=1'b1;
     end
     
 endmodule

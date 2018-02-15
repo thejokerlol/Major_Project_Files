@@ -1,0 +1,4 @@
+Running: xsim.dir/Interrupt_Controller_TestBench_behav/xsimk.exe -simmode gui -wdb Interrupt_Controller_TestBench_behav.wdb -simrunnum 0 -socket 51062
+Design successfully loaded
+Design Loading Memory Usage: 18548 KB (Peak: 18548 KB)
+Design Loading CPU Usage: 156 ms

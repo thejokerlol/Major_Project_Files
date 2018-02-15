@@ -1,1 +1,0 @@
--wto "300dfdc5400c46ff9b3e0c33943ac0ac" --debug "typical" --relax --mt "2" -L "xil_defaultlib" -L "unisims_ver" -L "secureip" --snapshot "AXI_2_APB_TestBench_func_synth" "xil_defaultlib.AXI_2_APB_TestBench" "xil_defaultlib.glbl" -log "elaborate.log" 

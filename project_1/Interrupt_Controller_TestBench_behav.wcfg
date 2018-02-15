@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="Interrupt_Controller_TestBench_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="Interrupt_Controller_TestBench" />
+            <top_module name="glbl" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="23" />
+   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/CPU_ID" type="array">
+      <obj_property name="ElementShortName">CPU_ID[1:0]</obj_property>
+      <obj_property name="ObjectShortName">CPU_ID[1:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/address" type="array">
+      <obj_property name="ElementShortName">address[31:0]</obj_property>
+      <obj_property name="ObjectShortName">address[31:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/data_in" type="array">
+      <obj_property name="ElementShortName">data_in[31:0]</obj_property>
+      <obj_property name="ObjectShortName">data_in[31:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/data_out" type="array">
+      <obj_property name="ElementShortName">data_out[31:0]</obj_property>
+      <obj_property name="ObjectShortName">data_out[31:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/read" type="logic">
+      <obj_property name="ElementShortName">read</obj_property>
+      <obj_property name="ObjectShortName">read</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/enable_RW" type="logic">
+      <obj_property name="ElementShortName">enable_RW</obj_property>
+      <obj_property name="ObjectShortName">enable_RW</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/reset" type="logic">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/PPI_1" type="array">
+      <obj_property name="ElementShortName">PPI_1[31:0]</obj_property>
+      <obj_property name="ObjectShortName">PPI_1[31:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/PPI_2" type="array">
+      <obj_property name="ElementShortName">PPI_2[31:0]</obj_property>
+      <obj_property name="ObjectShortName">PPI_2[31:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/PPI_3" type="array">
+      <obj_property name="ElementShortName">PPI_3[31:0]</obj_property>
+      <obj_property name="ObjectShortName">PPI_3[31:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/PPI_4" type="array">
+      <obj_property name="ElementShortName">PPI_4[31:0]</obj_property>
+      <obj_property name="ObjectShortName">PPI_4[31:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/SPI" type="array">
+      <obj_property name="ElementShortName">SPI[31:0]</obj_property>
+      <obj_property name="ObjectShortName">SPI[31:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IRQ0" type="logic">
+      <obj_property name="ElementShortName">IRQ0</obj_property>
+      <obj_property name="ObjectShortName">IRQ0</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/FIQ0" type="logic">
+      <obj_property name="ElementShortName">FIQ0</obj_property>
+      <obj_property name="ObjectShortName">FIQ0</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IRQ1" type="logic">
+      <obj_property name="ElementShortName">IRQ1</obj_property>
+      <obj_property name="ObjectShortName">IRQ1</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/FIQ1" type="logic">
+      <obj_property name="ElementShortName">FIQ1</obj_property>
+      <obj_property name="ObjectShortName">FIQ1</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IRQ2" type="logic">
+      <obj_property name="ElementShortName">IRQ2</obj_property>
+      <obj_property name="ObjectShortName">IRQ2</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/FIQ2" type="logic">
+      <obj_property name="ElementShortName">FIQ2</obj_property>
+      <obj_property name="ObjectShortName">FIQ2</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IRQ3" type="logic">
+      <obj_property name="ElementShortName">IRQ3</obj_property>
+      <obj_property name="ObjectShortName">IRQ3</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/FIQ3" type="logic">
+      <obj_property name="ElementShortName">FIQ3</obj_property>
+      <obj_property name="ObjectShortName">FIQ3</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/RW_err" type="logic">
+      <obj_property name="ElementShortName">RW_err</obj_property>
+      <obj_property name="ObjectShortName">RW_err</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/ready" type="logic">
+      <obj_property name="ElementShortName">ready</obj_property>
+      <obj_property name="ObjectShortName">ready</obj_property>
+   </wvobject>
+</wave_config>

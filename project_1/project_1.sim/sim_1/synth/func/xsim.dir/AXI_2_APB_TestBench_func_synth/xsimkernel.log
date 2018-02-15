@@ -1,7 +1,0 @@
-Running: xsim.dir/AXI_2_APB_TestBench_func_synth/xsimk.exe -simmode gui -wdb AXI_2_APB_TestBench_func_synth.wdb -simrunnum 0 -socket 49954
-Design successfully loaded
-Design Loading Memory Usage: 19564 KB (Peak: 19564 KB)
-Design Loading CPU Usage: 203 ms
-Simulation completed
-Simulation Memory Usage: 20276 KB (Peak: 20276 KB)
-Simulation CPU Usage: 280 ms

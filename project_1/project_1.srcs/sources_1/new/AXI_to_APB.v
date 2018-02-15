@@ -495,7 +495,7 @@ module AXI_to_APB(
             PADDR<=sampled_address;
             
         end
-        else if(present_state==READ_DATA_TRANSFERRED_STATE )
+        else if(present_state==READ_DATA_TRANSFERRED_STATE)
         begin
             PADDR<=sampled_address;
         end
@@ -516,9 +516,13 @@ module AXI_to_APB(
                 BRESP<=2'b11;//error
             end
         end
+        else if(present_state==PENABLE_SIGNAL && PREADY==1'b1 && BRESP==2'b11)//an error that happenned before
+        begin
+            BRESP<=2'b11;//an error
+        end
         else
         begin
-            BRESP<=2'b00;//no error
+            BRESP<=BRESP;
         end
     end
     

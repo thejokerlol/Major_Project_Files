@@ -2,3 +2,6 @@ Running: xsim.dir/AXI_2_APB_TestBench_time_synth/xsimk.exe -simmode gui -wdb AXI
 Design successfully loaded
 Design Loading Memory Usage: 25392 KB (Peak: 25392 KB)
 Design Loading CPU Usage: 280 ms
+Simulation completed
+Simulation Memory Usage: 26408 KB (Peak: 26408 KB)
+Simulation CPU Usage: 374 ms
