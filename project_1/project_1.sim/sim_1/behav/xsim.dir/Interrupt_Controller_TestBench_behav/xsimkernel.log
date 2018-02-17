@@ -2,3 +2,6 @@ Running: xsim.dir/Interrupt_Controller_TestBench_behav/xsimk.exe -simmode gui -w
 Design successfully loaded
 Design Loading Memory Usage: 18508 KB (Peak: 18508 KB)
 Design Loading CPU Usage: 249 ms
+Simulation completed
+Simulation Memory Usage: 19432 KB (Peak: 19432 KB)
+Simulation CPU Usage: 311 ms
