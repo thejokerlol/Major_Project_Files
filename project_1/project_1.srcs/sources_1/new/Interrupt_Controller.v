@@ -69,7 +69,7 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
     
     //For the APB bus interface
     output ready;
-    output RW_err;
+    output reg RW_err;
     
     /*
     Internal Registers of the distributor
@@ -240,7 +240,12 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
     wire[0:1] priority_state[0:62];//output priority states
     wire[3:0] out_target_proc_list[0:62];//target processors of output highest priority interrupt
         
-    
+    always@(*)
+    begin
+        ICDICTR=32'd0;
+        ICDIIDR=32'd0;
+        
+    end
     //Register read write logic
     always@(posedge clk or negedge reset)
     begin
@@ -1997,6 +2002,10 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
                         end
                     endcase
                 end
+                default:
+                begin
+                    RW_err=1'b1;
+                end
                                 
                 endcase
             end
@@ -2401,17 +2410,19 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
     //we need to find the Highest priority Active interrupt to implement the interrupt preemption
     reg[31:0] HP_Active_Interrupt0;
     integer int_num_act;//acctive interrupt number
+    integer num_by_four;
     always@(*)
     begin
         HP_Active_Interrupt0={24'd0,8'hFF};//this is the value on reset
         for(int_num_act=0;int_num_act<64;int_num_act=int_num_act+1)
         begin
-            if((interrupt_states[0][int_num_act] == ACTIVE)&& (int_num_act<32))
+            num_by_four=int_num_act/4;
+            if(int_num_act<32)
             begin
-                case(HP_ID[int_num_act])
+                case(Interrupt_IDs[int_num_act][1:0])
                     2'b00:
                     begin
-                        if(ICDIPR0[int_num_act/4][7:0]<ICCRPR0[7:0])
+                        if((ICDIPR0[int_num_act/4][7:0]<ICCRPR0[7:0]) && (interrupt_states[0][int_num_act] == ACTIVE))
                         begin
                             HP_Active_Interrupt0={24'd0,ICDIPR0[int_num_act/4][7:0]};
                         end
@@ -2419,21 +2430,21 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
                     end
                     2'b01:
                     begin
-                        if(ICDIPR0[int_num_act/4][15:8]<ICCRPR0[7:0])
+                        if((ICDIPR0[int_num_act/4][15:8]<ICCRPR0[7:0])  && (interrupt_states[0][int_num_act] == ACTIVE))
                         begin
                             HP_Active_Interrupt0={24'd0,ICDIPR0[int_num_act/4][15:8]};
                         end
                     end
                     2'b10:
                     begin
-                        if(ICDIPR0[int_num_act/4][23:16]<ICCRPR0[7:0])
+                        if((ICDIPR0[int_num_act/4][23:16]<ICCRPR0[7:0])  && (interrupt_states[0][int_num_act] == ACTIVE))
                         begin
                             HP_Active_Interrupt0={24'd0,ICDIPR0[int_num_act/4][23:16]};
                         end
                     end
                     2'b11:
                     begin
-                        if(ICDIPR0[int_num_act/4][31:24]<ICCRPR0[7:0])
+                        if((ICDIPR0[int_num_act/4][31:24]<ICCRPR0[7:0])  && (interrupt_states[0][int_num_act] == ACTIVE))
                         begin
                             HP_Active_Interrupt0={24'd0,ICDIPR0[int_num_act/4][31:24]};
                         end
@@ -2442,10 +2453,10 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
             end
             else
             begin
-               case(HP_ID[int_num_act])
+               case(Interrupt_IDs[int_num_act][1:0])
                 2'b00:
                 begin
-                    if(ICDIPR_S[int_num_act/4][7:0]<ICCRPR0[7:0])
+                    if((ICDIPR_S[num_by_four][7:0]<ICCRPR0[7:0])  && (interrupt_states_S[int_num_act] == ACTIVE))
                     begin
                         HP_Active_Interrupt0={24'd0,ICDIPR_S[int_num_act/4][7:0]};
                     end
@@ -2453,21 +2464,21 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
                 end
                 2'b01:
                 begin
-                    if(ICDIPR_S[int_num_act/4][15:8]<ICCRPR0[7:0])
+                    if((ICDIPR_S[num_by_four][15:8]<ICCRPR0[7:0])  && (interrupt_states_S[int_num_act] == ACTIVE))
                     begin
                         HP_Active_Interrupt0={24'd0,ICDIPR_S[int_num_act/4][15:8]};
                     end
                 end
                 2'b10:
                 begin
-                    if(ICDIPR_S[int_num_act/4][23:16]<ICCRPR0[7:0])
+                    if((ICDIPR_S[num_by_four][23:16]<ICCRPR0[7:0])  && (interrupt_states_S[int_num_act] == ACTIVE))
                     begin
                         HP_Active_Interrupt0={24'd0,ICDIPR_S[int_num_act/4][23:16]};
                     end
                 end
                 2'b11:
                 begin
-                    if(ICDIPR_S[int_num_act/4][31:24]<ICCRPR0[7:0])
+                    if((ICDIPR_S[num_by_four][31:24]<ICCRPR0[7:0])  && (interrupt_states_S[int_num_act] == ACTIVE))
                     begin
                         HP_Active_Interrupt0={24'd0,ICDIPR_S[int_num_act/4][31:24]};
                     end
@@ -2547,8 +2558,12 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
               end
               else
               begin
-                    ICCIAR0={19'd45,2'b00,HP_ID[62]};
+                    ICCIAR0={19'd45,2'b00,HP_ID[62]};//may be spurious interrupt
               end
+           end
+           else
+           begin
+                ICCIAR0={19'd45,2'b00,HP_ID[62]};//may be spurious interrupt
            end
        end
        
@@ -2625,10 +2640,10 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
             ICDIPR0[1]=32'hF4F5F6F7;
             ICDIPR0[2]=32'hE0E1E2E3;
             ICDIPR0[3]=32'hE4E5E6E7;
-            ICDIPR0[4]=32'hE8E9E10E11;
+            ICDIPR0[4]=32'hE8E9EAEB;
             ICDIPR0[5]=32'hD0D1D2D3;
             ICDIPR0[6]=32'hD4D5D6D7;
-            ICDIPR0[7]=32'hD8D9D10D11;
+            ICDIPR0[7]=32'hD8D9DADB;
             
             //all are for first procesor
             ICDIPTR0[0]=32'h01010101;
@@ -2649,10 +2664,10 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
             ICDIPR_S[9]=32'hF4F5F6F7;
             ICDIPR_S[10]=32'hE0E1E2E3;
             ICDIPR_S[11]=32'hE4E5E6E7;
-            ICDIPR_S[12]=32'hE8E9E10E11;
+            ICDIPR_S[12]=32'hE8E9EAEB;
             ICDIPR_S[13]=32'hD0D1D2D3;
             ICDIPR_S[14]=32'hD4D5D6D7;
-            ICDIPR_S[15]=32'hD8D9D10D11;
+            ICDIPR_S[15]=32'hD8D9DADB;
             
             ICDIPTR_S[8]=32'h01010101;
             ICDIPTR_S[9]=32'h01010101;
