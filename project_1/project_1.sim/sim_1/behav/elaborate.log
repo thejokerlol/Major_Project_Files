@@ -11,5 +11,5 @@ Compiling module xil_defaultlib.Priority_Check
 Compiling module xil_defaultlib.Interrupt_Controller_default
 Compiling module xil_defaultlib.Interrupt_Controller_TestBench
 Compiling module xil_defaultlib.glbl
-Waiting for 3 sub-compilation(s) to finish...
+Waiting for 5 sub-compilation(s) to finish...
 Built simulation snapshot Interrupt_Controller_TestBench_behav

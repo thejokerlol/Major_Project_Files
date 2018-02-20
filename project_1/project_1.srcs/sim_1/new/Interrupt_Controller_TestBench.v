@@ -36,14 +36,8 @@ module Interrupt_Controller_TestBench(
     reg[16:31] PPI_3;
     reg[16:31] PPI_4;
     reg[31:0] SPI;
-    wire IRQ0;
-    wire FIQ0;
-    wire IRQ1;
-    wire FIQ1;
-    wire IRQ2;
-    wire FIQ2;
-    wire IRQ3;
-    wire FIQ3;
+    wire[3:0] IRQ;
+    wire[3:0] FIQ;
     wire RW_err;
     wire ready;
     
@@ -51,8 +45,7 @@ module Interrupt_Controller_TestBench(
     parameter DISTRIBUTOR_BASE_ADDRESS=32'd0;
     
     Interrupt_Controller IC(CPU_ID,address,data_in,data_out,read,enable_RW,clk,reset,
-                        PPI_1,PPI_2,PPI_3,PPI_4,SPI,IRQ0,FIQ0,IRQ1,FIQ1,
-                        IRQ2,FIQ2,IRQ3,FIQ3,RW_err,ready
+                        PPI_1,PPI_2,PPI_3,PPI_4,SPI,IRQ,FIQ,RW_err,ready
         );
         
         initial
