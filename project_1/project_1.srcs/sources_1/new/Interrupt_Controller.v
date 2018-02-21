@@ -61,7 +61,7 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
     
     
     //For the APB bus interface
-    output ready;
+    output reg ready;
     output reg RW_err;
     
     /*
@@ -131,7 +131,7 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
     
     //address information
     parameter DISTRIBUTOR_BASE_ADDRESS=32'd0;//should be a parameter because should be synthesizable for various base addresses
-    parameter CPU_INTERFACE_BASE_ADDRESS=32'd0; //should be a parameter because should be synthesizable for various base addresses
+    parameter CPU_INTERFACE_BASE_ADDRESS=32'd4096; //should be a parameter because should be synthesizable for various base addresses
     
     
     //states of various interrupts in all CPUs
@@ -171,6 +171,7 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
     begin
         ICDICTR=32'd0;
         ICDIIDR=32'd0;
+        ready=1'b1;
         
     end
     //Register read write logic
@@ -180,7 +181,7 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
         begin
         //initialize all the registers on reset
             IC_reset;
-            
+            RW_err=0;
             
         end
         else
@@ -1588,7 +1589,7 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
                         end
                     endcase
                 end
-                CPU_INTERFACE_BASE_ADDRESS+8'h0://ICCICR register (RW) not banked
+                CPU_INTERFACE_BASE_ADDRESS+12'hFF0://ICCICR register (RW) not banked
                 begin
                     if(read)
                     begin
@@ -1985,9 +1986,8 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
     //Interrupt State Machines for SGIs for interrupts bit only for a single processor(SGIs are only edge trigggered)
     genvar int_num;
     genvar CPU_number;
-    reg[1:0] SGI_CPU_regs[0:15];
+    reg[1:0] SGI_CPU_regs[0:3][0:15];
     
-    reg CPU_ID_SGI;
     generate
         for(CPU_number=0;CPU_number<4;CPU_number=CPU_number+1)
         begin
@@ -2011,8 +2011,7 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
                                         interrupt_states[CPU_number][int_num]<=PENDING;
                                         //ICCIAR0<={19'h0,1'b0,CPU_ID,10'd0};//generation of  a interrupt but i guess it's not here only if this is the highest priority interrupt
                                         //form the interrupt processor target registers and the CPU ID should be
-                                        CPU_ID_SGI <= CPU_ID;//temporary save
-                                        SGI_CPU_regs[int_num] <= CPU_ID;//saving the CPU ID which generaed the SGI 
+                                        SGI_CPU_regs[CPU_number][int_num] <= CPU_ID;//saving the CPU ID which generaed the SGI 
                                     end
                                     else
                                     begin
@@ -2344,6 +2343,15 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
             end
         end
     endgenerate
+    //Highest pending register(HPIR)
+    integer count_number;
+    always@(*)
+    begin
+        for(count_number=0;count_number<4;count_number=count_number+1)
+        begin
+            ICCHPIR[count_number]={26'd0,HP_ID[count_number][62]};
+        end
+    end
     
     
     //we need to find the Highest priority Active interrupt to implement the interrupt preemption
@@ -2443,7 +2451,7 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
                begin
                     IRQ[proc_num_ICC]=0;
                     FIQ[proc_num_ICC]=0;
-                    ICCPMR[proc_num_ICC]=32'h00000000;
+                    //ICCPMR[proc_num_ICC]=32'h00000000;
                end
                else
                begin
@@ -2492,16 +2500,19 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
                       //form the interrupt acknowledge register here
                       if(HP_ID[proc_num_IAR][62]<16)//if it's a software generated interrupt
                       begin
+                          ICCIAR[proc_num_IAR]={19'd45,2'b00,HP_ID[proc_num_IAR][62]};  
                           for(interrupt_number_ICC=0;interrupt_number_ICC<16;interrupt_number_ICC=interrupt_number_ICC+1)
                           begin
+                                
                               if(Interrupt_IDs[interrupt_number_ICC]==HP_ID[proc_num_IAR][62])
                               begin
-                                  ICCIAR[proc_num_IAR]={19'h0,SGI_CPU_regs[interrupt_number_ICC],HP_ID[proc_num_IAR][62]};//don't write into this just return this value when the interrupt acknowledge register is read
-                              end
+                                  ICCIAR[proc_num_IAR]={19'h0,SGI_CPU_regs[proc_num_IAR][interrupt_number_ICC],HP_ID[proc_num_IAR][62]};//don't write into this just return this value when the interrupt acknowledge register is read
+                              end 
                           end
                       end
                       else//if it's a private peripheral interrupt or a shared peripheral interrupt
                       begin
+                          ICCIAR[proc_num_IAR]={19'd45,2'b00,HP_ID[proc_num_IAR][62]}; 
                           for(interrupt_number_ICC=16;interrupt_number_ICC<64;interrupt_number_ICC=interrupt_number_ICC+1)
                           begin
                               if(Interrupt_IDs[interrupt_number_ICC]==HP_ID[proc_num_IAR][62])
@@ -2522,55 +2533,7 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
                end
            end
        end
-   /* 
-    genvar proc_num_IAR;
-    integer interrupt_number_ICC;
-       //creating the values of IAR
-    generate
-       for(proc_num_IAR=0;proc_num_IAR<4;proc_num_IAR=proc_num_IAR+1)
-       begin
-           always@(*)
-           begin
-              if(enabled[proc_num_IAR][62])
-              begin
-                  if(output_priority[proc_num_IAR][62]>ICCPMR[proc_num_IAR][7:0] && output_priority[proc_num_IAR][62]>HP_Active_Interrupt[proc_num_IAR][7:0])//priority masking and preemption conttrol
-                  begin
-                      //form the interrupt acknowledge register here
-                      if(HP_ID[proc_num_IAR][62]<16)//if it's a software generated interrupt
-                      begin
-                          for(interrupt_number_ICC=0;interrupt_number_ICC<16;interrupt_number_ICC=interrupt_number_ICC+1)
-                          begin
-                              if(Interrupt_IDs[interrupt_number_ICC]==HP_ID[proc_num_IAR][62])
-                              begin
-                                  ICCIAR[proc_num_IAR]={19'h0,SGI_CPU_regs[interrupt_number_ICC],HP_ID[proc_num_IAR][62]};//don't write into this just return this value when the interrupt acknowledge register is read
-                              end
-                          end
-                      end
-                      else//if it's a private peripheral interrupt or a shared peripheral interrupt
-                      begin
-                          for(interrupt_number_ICC=16;interrupt_number_ICC<64;interrupt_number_ICC=interrupt_number_ICC+1)
-                          begin
-                              if(Interrupt_IDs[interrupt_number_ICC]==HP_ID[proc_num_IAR][62])
-                              begin
-                                  ICCIAR[proc_num_IAR]={19'h0,2'b00,HP_ID[proc_num_IAR][62]};//don't write into this just return this value when the interrupt acknowledge register is read
-                              end
-                          end
-                      end
-                  end
-                  else
-                  begin
-                        ICCIAR[proc_num_IAR]={19'd45,2'b00,HP_ID[proc_num_IAR][62]};//may be spurious interrupt
-                  end
-               end
-               else
-               begin
-                    ICCIAR[proc_num_IAR]={19'd45,2'b00,HP_ID[proc_num_IAR][62]};//may be spurious interrupt
-               end
-           end
-       end
-    endgenerate
-       
-       */
+
     integer CPU_nu;
     always@(posedge clk or negedge reset)
     begin
@@ -2589,57 +2552,7 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
             end
         end
     end
-    
-    /*
-    integer interrupt_number_ICC;
-    //CPU Interface logic for processor 0 while signalling itself write to the IAR register
-    always@(posedge clk)
-    begin
-        if(ICCICR[0])//check if the CPU interface is enabled
-        begin
-            if(enabled[62])
-            begin
-                if(output_priority[62]<ICCPMR0[7:0] && output_priority[62]<ICCRPR0[7:0])//priority masking and preemption conttrol
-                begin
-                    IRQ0<=1'b1;
-                    //form the interrupt acknowledge register here
-                    if(HP_ID[62]<16)//if it's a software generated interrupt
-                    begin
-                        for(interrupt_number_ICC=0;interrupt_number_ICC<16;interrupt_number_ICC=interrupt_number_ICC+1)
-                        begin
-                            if(Interrupt_IDs[interrupt_number_ICC]==HP_ID[62])
-                            begin
-                                ICCIAR0<={19'h0,SGI_CPU_regs[interrupt_number_ICC],HP_ID[62]};
-                            end
-                        end
-                    end
-                    else//if it's a private peripheral interrupt or a shared peripheral interrupt
-                    begin
-                        for(interrupt_number_ICC=16;interrupt_number_ICC<64;interrupt_number_ICC=interrupt_number_ICC+1)
-                        begin
-                            if(Interrupt_IDs[interrupt_number_ICC]==HP_ID[62])
-                            begin
-                                ICCIAR0<={19'h0,2'b00,HP_ID[62]};
-                            end
-                        end
-                    end
-                end
-                else
-                begin
-                    IRQ0=1'b0;
-                end
-            end
-            else
-            begin
-                IRQ0=1'b0;
-            end
-            
-        end
-        else
-        begin
-            IRQ0=1'b0;
-        end
-    end*/
+
    integer p_number; 
    task IC_reset;
        begin
@@ -2647,31 +2560,66 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
             for(p_number=0;p_number<4;p_number=p_number+1)
             begin
                 ICDISER[p_number]=32'hFFFFFFFF;
-                ICDIPR[p_number][0]=32'hF0F1F2F3;
-                ICDIPR[p_number][1]=32'hF4F5F6F7;
-                ICDIPR[p_number][2]=32'hE0E1E2E3;
-                ICDIPR[p_number][3]=32'hE4E5E6E7;
-                ICDIPR[p_number][4]=32'hE8E9EAEB;
-                ICDIPR[p_number][5]=32'hD0D1D2D3;
-                ICDIPR[p_number][6]=32'hD4D5D6D7;
-                ICDIPR[p_number][7]=32'hD8D9DADB;
+                ICDIPR[p_number][0]=32'hFEFEFEFE;
+                ICDIPR[p_number][1]=32'hFFF5F6FF;
+                ICDIPR[p_number][2]=32'hEFE1E2E3;
+                ICDIPR[p_number][3]=32'hEFE5E6E7;
+                ICDIPR[p_number][4]=32'hEFE9EAEB;
+                ICDIPR[p_number][5]=32'hDFD1D2D3;
+                ICDIPR[p_number][6]=32'hFFDFDFD7;
+                ICDIPR[p_number][7]=32'hFFF9FAFB;
                 
                 //all are for first procesor
-                ICDIPTR[p_number][0]=32'h01010101;
-                ICDIPTR[p_number][1]=32'h01010101;
-                ICDIPTR[p_number][2]=32'h01010101;
-                ICDIPTR[p_number][3]=32'h01010101;
-                ICDIPTR[p_number][4]=32'h01010101;
-                ICDIPTR[p_number][5]=32'h01010101;
-                ICDIPTR[p_number][6]=32'h01010101;
-                ICDIPTR[p_number][7]=32'h01010101;
+                
                 
                 //let's say all are edge triggerred
                 ICDICFR[p_number][0]=32'hAAAAAAAA;
                 ICDICFR[p_number][1]=32'hAAAAAAAA;
                 
                // ICCRPR[p_number]={24'd0,8'hFF};
+               
+               ICCEOIR[p_number]=32'd0;
+               ICCPMR[p_number]=32'h00000000;
             end
+            
+            //processor_targets
+            ICDIPTR[0][0]=32'h11111111;
+            ICDIPTR[0][1]=32'h11111111;
+            ICDIPTR[0][2]=32'h11111111;
+            ICDIPTR[0][3]=32'h11111111;
+            ICDIPTR[0][4]=32'h11111111;
+            ICDIPTR[0][5]=32'h11111111;
+            ICDIPTR[0][6]=32'h11111111;
+            ICDIPTR[0][7]=32'h11111111;
+            
+            ICDIPTR[1][0]=32'h22222222;
+            ICDIPTR[1][1]=32'h22222222;
+            ICDIPTR[1][2]=32'h22222222;
+            ICDIPTR[1][3]=32'h22222222;
+            ICDIPTR[1][4]=32'h22222222;
+            ICDIPTR[1][5]=32'h22222222;
+            ICDIPTR[1][6]=32'h22222222;
+            ICDIPTR[1][7]=32'h22222222;
+            
+            
+            
+            ICDIPTR[2][0]=32'h44444444;
+            ICDIPTR[2][1]=32'h44444444;
+            ICDIPTR[2][2]=32'h44444444;
+            ICDIPTR[2][3]=32'h44444444;
+            ICDIPTR[2][4]=32'h44444444;
+            ICDIPTR[2][5]=32'h44444444;
+            ICDIPTR[2][6]=32'h44444444;
+            ICDIPTR[2][7]=32'h44444444;
+            
+            ICDIPTR[3][0]=32'h88888888;
+            ICDIPTR[3][1]=32'h88888888;
+            ICDIPTR[3][2]=32'h88888888;
+            ICDIPTR[3][3]=32'h88888888;
+            ICDIPTR[3][4]=32'h88888888;
+            ICDIPTR[3][5]=32'h88888888;
+            ICDIPTR[3][6]=32'h88888888;
+            ICDIPTR[3][7]=32'h88888888;
             
             
             ICDISER_S=32'hFFFFFFFF;

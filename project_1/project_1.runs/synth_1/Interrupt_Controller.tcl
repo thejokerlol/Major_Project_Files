@@ -3,6 +3,7 @@
 # 
 
 debug::add_scope template.lib 1
+set_msg_config -id {Common-41} -limit 4294967295
 set_msg_config -id {HDL 9-1061} -limit 100000
 set_msg_config -id {HDL 9-1654} -limit 100000
 create_project -in_memory -part xc7a100tcsg324-1
@@ -17,6 +18,9 @@ read_verilog -library xil_defaultlib {
   C:/Users/vamsi/Desktop/MAJOR_PROJECT/Major_Project_Files/project_1/project_1.srcs/sources_1/new/Priority_Check.v
   C:/Users/vamsi/Desktop/MAJOR_PROJECT/Major_Project_Files/project_1/project_1.srcs/sources_1/new/Interrupt_Controller.v
 }
+read_xdc C:/Users/vamsi/Desktop/MAJOR_PROJECT/Major_Project_Files/project_1/project_1.srcs/constrs_1/new/IC_constraints.xdc
+set_property used_in_implementation false [get_files C:/Users/vamsi/Desktop/MAJOR_PROJECT/Major_Project_Files/project_1/project_1.srcs/constrs_1/new/IC_constraints.xdc]
+
 synth_design -top Interrupt_Controller -part xc7a100tcsg324-1
 write_checkpoint -noxdef Interrupt_Controller.dcp
 catch { report_utilization -file Interrupt_Controller_utilization_synth.rpt -pb Interrupt_Controller_utilization_synth.pb }
