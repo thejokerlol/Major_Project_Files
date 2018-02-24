@@ -10,7 +10,7 @@
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="41" />
+   <WVObjectSize size="19" />
    <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/CPU_ID" type="array">
       <obj_property name="ElementShortName">CPU_ID[1:0]</obj_property>
       <obj_property name="ObjectShortName">CPU_ID[1:0]</obj_property>
@@ -75,158 +75,112 @@
       <obj_property name="ElementShortName">RW_err</obj_property>
       <obj_property name="ObjectShortName">RW_err</obj_property>
    </wvobject>
-   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/CPU_INTERFACE_BASE_ADDRESS" type="array">
-      <obj_property name="ElementShortName">CPU_INTERFACE_BASE_ADDRESS[31:0]</obj_property>
-      <obj_property name="ObjectShortName">CPU_INTERFACE_BASE_ADDRESS[31:0]</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/DISTRIBUTOR_BASE_ADDRESS" type="array">
-      <obj_property name="ElementShortName">DISTRIBUTOR_BASE_ADDRESS[31:0]</obj_property>
-      <obj_property name="ObjectShortName">DISTRIBUTOR_BASE_ADDRESS[31:0]</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/ICCIAR" type="array">
-      <obj_property name="ElementShortName">ICCIAR[0:3][31:0]</obj_property>
-      <obj_property name="ObjectShortName">ICCIAR[0:3][31:0]</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/HP_ID[0][62]" type="array">
-      <obj_property name="ElementShortName">[62][5:0]</obj_property>
-      <obj_property name="ObjectShortName">HP_ID[0][62][5:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/output_priority[0][62]" type="array">
-      <obj_property name="ElementShortName">[62][7:0]</obj_property>
-      <obj_property name="ObjectShortName">output_priority[0][62][7:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/enabled[0][62]" type="logic">
-      <obj_property name="ElementShortName">[62]</obj_property>
-      <obj_property name="ObjectShortName">enabled[0][62]</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/priority_state[0][62]" type="array">
-      <obj_property name="ElementShortName">[62][0:1]</obj_property>
-      <obj_property name="ObjectShortName">priority_state[0][62][0:1]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/out_target_proc_list[0][62]" type="array">
-      <obj_property name="ElementShortName">[62][3:0]</obj_property>
-      <obj_property name="ObjectShortName">out_target_proc_list[0][62][3:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="group337" type="group">
-      <obj_property name="label">INTERRUPT_STATES</obj_property>
+   <wvobject fp_name="group825" type="group">
+      <obj_property name="label">Not_necessary for now</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/interrupt_states" type="array">
-         <obj_property name="ElementShortName">interrupt_states[0:3][0:31][1:0]</obj_property>
-         <obj_property name="ObjectShortName">interrupt_states[0:3][0:31][1:0]</obj_property>
+      <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/CPU_INTERFACE_BASE_ADDRESS" type="array">
+         <obj_property name="ElementShortName">CPU_INTERFACE_BASE_ADDRESS[31:0]</obj_property>
+         <obj_property name="ObjectShortName">CPU_INTERFACE_BASE_ADDRESS[31:0]</obj_property>
       </wvobject>
-      <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/interrupt_states_S" type="array">
-         <obj_property name="ElementShortName">interrupt_states_S[32:63][1:0]</obj_property>
-         <obj_property name="ObjectShortName">interrupt_states_S[32:63][1:0]</obj_property>
+      <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/DISTRIBUTOR_BASE_ADDRESS" type="array">
+         <obj_property name="ElementShortName">DISTRIBUTOR_BASE_ADDRESS[31:0]</obj_property>
+         <obj_property name="ObjectShortName">DISTRIBUTOR_BASE_ADDRESS[31:0]</obj_property>
       </wvobject>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/HP_Active_Interrupt" type="array">
-      <obj_property name="ElementShortName">HP_Active_Interrupt[0:3][31:0]</obj_property>
-      <obj_property name="ObjectShortName">HP_Active_Interrupt[0:3][31:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/HP_Active_Interrupt[0]" type="array">
-         <obj_property name="ElementShortName">[0][31:0]</obj_property>
-         <obj_property name="ObjectShortName">HP_Active_Interrupt[0][31:0]</obj_property>
+      <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/ICCIAR" type="array">
+         <obj_property name="ElementShortName">ICCIAR[0:3][31:0]</obj_property>
+         <obj_property name="ObjectShortName">ICCIAR[0:3][31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="group337" type="group">
+         <obj_property name="label">INTERRUPT_STATES</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/interrupt_states" type="array">
+            <obj_property name="ElementShortName">interrupt_states[0:3][0:31][1:0]</obj_property>
+            <obj_property name="ObjectShortName">interrupt_states[0:3][0:31][1:0]</obj_property>
+         </wvobject>
+         <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/interrupt_states_S" type="array">
+            <obj_property name="ElementShortName">interrupt_states_S[32:63][1:0]</obj_property>
+            <obj_property name="ObjectShortName">interrupt_states_S[32:63][1:0]</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/HP_Active_Interrupt" type="array">
+         <obj_property name="ElementShortName">HP_Active_Interrupt[0:3][31:0]</obj_property>
+         <obj_property name="ObjectShortName">HP_Active_Interrupt[0:3][31:0]</obj_property>
          <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/HP_Active_Interrupt[0]" type="array">
+            <obj_property name="ElementShortName">[0][31:0]</obj_property>
+            <obj_property name="ObjectShortName">HP_Active_Interrupt[0][31:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/HP_Active_Interrupt[1]" type="array">
+            <obj_property name="ElementShortName">[1][31:0]</obj_property>
+            <obj_property name="ObjectShortName">HP_Active_Interrupt[1][31:0]</obj_property>
+         </wvobject>
+         <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/HP_Active_Interrupt[2]" type="array">
+            <obj_property name="ElementShortName">[2][31:0]</obj_property>
+            <obj_property name="ObjectShortName">HP_Active_Interrupt[2][31:0]</obj_property>
+         </wvobject>
+         <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/HP_Active_Interrupt[3]" type="array">
+            <obj_property name="ElementShortName">[3][31:0]</obj_property>
+            <obj_property name="ObjectShortName">HP_Active_Interrupt[3][31:0]</obj_property>
+         </wvobject>
       </wvobject>
-      <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/HP_Active_Interrupt[1]" type="array">
-         <obj_property name="ElementShortName">[1][31:0]</obj_property>
-         <obj_property name="ObjectShortName">HP_Active_Interrupt[1][31:0]</obj_property>
-      </wvobject>
-      <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/HP_Active_Interrupt[2]" type="array">
-         <obj_property name="ElementShortName">[2][31:0]</obj_property>
-         <obj_property name="ObjectShortName">HP_Active_Interrupt[2][31:0]</obj_property>
-      </wvobject>
-      <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/HP_Active_Interrupt[3]" type="array">
-         <obj_property name="ElementShortName">[3][31:0]</obj_property>
-         <obj_property name="ObjectShortName">HP_Active_Interrupt[3][31:0]</obj_property>
-      </wvobject>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/ICCRPR" type="array">
-      <obj_property name="ElementShortName">ICCRPR[0:3][31:0]</obj_property>
-      <obj_property name="ObjectShortName">ICCRPR[0:3][31:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/ICCRPR[0]" type="array">
-         <obj_property name="ElementShortName">[0][31:0]</obj_property>
-         <obj_property name="ObjectShortName">ICCRPR[0][31:0]</obj_property>
+      <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/ICCRPR" type="array">
+         <obj_property name="ElementShortName">ICCRPR[0:3][31:0]</obj_property>
+         <obj_property name="ObjectShortName">ICCRPR[0:3][31:0]</obj_property>
          <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/ICCRPR[0]" type="array">
+            <obj_property name="ElementShortName">[0][31:0]</obj_property>
+            <obj_property name="ObjectShortName">ICCRPR[0][31:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/ICCRPR[1]" type="array">
+            <obj_property name="ElementShortName">[1][31:0]</obj_property>
+            <obj_property name="ObjectShortName">ICCRPR[1][31:0]</obj_property>
+         </wvobject>
+         <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/ICCRPR[2]" type="array">
+            <obj_property name="ElementShortName">[2][31:0]</obj_property>
+            <obj_property name="ObjectShortName">ICCRPR[2][31:0]</obj_property>
+         </wvobject>
+         <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/ICCRPR[3]" type="array">
+            <obj_property name="ElementShortName">[3][31:0]</obj_property>
+            <obj_property name="ObjectShortName">ICCRPR[3][31:0]</obj_property>
+         </wvobject>
       </wvobject>
-      <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/ICCRPR[1]" type="array">
+      <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/ICCIAR[1]" type="array">
          <obj_property name="ElementShortName">[1][31:0]</obj_property>
-         <obj_property name="ObjectShortName">ICCRPR[1][31:0]</obj_property>
+         <obj_property name="ObjectShortName">ICCIAR[1][31:0]</obj_property>
       </wvobject>
-      <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/ICCRPR[2]" type="array">
+      <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/ICCIAR[2]" type="array">
          <obj_property name="ElementShortName">[2][31:0]</obj_property>
-         <obj_property name="ObjectShortName">ICCRPR[2][31:0]</obj_property>
+         <obj_property name="ObjectShortName">ICCIAR[2][31:0]</obj_property>
       </wvobject>
-      <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/ICCRPR[3]" type="array">
+      <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/ICCIAR[3]" type="array">
          <obj_property name="ElementShortName">[3][31:0]</obj_property>
-         <obj_property name="ObjectShortName">ICCRPR[3][31:0]</obj_property>
+         <obj_property name="ObjectShortName">ICCIAR[3][31:0]</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/ICCEOIR[0]" type="array">
+         <obj_property name="ElementShortName">[0][31:0]</obj_property>
+         <obj_property name="ObjectShortName">ICCEOIR[0][31:0]</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/ICCEOIR[1]" type="array">
+         <obj_property name="ElementShortName">[1][31:0]</obj_property>
+         <obj_property name="ObjectShortName">ICCEOIR[1][31:0]</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/ICCEOIR[2]" type="array">
+         <obj_property name="ElementShortName">[2][31:0]</obj_property>
+         <obj_property name="ObjectShortName">ICCEOIR[2][31:0]</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/ICCEOIR[3]" type="array">
+         <obj_property name="ElementShortName">[3][31:0]</obj_property>
+         <obj_property name="ObjectShortName">ICCEOIR[3][31:0]</obj_property>
       </wvobject>
    </wvobject>
-   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/ICCIAR[1]" type="array">
-      <obj_property name="ElementShortName">[1][31:0]</obj_property>
-      <obj_property name="ObjectShortName">ICCIAR[1][31:0]</obj_property>
+   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/reset1" type="logic">
+      <obj_property name="ElementShortName">reset1</obj_property>
+      <obj_property name="ObjectShortName">reset1</obj_property>
    </wvobject>
-   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/ICCIAR[2]" type="array">
-      <obj_property name="ElementShortName">[2][31:0]</obj_property>
-      <obj_property name="ObjectShortName">ICCIAR[2][31:0]</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/ICCIAR[3]" type="array">
-      <obj_property name="ElementShortName">[3][31:0]</obj_property>
-      <obj_property name="ObjectShortName">ICCIAR[3][31:0]</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/ICCEOIR[0]" type="array">
-      <obj_property name="ElementShortName">[0][31:0]</obj_property>
-      <obj_property name="ObjectShortName">ICCEOIR[0][31:0]</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/ICCEOIR[1]" type="array">
-      <obj_property name="ElementShortName">[1][31:0]</obj_property>
-      <obj_property name="ObjectShortName">ICCEOIR[1][31:0]</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/ICCEOIR[2]" type="array">
-      <obj_property name="ElementShortName">[2][31:0]</obj_property>
-      <obj_property name="ObjectShortName">ICCEOIR[2][31:0]</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/ICCEOIR[3]" type="array">
-      <obj_property name="ElementShortName">[3][31:0]</obj_property>
-      <obj_property name="ObjectShortName">ICCEOIR[3][31:0]</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/HP_ID[0][62]" type="array">
-      <obj_property name="ElementShortName">[62][5:0]</obj_property>
-      <obj_property name="ObjectShortName">HP_ID[0][62][5:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/HP_ID[1][62]" type="array">
-      <obj_property name="ElementShortName">[62][5:0]</obj_property>
-      <obj_property name="ObjectShortName">HP_ID[1][62][5:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/HP_ID[2][62]" type="array">
-      <obj_property name="ElementShortName">[62][5:0]</obj_property>
-      <obj_property name="ObjectShortName">HP_ID[2][62][5:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/HP_ID[3][62]" type="array">
-      <obj_property name="ElementShortName">[62][5:0]</obj_property>
-      <obj_property name="ObjectShortName">HP_ID[3][62][5:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/output_priority[1][62]" type="array">
-      <obj_property name="ElementShortName">[62][7:0]</obj_property>
-      <obj_property name="ObjectShortName">output_priority[1][62][7:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/output_priority[2][62]" type="array">
-      <obj_property name="ElementShortName">[62][7:0]</obj_property>
-      <obj_property name="ObjectShortName">output_priority[2][62][7:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/output_priority[3][62]" type="array">
-      <obj_property name="ElementShortName">[62][7:0]</obj_property>
-      <obj_property name="ObjectShortName">output_priority[3][62][7:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   <wvobject db_ref_id="1" fp_name="/Interrupt_Controller_TestBench/IC/clk100to25/locked" type="logic">
+      <obj_property name="ElementShortName">locked</obj_property>
+      <obj_property name="ObjectShortName">locked</obj_property>
    </wvobject>
 </wave_config>

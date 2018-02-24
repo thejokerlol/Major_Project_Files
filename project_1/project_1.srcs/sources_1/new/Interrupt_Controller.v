@@ -20,8 +20,12 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,reset,
+module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk_in,reset1,
                     PPI_1,PPI_2,PPI_3,PPI_4,SPI,IRQ,FIQ,RW_err,ready
+                    /*HP_ID1,HP_ID2,HP_ID3,HP_ID4,
+                    HP1,HP2,HP3,HP4,
+                    Active1,Active2,Active3,Active4,
+                    en1,en2,en3,en4*/
         
 
     );
@@ -35,8 +39,8 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
     output reg[31:0] data_out;
     input read;
     input enable_RW;
-    input reset;
-    input clk;
+    input reset1;
+    input clk_in;
     
     input[16:31] PPI_1;//PPIs for CPU0
     input[16:31] PPI_2;//PPIs for CPU1
@@ -64,6 +68,29 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
     output reg ready;
     output reg RW_err;
     
+    //ouputs for debug
+    /*output reg[5:0] HP_ID1;
+    output reg[5:0] HP_ID2;
+    output reg[5:0] HP_ID3;
+    output reg[5:0] HP_ID4;
+    
+    output reg[7:0] HP1;
+    output reg[7:0] HP2;
+    output reg[7:0] HP3;
+    output reg[7:0] HP4;
+    
+    
+    
+    output reg[7:0] Active1;
+    output reg[7:0] Active2;
+    output reg[7:0] Active3;
+    output reg[7:0] Active4;
+    
+    output reg en1;
+    output reg en2;
+    output reg en3;
+    output reg en4;*/
+   
     /*
     Internal Registers of the distributor
     
@@ -150,16 +177,67 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
     /*
     intermediate signals for the priority logic
     */
-    wire[5:0] Interrupt_IDs[0:63];//Interrupt IDs from 0 to 63
-    wire[1:0] CPU_NOs[0:3];//CPU IDs one ID for each CPU
-    wire[5:0] HP_ID[0:3][0:62];//Highest priority intermediate registers
-    wire[7:0] output_priority[0:3][0:62];//output priority registers
-    wire enabled[0:3][0:62];//intermediate enable signals
-    wire[0:1] priority_state[0:3][0:62];//output priority states
-    wire[3:0] out_target_proc_list[0:3][0:62];//target processors of output highest priority interrupt
+    reg[5:0] Interrupt_IDs[0:63];//Interrupt IDs from 0 to 63
+    reg[1:0] CPU_NOs[0:3];//CPU IDs one ID for each CPU
+    wire[5:0] HP_ID[0:3][0:5][0:31];//Highest priority intermediate registers
+    wire[7:0] output_priority[0:3][0:5][0:31];//output priority registers
+    wire enabled[0:3][0:5][0:31];//intermediate enable signals
+    wire[0:1] priority_state[0:3][0:5][0:31];//output priority states
+    wire[3:0] out_target_proc_list[0:3][0:5][0:31];//target processors of output highest priority interrupt
     
+    reg clk2;
+    reg clk;
+    reg reset;
     
+    //change when you include the clock generation circuitry
+    always@(*)
+    begin
+        clk=clk_in;
+        reset=reset1;
+    end
     
+    //clk generation and reset circuits
+    /*
+     clk_wiz_0 clk100to25
+     (
+    // Clock in ports
+     .clk_in1(clk_in),
+     // Clock out ports  
+     .clk_out1(clk),
+     .clk_out2(clk2),
+     // Status and control signals               
+     .reset(reset1), 
+     .locked(locked)            
+     );
+     
+     
+     vio_0 v1 (
+     clk_in,
+     data_out,IRQ,FIQ,ready,RW_err,
+     CPU_ID,
+     address,
+     data_in,
+     read,
+     enable_RW,
+     PPI_1,
+     PPI_2,
+     PPI_3,
+     PPI_4,
+     SPI
+     );
+     
+     ila_0 l1 (
+     clk,
+     
+     
+     IRQ,
+     FIQ
+     );
+     
+     
+     assign reset=locked&reset1;
+    
+    */
     always@(*)
     begin
         PPI[0]=PPI_1;
@@ -174,6 +252,11 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
         ready=1'b1;
         
     end
+    
+
+    
+    
+    
     //Register read write logic
     always@(posedge clk or negedge reset)
     begin
@@ -1957,8 +2040,8 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
     
     
     
-    
-    genvar k;
+
+   /* genvar k;
     generate
         for(k=0;k<64;k=k+1)
         begin
@@ -1980,7 +2063,7 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
                 assign CPU_NOs[CPU_no]=CPU_NOs[CPU_no-1]+1;
             
         end
-    endgenerate
+    endgenerate*/
     
     
     //Interrupt State Machines for SGIs for interrupts bit only for a single processor(SGIs are only edge trigggered)
@@ -2273,6 +2356,92 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
     
     
     //Finding the highest priority interrupt generation for processor 1 excluding the processor targets...next include the processor target register too
+    /*integer interrupt_num1;
+    reg[5:0] Highest_priority_ID;
+    reg[7:0] Highest_Priority;
+    always@(*)
+    begin
+        for(interrupt_num1=0;interrupt_num1<64;interrupt_num1=interrupt_num1+1)
+        begin
+            
+        end
+    end*/
+    
+    genvar i;
+    genvar processor_num;
+    genvar comp_num;
+    
+   //reg[0:3] HP_ID[
+    generate
+        for(processor_num=0;processor_num<4;processor_num=processor_num+1)
+        begin
+            for(comp_num=0;comp_num<6;comp_num=comp_num+1)
+            begin
+                for(i=0;i<(64/(2**comp_num))-1;i=i+2)
+                begin
+                    if(comp_num==0)
+                    begin
+                        if(i<31)
+                        begin
+                            Priority_Check P1(
+                                                        Interrupt_IDs[i],Interrupt_IDs[i+1],CPU_NOs[processor_num],
+                                                        ICDISER[processor_num][i],ICDISER[processor_num][i+1],
+                                                        ICDIPR[processor_num][i/4][(8*(i%4))+7:(8*(i%4))],ICDIPR[processor_num][(i+1)/4][(8*((i+1)%4))+7:(8*((i+1)%4))],
+                                                        
+                                                        interrupt_states[processor_num][i],interrupt_states[processor_num][i+1],
+                                                        ICDIPTR[processor_num][i/8][(4*(i%8))+3:(4*(i%8))],ICDIPTR[processor_num][(i+1)/8][(4*((i+1)%8))+3:(4*((i+1)%8))],//four are enough eight bits are not needed
+                                                        
+                                                        HP_ID[processor_num][comp_num][i/2],
+                                                        output_priority[processor_num][comp_num][i/2],
+                                                        enabled[processor_num][comp_num][i/2],
+                                                        priority_state[processor_num][comp_num][i/2],
+                                                        out_target_proc_list[processor_num][comp_num][i/2]
+                                                    );
+                        end
+                        else
+                        begin
+                            Priority_Check P1(
+                                                        Interrupt_IDs[i],Interrupt_IDs[i+1],CPU_NOs[processor_num],
+                                                        ICDISER_S[i-32],ICDISER_S[i-32+1],
+                                                        ICDIPR_S[i/4][(8*(i%4))+7:(8*(i%4))],ICDIPR_S[(i+1)/4][(8*((i+1)%4))+7:(8*((i+1)%4))],
+                                                        
+                                                        interrupt_states_S[i],interrupt_states_S[i+1],
+                                                        ICDIPTR_S[(i+32)/8][(4*(i%8))+3:(4*(i%8))],ICDIPTR_S[(i+32+1)/8][(4*((i+1)%8))+3:(4*((i+1)%8))],//four are enough eight bits are not needed
+                                                        
+                                                        HP_ID[processor_num][comp_num][i/2],
+                                                        output_priority[processor_num][comp_num][i/2],
+                                                        enabled[processor_num][comp_num][i/2],
+                                                        priority_state[processor_num][comp_num][i/2],
+                                                        out_target_proc_list[processor_num][comp_num][i/2]
+                                                    );    
+                        
+                        end
+                    end
+                    else
+                    begin
+                        Priority_Check P1(
+                                                    HP_ID[processor_num][comp_num-1][i],HP_ID[processor_num][comp_num-1][i+1],CPU_NOs[processor_num],
+                                                    enabled[processor_num][comp_num-1][i],enabled[processor_num][comp_num-1][i+1],
+                                                    output_priority[processor_num][comp_num-1][i],output_priority[processor_num][comp_num-1][i+1],
+                                                    
+                                                    priority_state[processor_num][comp_num-1][i],priority_state[processor_num][comp_num-1][i+1],
+                                                    out_target_proc_list[processor_num][comp_num-1][i],out_target_proc_list[processor_num][comp_num-1][i+1],//four are enough eight bits are not needed
+                                                    
+                                                    HP_ID[processor_num][comp_num][i/2],
+                                                    output_priority[processor_num][comp_num][i/2],
+                                                    enabled[processor_num][comp_num][i/2],
+                                                    priority_state[processor_num][comp_num][i/2],
+                                                    out_target_proc_list[processor_num][comp_num][i/2]
+                                                );
+                        
+                    end
+                    
+                end
+           end
+        end
+    endgenerate
+    
+    /*
     genvar i;
     genvar processor_num;
     
@@ -2343,13 +2512,16 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
             end
         end
     endgenerate
+    
+    
+    */
     //Highest pending register(HPIR)
     integer count_number;
     always@(*)
     begin
         for(count_number=0;count_number<4;count_number=count_number+1)
         begin
-            ICCHPIR[count_number]={26'd0,HP_ID[count_number][62]};
+            ICCHPIR[count_number]={26'd0,HP_ID[count_number][5][0]};
         end
     end
     
@@ -2457,9 +2629,9 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
                begin
                    if(ICCICR[proc_num_ICC])//check if the CPU interface is enabled
                    begin
-                       if(enabled[proc_num_ICC][62])
+                       if(enabled[proc_num_ICC][5][0])
                        begin
-                           if((output_priority[proc_num_ICC][62]>ICCPMR[proc_num_ICC][7:0]) && (output_priority[proc_num_ICC][62]>HP_Active_Interrupt[proc_num_ICC][7:0]))//priority masking and preemption conttrol
+                           if((output_priority[proc_num_ICC][5][0]>ICCPMR[proc_num_ICC][7:0]) && (output_priority[proc_num_ICC][5][0]>HP_Active_Interrupt[proc_num_ICC][7:0]))//priority masking and preemption conttrol
                            begin
                                IRQ[proc_num_ICC]<=1'b1;
                            end
@@ -2493,43 +2665,43 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
        begin
            for(proc_num_IAR=0;proc_num_IAR<4;proc_num_IAR=proc_num_IAR+1)
            begin
-               if(enabled[proc_num_IAR][62])
+               if(enabled[proc_num_IAR][5][0])
                begin
-                  if(output_priority[proc_num_IAR][62]>ICCPMR[proc_num_IAR][7:0] && output_priority[proc_num_IAR][62]>HP_Active_Interrupt[proc_num_IAR][7:0])//priority masking and preemption conttrol
+                  if(output_priority[proc_num_IAR][5][0]>ICCPMR[proc_num_IAR][7:0] && output_priority[proc_num_IAR][5][0]>HP_Active_Interrupt[proc_num_IAR][7:0])//priority masking and preemption conttrol
                   begin
                       //form the interrupt acknowledge register here
-                      if(HP_ID[proc_num_IAR][62]<16)//if it's a software generated interrupt
+                      if(HP_ID[proc_num_IAR][5][0]<16)//if it's a software generated interrupt
                       begin
-                          ICCIAR[proc_num_IAR]={19'd45,2'b00,HP_ID[proc_num_IAR][62]};  
+                          ICCIAR[proc_num_IAR]={19'd45,2'b00,HP_ID[proc_num_IAR][5][0]};  
                           for(interrupt_number_ICC=0;interrupt_number_ICC<16;interrupt_number_ICC=interrupt_number_ICC+1)
                           begin
                                 
-                              if(Interrupt_IDs[interrupt_number_ICC]==HP_ID[proc_num_IAR][62])
+                              if(Interrupt_IDs[interrupt_number_ICC]==HP_ID[proc_num_IAR][5][0])
                               begin
-                                  ICCIAR[proc_num_IAR]={19'h0,SGI_CPU_regs[proc_num_IAR][interrupt_number_ICC],HP_ID[proc_num_IAR][62]};//don't write into this just return this value when the interrupt acknowledge register is read
+                                  ICCIAR[proc_num_IAR]={19'h0,SGI_CPU_regs[proc_num_IAR][interrupt_number_ICC],HP_ID[proc_num_IAR][5][0]};//don't write into this just return this value when the interrupt acknowledge register is read
                               end 
                           end
                       end
                       else//if it's a private peripheral interrupt or a shared peripheral interrupt
                       begin
-                          ICCIAR[proc_num_IAR]={19'd45,2'b00,HP_ID[proc_num_IAR][62]}; 
+                          ICCIAR[proc_num_IAR]={19'd45,2'b00,HP_ID[proc_num_IAR][5][0]}; 
                           for(interrupt_number_ICC=16;interrupt_number_ICC<64;interrupt_number_ICC=interrupt_number_ICC+1)
                           begin
-                              if(Interrupt_IDs[interrupt_number_ICC]==HP_ID[proc_num_IAR][62])
+                              if(Interrupt_IDs[interrupt_number_ICC]==HP_ID[proc_num_IAR][5][0])
                               begin
-                                  ICCIAR[proc_num_IAR]={19'h0,2'b00,HP_ID[proc_num_IAR][62]};//don't write into this just return this value when the interrupt acknowledge register is read
+                                  ICCIAR[proc_num_IAR]={19'h0,2'b00,HP_ID[proc_num_IAR][5][0]};//don't write into this just return this value when the interrupt acknowledge register is read
                               end
                           end
                       end
                   end
                   else
                   begin
-                        ICCIAR[proc_num_IAR]={19'd45,2'b00,HP_ID[proc_num_IAR][62]};//may be spurious interrupt
+                        ICCIAR[proc_num_IAR]={19'd45,2'b00,HP_ID[proc_num_IAR][5][0]};//may be spurious interrupt
                   end
                end
                else
                begin
-                    ICCIAR[proc_num_IAR]={19'd45,2'b00,HP_ID[proc_num_IAR][62]};//may be spurious interrupt
+                    ICCIAR[proc_num_IAR]={19'd45,2'b00,HP_ID[proc_num_IAR][5][0]};//may be spurious interrupt
                end
            end
        end
@@ -2552,6 +2724,184 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
             end
         end
     end
+    
+    
+    always@(posedge clk or negedge reset)
+    begin
+        if(!reset)
+        begin
+            CPU_NOs[0]=2'd0;
+            CPU_NOs[1]=2'd1;
+            CPU_NOs[2]=2'd2;
+            CPU_NOs[3]=2'd3;
+            
+            
+            Interrupt_IDs[0]=6'd0;
+            Interrupt_IDs[1]=6'd1;
+            Interrupt_IDs[2]=6'd2;
+            Interrupt_IDs[3]=6'd3;
+            Interrupt_IDs[4]=6'd4;
+            Interrupt_IDs[5]=6'd5;
+            Interrupt_IDs[6]=6'd6;
+            Interrupt_IDs[7]=6'd7;
+            Interrupt_IDs[8]=6'd8;
+            Interrupt_IDs[9]=6'd9;
+            Interrupt_IDs[10]=6'd10;
+            Interrupt_IDs[11]=6'd11;
+            Interrupt_IDs[12]=6'd12;
+            Interrupt_IDs[13]=6'd13;
+            Interrupt_IDs[14]=6'd14;
+            Interrupt_IDs[15]=6'd15;
+            Interrupt_IDs[16]=6'd16;
+            Interrupt_IDs[17]=6'd17;
+            Interrupt_IDs[18]=6'd18;
+            Interrupt_IDs[19]=6'd19;
+            Interrupt_IDs[20]=6'd20;
+            Interrupt_IDs[21]=6'd21;
+            Interrupt_IDs[22]=6'd22;
+            Interrupt_IDs[23]=6'd23;
+            Interrupt_IDs[24]=6'd24;
+            Interrupt_IDs[25]=6'd25;
+            Interrupt_IDs[26]=6'd26;
+            Interrupt_IDs[27]=6'd27;
+            Interrupt_IDs[28]=6'd28;
+            Interrupt_IDs[29]=6'd29;
+            Interrupt_IDs[30]=6'd30;
+            Interrupt_IDs[31]=6'd31;
+            Interrupt_IDs[32]=6'd32;
+            Interrupt_IDs[33]=6'd33;
+            Interrupt_IDs[34]=6'd34;
+            Interrupt_IDs[35]=6'd35;
+            Interrupt_IDs[36]=6'd36;
+            Interrupt_IDs[37]=6'd37;
+            Interrupt_IDs[38]=6'd38;
+            Interrupt_IDs[39]=6'd39;
+            Interrupt_IDs[40]=6'd40;
+            Interrupt_IDs[41]=6'd41;
+            Interrupt_IDs[42]=6'd42;
+            Interrupt_IDs[43]=6'd43;
+            Interrupt_IDs[44]=6'd44;
+            Interrupt_IDs[45]=6'd45;
+            Interrupt_IDs[46]=6'd46;
+            Interrupt_IDs[47]=6'd47;
+            Interrupt_IDs[48]=6'd48;
+            Interrupt_IDs[49]=6'd49;
+            Interrupt_IDs[50]=6'd50;
+            Interrupt_IDs[51]=6'd51;
+            Interrupt_IDs[52]=6'd52;
+            Interrupt_IDs[53]=6'd53;
+            Interrupt_IDs[54]=6'd54;
+            Interrupt_IDs[55]=6'd55;
+            Interrupt_IDs[56]=6'd56;
+            Interrupt_IDs[57]=6'd57;
+            Interrupt_IDs[58]=6'd58;
+            Interrupt_IDs[59]=6'd59;
+            Interrupt_IDs[60]=6'd60;
+            Interrupt_IDs[61]=6'd61;
+            Interrupt_IDs[62]=6'd62;
+            Interrupt_IDs[63]=6'd63;
+        end
+        else
+        begin
+            if(address==32'h0FFFFFFF)
+            begin
+                CPU_NOs[0]=2'd0;
+                CPU_NOs[1]=2'd1;
+                CPU_NOs[2]=2'd2;
+                CPU_NOs[3]=2'd3;
+                
+                
+                Interrupt_IDs[0]=6'd0;
+                Interrupt_IDs[1]=6'd1;
+                Interrupt_IDs[2]=6'd2;
+                Interrupt_IDs[3]=6'd3;
+                Interrupt_IDs[4]=6'd4;
+                Interrupt_IDs[5]=6'd5;
+                Interrupt_IDs[6]=6'd6;
+                Interrupt_IDs[7]=6'd7;
+                Interrupt_IDs[8]=6'd8;
+                Interrupt_IDs[9]=6'd9;
+                Interrupt_IDs[10]=6'd10;
+                Interrupt_IDs[11]=6'd11;
+                Interrupt_IDs[12]=6'd12;
+                Interrupt_IDs[13]=6'd13;
+                Interrupt_IDs[14]=6'd14;
+                Interrupt_IDs[15]=6'd15;
+                Interrupt_IDs[16]=6'd16;
+                Interrupt_IDs[17]=6'd17;
+                Interrupt_IDs[18]=6'd18;
+                Interrupt_IDs[19]=6'd19;
+                Interrupt_IDs[20]=6'd20;
+                Interrupt_IDs[21]=6'd21;
+                Interrupt_IDs[22]=6'd22;
+                Interrupt_IDs[23]=6'd23;
+                Interrupt_IDs[24]=6'd24;
+                Interrupt_IDs[25]=6'd25;
+                Interrupt_IDs[26]=6'd26;
+                Interrupt_IDs[27]=6'd27;
+                Interrupt_IDs[28]=6'd28;
+                Interrupt_IDs[29]=6'd29;
+                Interrupt_IDs[30]=6'd30;
+                Interrupt_IDs[31]=6'd31;
+                Interrupt_IDs[32]=6'd32;
+                Interrupt_IDs[33]=6'd33;
+                Interrupt_IDs[34]=6'd34;
+                Interrupt_IDs[35]=6'd35;
+                Interrupt_IDs[36]=6'd36;
+                Interrupt_IDs[37]=6'd37;
+                Interrupt_IDs[38]=6'd38;
+                Interrupt_IDs[39]=6'd39;
+                Interrupt_IDs[40]=6'd40;
+                Interrupt_IDs[41]=6'd41;
+                Interrupt_IDs[42]=6'd42;
+                Interrupt_IDs[43]=6'd43;
+                Interrupt_IDs[44]=6'd44;
+                Interrupt_IDs[45]=6'd45;
+                Interrupt_IDs[46]=6'd46;
+                Interrupt_IDs[47]=6'd47;
+                Interrupt_IDs[48]=6'd48;
+                Interrupt_IDs[49]=6'd49;
+                Interrupt_IDs[50]=6'd50;
+                Interrupt_IDs[51]=6'd51;
+                Interrupt_IDs[52]=6'd52;
+                Interrupt_IDs[53]=6'd53;
+                Interrupt_IDs[54]=6'd54;
+                Interrupt_IDs[55]=6'd55;
+                Interrupt_IDs[56]=6'd56;
+                Interrupt_IDs[57]=6'd57;
+                Interrupt_IDs[58]=6'd58;
+                Interrupt_IDs[59]=6'd59;
+                Interrupt_IDs[60]=6'd60;
+                Interrupt_IDs[61]=6'd61;
+                Interrupt_IDs[62]=6'd62;
+                Interrupt_IDs[63]=6'd63;
+            end
+        end
+    end
+    
+  /*  always@(*)
+    begin
+        HP_ID1=HP_ID[0][5][0];
+        HP_ID2=HP_ID[1][5][0];
+        HP_ID3=HP_ID[2][5][0];
+        HP_ID4=HP_ID[3][5][0];
+        
+        en1=enabled[0][5][0];
+        en2=enabled[1][5][0];
+        en3=enabled[2][5][0];
+        en4=enabled[3][5][0];
+        
+        Active1= HP_Active_Interrupt[0][7:0];
+        Active2= HP_Active_Interrupt[1][7:0];
+        Active3= HP_Active_Interrupt[2][7:0];
+        Active4= HP_Active_Interrupt[3][7:0];
+        
+        
+        HP1=output_priority[0][5][0];
+        HP2=output_priority[1][5][0];
+        HP3=output_priority[2][5][0];
+        HP4=output_priority[3][5][0];
+    end*/
 
    integer p_number; 
    task IC_reset;
@@ -2580,6 +2930,7 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
                
                ICCEOIR[p_number]=32'd0;
                ICCPMR[p_number]=32'h00000000;
+               
             end
             
             //processor_targets
@@ -2648,6 +2999,7 @@ module Interrupt_Controller(CPU_ID,address,data_in,data_out,read,enable_RW,clk,r
             
             //the CPU interface registers initialization
             ICCICR=32'hFFFFFFFF;
+            
        end     
    endtask
    

@@ -67,6 +67,12 @@ module Priority_Check(
     reg target_proc1;
     reg target_proc2;
     
+    initial
+    begin
+        $display("%m");
+    end
+    
+    
     always@(*)
     begin
         case(Dist_no)

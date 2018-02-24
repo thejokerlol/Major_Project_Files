@@ -2,12 +2,14 @@
 # Webtalk v2015.2 (64-bit)
 # SW Build 1266856 on Fri Jun 26 16:35:25 MDT 2015
 # IP Build 1264090 on Wed Jun 24 14:22:01 MDT 2015
-# Start of session at: Wed Feb 21 20:37:42 2018
-# Process ID: 8792
+# Start of session at: Sun Feb 25 02:08:51 2018
+# Process ID: 8720
 # Log file: C:/Users/vamsi/Desktop/MAJOR_PROJECT/Major_Project_Files/project_1/project_1.sim/sim_1/synth/timing/webtalk.log
 # Journal file: C:/Users/vamsi/Desktop/MAJOR_PROJECT/Major_Project_Files/project_1/project_1.sim/sim_1/synth/timing\webtalk.jou
 #-----------------------------------------------------------
 source C:/Users/vamsi/Desktop/MAJOR_PROJECT/Major_Project_Files/project_1/project_1.sim/sim_1/synth/timing/xsim.dir/Interrupt_Controller_TestBench_time_synth/webtalk/xsim_webtalk.tcl -notrace
-INFO: [Common 17-186] 'C:/Users/vamsi/Desktop/MAJOR_PROJECT/Major_Project_Files/project_1/project_1.sim/sim_1/synth/timing/xsim.dir/Interrupt_Controller_TestBench_time_synth/webtalk/usage_statistics_ext_xsim.xml' has been successfully sent to Xilinx on Wed Feb 21 20:37:47 2018. For additional details about this file, please refer to the WebTalk help file at C:/Xilinx/Vivado/2015.2/doc/webtalk_introduction.html.
-webtalk_transmit: Time (s): cpu = 00:00:00 ; elapsed = 00:00:05 . Memory (MB): peak = 60.645 ; gain = 0.016
-INFO: [Common 17-206] Exiting Webtalk at Wed Feb 21 20:37:47 2018...
+
+    while executing
+"webtalk_transmit -clientid 3084985361 -regid "211223928_0_0_462" -xml C:/Users/vamsi/Desktop/MAJOR_PROJECT/Major_Project_Files/project_1/project_1.sim..."
+    (file "C:/Users/vamsi/Desktop/MAJOR_PROJECT/Major_Project_Files/project_1/project_1.sim/sim_1/synth/timing/xsim.dir/Interrupt_Controller_TestBench_time_synth..." line 32)
+INFO: [Common 17-206] Exiting Webtalk at Sun Feb 25 02:08:51 2018...

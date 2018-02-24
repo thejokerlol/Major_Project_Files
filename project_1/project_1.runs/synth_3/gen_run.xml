@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_3" LaunchPart="xc7a100tcsg324-1" LaunchTime="1519238652">
-  <File Type="RDS-DCP" Name="Interrupt_Controller.dcp"/>
+<GenRun Id="synth_3" LaunchPart="xc7a100tcsg324-1" LaunchTime="1519322849">
   <File Type="RUN-CONSTRS" Name="$PDATADIR/runs/synth_3/constrs_in.xml"/>
-  <File Type="RDS-UTIL-PB" Name="Interrupt_Controller_utilization_synth.pb"/>
+  <File Type="RDS-DCP" Name="Interrupt_Controller.dcp"/>
   <File Type="RUN-SRCS" Name="$PDATADIR/runs/synth_3/sources.xml"/>
-  <File Type="RDS-PROPCONSTRS" Name="Interrupt_Controller_drc_synth.rpt"/>
-  <File Type="PA-TCL" Name="Interrupt_Controller.tcl"/>
+  <File Type="RDS-UTIL-PB" Name="Interrupt_Controller_utilization_synth.pb"/>
   <File Type="RUN-STRAT" Name="$PDATADIR/runs/synth_3/synth_3.psg"/>
+  <File Type="PA-TCL" Name="Interrupt_Controller.tcl"/>
+  <File Type="RDS-PROPCONSTRS" Name="Interrupt_Controller_drc_synth.rpt"/>
   <File Type="RDS-RDS" Name="Interrupt_Controller.vds"/>
   <File Type="RDS-UTIL" Name="Interrupt_Controller_utilization_synth.rpt"/>
   <File Type="VDS-TIMINGSUMMARY" Name="Interrupt_Controller_timing_summary_synth.rpt"/>
@@ -46,9 +46,9 @@
     </Config>
   </FileSet>
   <Strategy Version="1" Minor="2">
-    <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2015">
-      <Desc>Vivado Synthesis Defaults</Desc>
-    </StratHandle>
-    <Step Id="synth_design"/>
+    <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2015"/>
+    <Step Id="synth_design">
+      <Option Id="FlattenHierarchy">1</Option>
+    </Step>
   </Strategy>
 </GenRun>

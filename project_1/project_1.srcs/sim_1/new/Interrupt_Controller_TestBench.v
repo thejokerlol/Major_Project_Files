@@ -41,11 +41,36 @@ module Interrupt_Controller_TestBench(
     wire RW_err;
     wire ready;
     
+    
+   /* wire[7:0] HP1;
+    wire[7:0] HP2;
+    wire[7:0] HP3;
+    wire[7:0] HP4;
+    
+    wire[5:0] HP_ID1;
+    wire[5:0] HP_ID2;
+    wire[5:0] HP_ID3;
+    wire[5:0] HP_ID4;
+    
+    wire[7:0] Active1;
+    wire[7:0] Active2;
+    wire[7:0] Active3;
+    wire[7:0] Active4;
+    
+    wire en1;
+    wire en2;
+    wire en3;
+    wire en4;*/
+    
     parameter CPU_INTERFACE_BASE_ADDRESS=32'd4096;
     parameter DISTRIBUTOR_BASE_ADDRESS=32'd0;
     
     Interrupt_Controller IC(CPU_ID,address,data_in,data_out,read,enable_RW,clk,reset,
                         PPI_1,PPI_2,PPI_3,PPI_4,SPI,IRQ,FIQ,RW_err,ready
+                       /* HP_ID1,HP_ID2,HP_ID3,HP_ID4,
+                                            HP1,HP2,HP3,HP4,
+                                            Active1,Active2,Active3,Active4,
+                                            en1,en2,en3,en4*/
         );
         
         initial
@@ -65,85 +90,85 @@ module Interrupt_Controller_TestBench(
         end
         
         always
-            #5 clk=!clk;
+            #20 clk=!clk;
         
         
         initial
-            #350 $finish();
+            #1400 $finish();
             
         initial
         begin
             #100
-           #1 reset=1'b0;
-           #2 reset=1'b1;
-           #10 PPI_1=16'h00FF;
+           #25 reset=1'b0;
+           #5 reset=1'b1;
+           #40 PPI_1=16'h00FF;
            //there shpuld be an IRQ signal output here
-           #20 PPI_1=16'h0F00;
+           #80 PPI_1=16'h0F00;
            
            
            //there shpuld be an IRQ signal output here
-           #10 address=CPU_INTERFACE_BASE_ADDRESS+8'h0C;
+           #40 address=CPU_INTERFACE_BASE_ADDRESS+8'h0C;
                read=1'b1;
                enable_RW=1'b1;
-           #10 enable_RW=1'b0; 
+           #40 enable_RW=1'b0; 
            //for a software generated interrupt
-           #20 read=1'b0;
+           #80 read=1'b0;
                enable_RW=1'b1;
                address=DISTRIBUTOR_BASE_ADDRESS+12'hF00;
                data_in=32'hFFFFFFF3;
-           #10 enable_RW=1'b0;
+           #40 enable_RW=1'b0;
            //for a shared peripheral interrupt
           // #10 SPI=32'h000F;
            //an IRQ signal here should be generated ofcourse
           // #10 SPI=32'h0000;
            
            //EOI handling a read
-           #10 read=1'b0;
+           #40 read=1'b0;
                enable_RW=1'b1;
                address=CPU_INTERFACE_BASE_ADDRESS+8'h10;
                data_in=32'hFFFFFFD8;
-           #10 enable_RW=1'b0;
+           #40 enable_RW=1'b0;
            
            //enable the other CPU interrupts
            
-           #10 PPI_2=16'hF0F0;
+           #40 PPI_2=16'hF0F0;
                PPI_3=16'h000F;
                PPI_4=16'h0F0F;
                
            //for a software genrated interrupt
-           #10 CPU_ID=2'b01;
+           #40 CPU_ID=2'b01;
                read=1'b0;
                enable_RW=1'b1;
                address=DISTRIBUTOR_BASE_ADDRESS+12'hF00;
                data_in=32'hFFFFFFF3;
             
             //for another software generated interrupt for processor 3   
-           #10 CPU_ID=2'b10;
+           #40 CPU_ID=2'b10;
                read=1'b0;
                enable_RW=1'b1;
                address=DISTRIBUTOR_BASE_ADDRESS+12'hF00;
                data_in=32'hFFFFFFF7;
                
-           #10 enable_RW=1'b0;    
+           #40 enable_RW=1'b0;    
            //an interrupt acknowledge register
-           #10 CPU_ID=2'b01;
+           #40 CPU_ID=2'b01;
                read=1'b1;
                enable_RW=1'b1;
                address=CPU_INTERFACE_BASE_ADDRESS+8'h0C;
                read=1'b1;
                enable_RW=1'b1;
                
-           #10 enable_RW=1'b0;
+           #40 enable_RW=1'b0;
            
            
            //an end of interrupt for processor2
-           #20 CPU_ID=2'b01;
+           #80 CPU_ID=2'b01;
                read=1'b0; 
                enable_RW=1'b1;
                address=CPU_INTERFACE_BASE_ADDRESS+8'h10;
                data_in=32'hFFFFFFFA;
                
-           #10 enable_RW=1'b0;                 
+           #40 enable_RW=1'b0;                 
         end    
         
         

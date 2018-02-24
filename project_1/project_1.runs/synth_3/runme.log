@@ -10,13 +10,13 @@ WARNING: Default location for XILINX_VIVADO_HLS not found:
     ** Copyright 1986-2015 Xilinx, Inc. All Rights Reserved.
 
 source Interrupt_Controller.tcl -notrace
-Command: synth_design -top Interrupt_Controller -part xc7a100tcsg324-1
+Command: synth_design -top Interrupt_Controller -part xc7a100tcsg324-1 -flatten_hierarchy none
 Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xc7a100t'
 INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a100t'
 INFO: [Common 17-1223] The version limit for your license is '2017.08' and will expire in -175 days. A version limit expiration means that, although you may be able to continue to use the current version of tools or IP with this license, you will not be eligible for any updates or new releases.
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:19 . Memory (MB): peak = 244.512 ; gain = 68.660
+Starting RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 244.813 ; gain = 68.820
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-638] synthesizing module 'Interrupt_Controller' [C:/Users/vamsi/Desktop/MAJOR_PROJECT/Major_Project_Files/project_1/project_1.srcs/sources_1/new/Interrupt_Controller.v:23]
 	Parameter DISTRIBUTOR_BASE_ADDRESS bound to: 0 - type: integer 
@@ -31,7 +31,7 @@ INFO: [Synth 8-4512] found unpartitioned construct node [C:/Users/vamsi/Desktop/
 INFO: [Synth 8-256] done synthesizing module 'Interrupt_Controller' (2#1) [C:/Users/vamsi/Desktop/MAJOR_PROJECT/Major_Project_Files/project_1/project_1.srcs/sources_1/new/Interrupt_Controller.v:23]
 WARNING: [Synth 8-3917] design Interrupt_Controller has port ready driven by constant 1
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:21 ; elapsed = 00:00:36 . Memory (MB): peak = 466.480 ; gain = 290.629
+Finished RTL Elaboration : Time (s): cpu = 00:00:21 ; elapsed = 00:00:23 . Memory (MB): peak = 466.855 ; gain = 290.863
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -41,7 +41,7 @@ Report Check Netlist:
 |1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
 +------+------------------+-------+---------+-------+------------------+
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:24 ; elapsed = 00:00:39 . Memory (MB): peak = 466.480 ; gain = 290.629
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:24 ; elapsed = 00:00:26 . Memory (MB): peak = 466.855 ; gain = 290.863
 ---------------------------------------------------------------------------------
 INFO: [Device 21-403] Loading part xc7a100tcsg324-1
 INFO: [Project 1-570] Preparing netlist for logic optimization
@@ -57,22 +57,22 @@ Completed Processing XDC Constraints
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.328 . Memory (MB): peak = 813.703 ; gain = 0.023
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.320 . Memory (MB): peak = 814.199 ; gain = 0.000
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:47 ; elapsed = 00:01:10 . Memory (MB): peak = 813.703 ; gain = 637.852
+Finished Constraint Validation : Time (s): cpu = 00:00:48 ; elapsed = 00:00:53 . Memory (MB): peak = 814.199 ; gain = 638.207
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a100tcsg324-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:47 ; elapsed = 00:01:10 . Memory (MB): peak = 813.703 ; gain = 637.852
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:48 ; elapsed = 00:00:53 . Memory (MB): peak = 814.199 ; gain = 638.207
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:47 ; elapsed = 00:01:10 . Memory (MB): peak = 813.703 ; gain = 637.852
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:48 ; elapsed = 00:00:53 . Memory (MB): peak = 814.199 ; gain = 638.207
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-5544] ROM "enabled" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
 INFO: [Synth 8-5545] ROM "RW_err" won't be mapped to RAM because address size (32) is larger than maximum supported(18)
@@ -233,26 +233,26 @@ INFO: [Synth 8-5544] ROM "IRQ" won't be mapped to Block RAM because address size
 INFO: [Synth 8-5544] ROM "IRQ" won't be mapped to Block RAM because address size (1) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "IRQ" won't be mapped to Block RAM because address size (1) smaller than threshold (5)
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:01:12 ; elapsed = 00:01:39 . Memory (MB): peak = 813.703 ; gain = 637.852
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:01:12 ; elapsed = 00:01:23 . Memory (MB): peak = 814.199 ; gain = 638.207
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
 +------+---------------------------+------------+----------+
 |      |RTL Partition              |Replication |Instances |
 +------+---------------------------+------------+----------+
-|1     |Interrupt_Controller__GB0  |           1|     28683|
-|2     |Interrupt_Controller__GB1  |           1|     13520|
-|3     |Interrupt_Controller__GB2  |           1|     12641|
-|4     |Interrupt_Controller__GB3  |           1|     13200|
-|5     |Interrupt_Controller__GB4  |           1|     20829|
-|6     |Interrupt_Controller__GB5  |           1|     25977|
-|7     |Interrupt_Controller__GB6  |           1|     22932|
-|8     |Interrupt_Controller__GB7  |           1|     19079|
-|9     |Interrupt_Controller__GB8  |           1|     44208|
-|10    |Interrupt_Controller__GB9  |           1|     43213|
-|11    |Interrupt_Controller__GB10 |           1|     11500|
-|12    |Interrupt_Controller__GB11 |           1|     40143|
-|13    |Interrupt_Controller__GB12 |           1|     31105|
+|1     |Interrupt_Controller__GB0  |           1|     41059|
+|2     |Interrupt_Controller__GB1  |           1|     10412|
+|3     |Interrupt_Controller__GB2  |           1|      8840|
+|4     |Interrupt_Controller__GB3  |           1|     17715|
+|5     |Interrupt_Controller__GB4  |           1|     23577|
+|6     |Interrupt_Controller__GB5  |           1|     25096|
+|7     |Interrupt_Controller__GB6  |           1|     29935|
+|8     |Interrupt_Controller__GB7  |           1|     44861|
+|9     |Interrupt_Controller__GB8  |           1|     40019|
+|10    |Interrupt_Controller__GB9  |           1|     13612|
+|11    |Interrupt_Controller__GB10 |           1|     43510|
+|12    |Interrupt_Controller__GB11 |           1|     10433|
+|13    |Interrupt_Controller__GB12 |           1|     17961|
 +------+---------------------------+------------+----------+
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
@@ -263,9 +263,9 @@ Detailed RTL Component Info :
 	                2 Bit    Registers := 224   
 	                1 Bit    Registers := 1     
 +---Muxes : 
-	   2 Input     32 Bit        Muxes := 214   
 	   4 Input     32 Bit        Muxes := 75    
 	  55 Input     32 Bit        Muxes := 1     
+	   2 Input     32 Bit        Muxes := 214   
 	   2 Input     27 Bit        Muxes := 16    
 	   4 Input     27 Bit        Muxes := 1     
 	   4 Input      8 Bit        Muxes := 252   
@@ -275,10 +275,10 @@ Detailed RTL Component Info :
 	  58 Input      6 Bit        Muxes := 1     
 	   4 Input      4 Bit        Muxes := 252   
 	   2 Input      4 Bit        Muxes := 756   
-	   4 Input      2 Bit        Muxes := 380   
-	   2 Input      2 Bit        Muxes := 1348  
 	   3 Input      2 Bit        Muxes := 64    
+	   2 Input      2 Bit        Muxes := 1348  
 	   5 Input      2 Bit        Muxes := 32    
+	   4 Input      2 Bit        Muxes := 380   
 	   4 Input      1 Bit        Muxes := 1052  
 	   2 Input      1 Bit        Muxes := 1586  
 ---------------------------------------------------------------------------------
@@ -295,17 +295,17 @@ Detailed RTL Component Info :
 	                2 Bit    Registers := 224   
 	                1 Bit    Registers := 1     
 +---Muxes : 
-	   2 Input     32 Bit        Muxes := 214   
 	   4 Input     32 Bit        Muxes := 75    
 	  55 Input     32 Bit        Muxes := 1     
+	   2 Input     32 Bit        Muxes := 214   
 	   2 Input     27 Bit        Muxes := 16    
 	   4 Input     27 Bit        Muxes := 1     
 	  58 Input      6 Bit        Muxes := 1     
 	   4 Input      6 Bit        Muxes := 1     
-	   4 Input      2 Bit        Muxes := 128   
-	   2 Input      2 Bit        Muxes := 592   
 	   3 Input      2 Bit        Muxes := 64    
+	   2 Input      2 Bit        Muxes := 592   
 	   5 Input      2 Bit        Muxes := 32    
+	   4 Input      2 Bit        Muxes := 128   
 	   4 Input      1 Bit        Muxes := 296   
 	   2 Input      1 Bit        Muxes := 578   
 Module Priority_Check__1 
@@ -3596,40 +3596,37 @@ BRAMs: 270 (col length: RAMB18 80 RAMB36 40)
 ---------------------------------------------------------------------------------
 Finished Part Resource Summary
 ---------------------------------------------------------------------------------
-Start Parallel Synthesis Optimization  : Time (s): cpu = 00:01:18 ; elapsed = 00:01:45 . Memory (MB): peak = 813.703 ; gain = 637.852
+Start Parallel Synthesis Optimization  : Time (s): cpu = 00:01:18 ; elapsed = 00:01:29 . Memory (MB): peak = 814.199 ; gain = 638.207
 ---------------------------------------------------------------------------------
 Start Cross Boundary Optimization
 ---------------------------------------------------------------------------------
 WARNING: [Synth 8-3917] design Interrupt_Controller has port ready driven by constant 1
 ---------------------------------------------------------------------------------
-Finished Cross Boundary Optimization : Time (s): cpu = 00:01:26 ; elapsed = 00:03:29 . Memory (MB): peak = 813.703 ; gain = 637.852
+Finished Cross Boundary Optimization : Time (s): cpu = 00:01:31 ; elapsed = 00:04:44 . Memory (MB): peak = 814.199 ; gain = 638.207
 ---------------------------------------------------------------------------------
-Finished Parallel Reinference  : Time (s): cpu = 00:01:26 ; elapsed = 00:03:29 . Memory (MB): peak = 813.703 ; gain = 637.852
+Finished Parallel Reinference  : Time (s): cpu = 00:01:31 ; elapsed = 00:04:44 . Memory (MB): peak = 814.199 ; gain = 638.207
 
 Report RTL Partitions: 
 +------+---------------------------+------------+----------+
 |      |RTL Partition              |Replication |Instances |
 +------+---------------------------+------------+----------+
-|1     |Interrupt_Controller__GB0  |           1|     28773|
-|2     |Interrupt_Controller__GB1  |           1|     13520|
-|3     |Interrupt_Controller__GB2  |           1|     13541|
-|4     |Interrupt_Controller__GB3  |           1|     14010|
-|5     |Interrupt_Controller__GB4  |           1|     18372|
-|6     |Interrupt_Controller__GB5  |           1|     12342|
-|7     |Interrupt_Controller__GB6  |           1|     18567|
-|8     |Interrupt_Controller__GB7  |           1|     18773|
-|9     |Interrupt_Controller__GB8  |           1|     28562|
-|10    |Interrupt_Controller__GB9  |           1|     46588|
-|11    |Interrupt_Controller__GB10 |           1|     12400|
-|12    |Interrupt_Controller__GB11 |           1|     33969|
-|13    |Interrupt_Controller__GB12 |           1|      5113|
+|1     |Interrupt_Controller__GB0  |           1|     41122|
+|2     |Interrupt_Controller__GB1  |           1|     11087|
+|3     |Interrupt_Controller__GB2  |           1|      9277|
+|4     |Interrupt_Controller__GB3  |           1|     17220|
+|5     |Interrupt_Controller__GB4  |           1|     25422|
+|6     |Interrupt_Controller__GB5  |           1|     24808|
+|7     |Interrupt_Controller__GB6  |           1|     27046|
+|8     |Interrupt_Controller__GB7  |           1|     39011|
+|9     |Interrupt_Controller__GB8  |           1|     32297|
+|10    |Interrupt_Controller__GB9  |           1|      2668|
+|11    |Interrupt_Controller__GB10 |           1|     24988|
+|12    |Interrupt_Controller__GB11 |           1|      7697|
+|13    |Interrupt_Controller__GB12 |           1|      2229|
 +------+---------------------------+------------+----------+
 ---------------------------------------------------------------------------------
 Start Area Optimization
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_12/\genblk7[1].FIQ_reg[1] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_12/\genblk7[2].FIQ_reg[2] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_12/\genblk7[3].FIQ_reg[3] )
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (\ICCRPR_reg[3][8] )
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (\ICCRPR_reg[2][8] )
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (\ICCRPR_reg[3][9] )
@@ -3696,30 +3693,33 @@ INFO: [Synth 8-3333] propagating constant 0 across sequential element (\ICCRPR_r
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (\ICCRPR_reg[2][6] )
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (\ICCRPR_reg[2][7] )
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (\genblk7[0].FIQ_reg[0] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\genblk7[1].FIQ_reg[1] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\genblk7[2].FIQ_reg[2] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\genblk7[3].FIQ_reg[3] )
 ---------------------------------------------------------------------------------
-Finished Area Optimization : Time (s): cpu = 00:01:41 ; elapsed = 00:06:18 . Memory (MB): peak = 825.063 ; gain = 649.211
+Finished Area Optimization : Time (s): cpu = 00:02:08 ; elapsed = 00:07:07 . Memory (MB): peak = 814.199 ; gain = 638.207
 ---------------------------------------------------------------------------------
-Finished Parallel Area Optimization  : Time (s): cpu = 00:01:41 ; elapsed = 00:06:18 . Memory (MB): peak = 825.063 ; gain = 649.211
+Finished Parallel Area Optimization  : Time (s): cpu = 00:02:08 ; elapsed = 00:07:07 . Memory (MB): peak = 814.199 ; gain = 638.207
 
 Report RTL Partitions: 
 +------+---------------------------+------------+----------+
 |      |RTL Partition              |Replication |Instances |
 +------+---------------------------+------------+----------+
-|1     |Interrupt_Controller__GB0  |           1|     10085|
-|2     |Interrupt_Controller__GB1  |           1|      4692|
-|3     |Interrupt_Controller__GB2  |           1|      2644|
-|4     |Interrupt_Controller__GB3  |           1|      3554|
-|5     |Interrupt_Controller__GB4  |           1|      2479|
-|6     |Interrupt_Controller__GB5  |           1|      3577|
-|7     |Interrupt_Controller__GB6  |           1|      2895|
-|8     |Interrupt_Controller__GB7  |           1|      4879|
-|9     |Interrupt_Controller__GB8  |           1|      6805|
-|10    |Interrupt_Controller__GB9  |           1|      7682|
-|11    |Interrupt_Controller__GB10 |           1|      2124|
-|12    |Interrupt_Controller__GB11 |           1|      5282|
-|13    |Interrupt_Controller__GB12 |           1|      1246|
+|1     |Interrupt_Controller__GB0  |           1|     18759|
+|2     |Interrupt_Controller__GB1  |           1|      2091|
+|3     |Interrupt_Controller__GB2  |           1|      1712|
+|4     |Interrupt_Controller__GB3  |           1|      2497|
+|5     |Interrupt_Controller__GB4  |           1|      3691|
+|6     |Interrupt_Controller__GB5  |           1|      4310|
+|7     |Interrupt_Controller__GB6  |           1|      4430|
+|8     |Interrupt_Controller__GB7  |           1|      5863|
+|9     |Interrupt_Controller__GB8  |           1|      6001|
+|10    |Interrupt_Controller__GB9  |           1|       734|
+|11    |Interrupt_Controller__GB10 |           1|      4577|
+|12    |Interrupt_Controller__GB11 |           1|      1996|
+|13    |Interrupt_Controller__GB12 |           1|       353|
 +------+---------------------------+------------+----------+
-Finished Parallel Synthesis Optimization  : Time (s): cpu = 00:01:41 ; elapsed = 00:06:18 . Memory (MB): peak = 825.063 ; gain = 649.211
+Finished Parallel Synthesis Optimization  : Time (s): cpu = 00:02:08 ; elapsed = 00:07:07 . Memory (MB): peak = 814.199 ; gain = 638.207
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
@@ -3727,26 +3727,23 @@ Start Timing Optimization
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:02:02 ; elapsed = 00:07:29 . Memory (MB): peak = 963.395 ; gain = 787.543
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:02:28 ; elapsed = 00:07:53 . Memory (MB): peak = 912.875 ; gain = 736.883
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:06:14 ; elapsed = 00:12:30 . Memory (MB): peak = 1015.258 ; gain = 839.406
+Finished Timing Optimization : Time (s): cpu = 00:04:14 ; elapsed = 00:10:00 . Memory (MB): peak = 963.617 ; gain = 787.625
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
 +------+-------------------------+------------+----------+
 |      |RTL Partition            |Replication |Instances |
 +------+-------------------------+------------+----------+
-|1     |Priority_Check__85       |           1|        92|
-|2     |Interrupt_Controller_GT1 |           1|       612|
-|3     |Interrupt_Controller_GT3 |           1|      6658|
-|4     |Interrupt_Controller_GT0 |           1|     47819|
+|1     |Interrupt_Controller_GT0 |           1|     54140|
 +------+-------------------------+------------+----------+
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:07:22 ; elapsed = 00:13:43 . Memory (MB): peak = 1158.129 ; gain = 982.277
+Finished Technology Mapping : Time (s): cpu = 00:05:11 ; elapsed = 00:11:15 . Memory (MB): peak = 996.398 ; gain = 820.406
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -3763,8 +3760,109 @@ Start Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[2].(null)[4].P1 :ID1[5] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[2].(null)[4].P1 :ID1[4] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[2].(null)[4].P1 :ID1[3] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[2].(null)[4].P1 :ID1[2] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[2].(null)[4].P1 :ID2[5] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[2].(null)[4].P1 :ID2[4] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[2].(null)[4].P1 :ID2[3] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[2].(null)[4].P1 :ID2[2] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[2].(null)[4].P1 :Dist_no[1] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[2].(null)[4].P1 :Dist_no[0] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[2].(null)[4].P1 :target_proc_list1[2] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[2].(null)[4].P1 :target_proc_list1[1] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[2].(null)[4].P1 :target_proc_list1[0] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[2].(null)[4].P1 :target_proc_list2[2] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[2].(null)[4].P1 :target_proc_list2[1] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[2].(null)[4].P1 :target_proc_list2[0] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[1].(null)[10].P1 :ID1[5] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[1].(null)[10].P1 :ID1[4] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[1].(null)[10].P1 :ID1[3] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[1].(null)[10].P1 :ID1[2] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[1].(null)[10].P1 :ID1[1] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[1].(null)[10].P1 :ID2[5] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[1].(null)[10].P1 :ID2[4] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[1].(null)[10].P1 :ID2[3] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[1].(null)[10].P1 :ID2[2] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[1].(null)[10].P1 :ID2[1] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[1].(null)[10].P1 :Dist_no[1] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[1].(null)[10].P1 :Dist_no[0] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[1].(null)[10].P1 :target_proc_list1[2] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[1].(null)[10].P1 :target_proc_list1[1] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[1].(null)[10].P1 :target_proc_list1[0] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[1].(null)[10].P1 :target_proc_list2[2] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[1].(null)[10].P1 :target_proc_list2[1] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[1].(null)[10].P1 :target_proc_list2[0] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[0].(null)[22].P1 :ID1[5] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[0].(null)[22].P1 :ID1[4] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[0].(null)[22].P1 :ID1[3] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[0].(null)[22].P1 :ID1[2] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[0].(null)[22].P1 :ID1[1] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[0].(null)[22].P1 :ID1[0] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[0].(null)[22].P1 :ID2[5] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[0].(null)[22].P1 :ID2[4] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[0].(null)[22].P1 :ID2[3] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[0].(null)[22].P1 :ID2[2] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[0].(null)[22].P1 :ID2[1] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[0].(null)[22].P1 :ID2[0] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[0].(null)[22].P1 :Dist_no[1] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[0].(null)[22].P1 :Dist_no[0] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[0].(null)[22].P1 :target_proc_list1[2] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[0].(null)[22].P1 :target_proc_list1[1] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[0].(null)[22].P1 :target_proc_list1[0] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[0].(null)[22].P1 :target_proc_list2[2] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[0].(null)[22].P1 :target_proc_list2[1] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[0].(null)[22].P1 :target_proc_list2[0] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[0].(null)[20].P1 :ID1[5] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[0].(null)[20].P1 :ID1[4] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[0].(null)[20].P1 :ID1[3] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[0].(null)[20].P1 :ID1[2] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[0].(null)[20].P1 :ID1[1] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[0].(null)[20].P1 :ID1[0] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[0].(null)[20].P1 :ID2[5] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[0].(null)[20].P1 :ID2[4] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[0].(null)[20].P1 :ID2[3] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[0].(null)[20].P1 :ID2[2] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[0].(null)[20].P1 :ID2[1] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[0].(null)[20].P1 :ID2[0] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[0].(null)[20].P1 :Dist_no[1] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[0].(null)[20].P1 :Dist_no[0] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[0].(null)[20].P1 :target_proc_list1[2] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[0].(null)[20].P1 :target_proc_list1[1] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[0].(null)[20].P1 :target_proc_list1[0] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[0].(null)[20].P1 :target_proc_list2[2] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[0].(null)[20].P1 :target_proc_list2[1] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[0].(null)[20].P1 :target_proc_list2[0] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[5].(null)[0].P1 :ID1[5] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[5].(null)[0].P1 :Dist_no[1] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[5].(null)[0].P1 :Dist_no[0] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[5].(null)[0].P1 :target_proc_list1[2] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[5].(null)[0].P1 :target_proc_list1[1] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[5].(null)[0].P1 :target_proc_list1[0] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[5].(null)[0].P1 :target_proc_list2[2] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[5].(null)[0].P1 :target_proc_list2[1] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[5].(null)[0].P1 :target_proc_list2[0] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[4].(null)[0].P1 :ID1[5] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[4].(null)[0].P1 :ID1[4] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[4].(null)[0].P1 :ID2[5] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[4].(null)[0].P1 :ID2[4] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[4].(null)[0].P1 :Dist_no[1] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[4].(null)[0].P1 :Dist_no[0] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[4].(null)[0].P1 :target_proc_list1[2] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[4].(null)[0].P1 :target_proc_list1[1] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[4].(null)[0].P1 :target_proc_list1[0] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[4].(null)[0].P1 :target_proc_list2[2] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[4].(null)[0].P1 :target_proc_list2[1] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[4].(null)[0].P1 :target_proc_list2[0] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[3].(null)[2].P1 :ID1[5] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[3].(null)[2].P1 :ID1[4] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[3].(null)[2].P1 :ID1[3] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[3].(null)[2].P1 :ID2[5] to constant 0
+WARNING: [Synth 8-3295] tying undriven pin \genblk6[3].genblk1[3].(null)[2].P1 :ID2[4] to constant 0
+INFO: [Common 17-14] Message 'Synth 8-3295' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:07:26 ; elapsed = 00:13:48 . Memory (MB): peak = 1158.129 ; gain = 982.277
+Finished IO Insertion : Time (s): cpu = 00:05:16 ; elapsed = 00:11:24 . Memory (MB): peak = 1000.668 ; gain = 824.676
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -3777,7 +3875,7 @@ Report Check Netlist:
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:07:27 ; elapsed = 00:13:49 . Memory (MB): peak = 1158.129 ; gain = 982.277
+Finished Renaming Generated Instances : Time (s): cpu = 00:05:17 ; elapsed = 00:11:24 . Memory (MB): peak = 1000.668 ; gain = 824.676
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -3785,18 +3883,6 @@ Report RTL Partitions:
 | |RTL Partition |Replication |Instances |
 +-+--------------+------------+----------+
 +-+--------------+------------+----------+
----------------------------------------------------------------------------------
-Start Rebuilding User Hierarchy
----------------------------------------------------------------------------------
----------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:07:29 ; elapsed = 00:13:52 . Memory (MB): peak = 1158.129 ; gain = 982.277
----------------------------------------------------------------------------------
----------------------------------------------------------------------------------
-Start Renaming Generated Ports : Time (s): cpu = 00:07:29 ; elapsed = 00:13:52 . Memory (MB): peak = 1158.129 ; gain = 982.277
----------------------------------------------------------------------------------
----------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:07:29 ; elapsed = 00:13:52 . Memory (MB): peak = 1158.129 ; gain = 982.277
----------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
 ---------------------------------------------------------------------------------
@@ -3814,46 +3900,297 @@ Report Cell Usage:
 |1     |BUFG   |     1|
 |2     |CARRY4 |   516|
 |3     |LUT1   |    17|
-|4     |LUT2   |  1740|
-|5     |LUT3   |  1280|
-|6     |LUT4   |  3189|
-|7     |LUT5   |  3275|
-|8     |LUT6   |  7073|
-|9     |MUXF7  |   189|
+|4     |LUT2   |  1847|
+|5     |LUT3   |  1470|
+|6     |LUT4   |  4276|
+|7     |LUT5   |  2695|
+|8     |LUT6   |  6924|
+|9     |MUXF7  |   229|
 |10    |MUXF8  |    31|
 |11    |FDCE   |  1988|
 |12    |FDPE   |   115|
-|13    |FDRE   |  1312|
-|14    |FDSE   |  1182|
+|13    |FDRE   |  1445|
+|14    |FDSE   |  1049|
 |15    |IBUF   |   166|
 |16    |OBUF   |    42|
 +------+-------+------+
 
 Report Instance Areas: 
-+------+---------+-------+------+
-|      |Instance |Module |Cells |
-+------+---------+-------+------+
-|1     |top      |       | 22116|
-+------+---------+-------+------+
++------+----------------------------------------+--------------------+------+
+|      |Instance                                |Module              |Cells |
++------+----------------------------------------+--------------------+------+
+|1     |top                                     |                    | 22811|
+|2     |  \genblk6[3].genblk1[2].(null)[4].P1   |Priority_Check__247 |    29|
+|3     |  \genblk6[3].genblk1[1].(null)[10].P1  |Priority_Check__248 |    31|
+|4     |  \genblk6[3].genblk1[0].(null)[22].P1  |Priority_Check__250 |    27|
+|5     |  \genblk6[3].genblk1[0].(null)[20].P1  |Priority_Check__251 |    27|
+|6     |  \genblk6[3].genblk1[5].(null)[0].P1   |Priority_Check__25  |    27|
+|7     |  \genblk6[3].genblk1[4].(null)[0].P1   |Priority_Check__34  |    29|
+|8     |  \genblk6[3].genblk1[3].(null)[2].P1   |Priority_Check__35  |    28|
+|9     |  \genblk6[0].genblk1[0].(null)[14].P1  |Priority_Check__2   |    27|
+|10    |  \genblk6[2].genblk1[0].(null)[0].P1   |Priority_Check__137 |    27|
+|11    |  \genblk6[2].genblk1[0].(null)[10].P1  |Priority_Check__23  |    27|
+|12    |  \genblk6[2].genblk1[0].(null)[8].P1   |Priority_Check__24  |    27|
+|13    |  \genblk6[3].genblk1[0].(null)[10].P1  |Priority_Check__16  |    27|
+|14    |  \genblk6[3].genblk1[0].(null)[8].P1   |Priority_Check__17  |    27|
+|15    |  \genblk6[0].genblk1[0].(null)[0].P1   |Priority_Check__152 |    27|
+|16    |  \genblk6[3].genblk1[1].(null)[8].P1   |Priority_Check__249 |    31|
+|17    |  \genblk6[2].genblk1[0].(null)[18].P1  |Priority_Check__112 |    27|
+|18    |  \genblk6[2].genblk1[0].(null)[16].P1  |Priority_Check__113 |    27|
+|19    |  \genblk6[1].genblk1[0].(null)[18].P1  |Priority_Check__240 |    27|
+|20    |  \genblk6[1].genblk1[0].(null)[16].P1  |Priority_Check__239 |    27|
+|21    |  \genblk6[0].genblk1[0].(null)[18].P1  |Priority_Check__124 |    27|
+|22    |  \genblk6[0].genblk1[0].(null)[16].P1  |Priority_Check__125 |    27|
+|23    |  \genblk6[3].genblk1[0].(null)[18].P1  |Priority_Check      |    27|
+|24    |  \genblk6[3].genblk1[0].(null)[16].P1  |Priority_Check__246 |    27|
+|25    |  \genblk6[3].genblk1[0].(null)[62].P1  |Priority_Check__67  |    27|
+|26    |  \genblk6[1].genblk1[0].(null)[62].P1  |Priority_Check__84  |    27|
+|27    |  \genblk6[2].genblk1[0].(null)[62].P1  |Priority_Check__76  |    27|
+|28    |  \genblk6[0].genblk1[0].(null)[62].P1  |Priority_Check__96  |    27|
+|29    |  \genblk6[3].genblk1[0].(null)[60].P1  |Priority_Check__68  |    27|
+|30    |  \genblk6[1].genblk1[0].(null)[60].P1  |Priority_Check__85  |    27|
+|31    |  \genblk6[2].genblk1[0].(null)[60].P1  |Priority_Check__77  |    27|
+|32    |  \genblk6[0].genblk1[0].(null)[60].P1  |Priority_Check__97  |    27|
+|33    |  \genblk6[3].genblk1[0].(null)[58].P1  |Priority_Check__69  |    27|
+|34    |  \genblk6[1].genblk1[0].(null)[58].P1  |Priority_Check__86  |    27|
+|35    |  \genblk6[2].genblk1[0].(null)[58].P1  |Priority_Check__78  |    27|
+|36    |  \genblk6[0].genblk1[0].(null)[58].P1  |Priority_Check__98  |    27|
+|37    |  \genblk6[3].genblk1[0].(null)[56].P1  |Priority_Check__70  |    27|
+|38    |  \genblk6[1].genblk1[0].(null)[56].P1  |Priority_Check__87  |    27|
+|39    |  \genblk6[2].genblk1[0].(null)[56].P1  |Priority_Check__79  |    27|
+|40    |  \genblk6[0].genblk1[0].(null)[56].P1  |Priority_Check__99  |    27|
+|41    |  \genblk6[0].genblk1[0].(null)[54].P1  |Priority_Check__100 |    27|
+|42    |  \genblk6[1].genblk1[0].(null)[54].P1  |Priority_Check__88  |    27|
+|43    |  \genblk6[3].genblk1[0].(null)[54].P1  |Priority_Check__71  |    27|
+|44    |  \genblk6[2].genblk1[0].(null)[54].P1  |Priority_Check__8   |    27|
+|45    |  \genblk6[0].genblk1[0].(null)[52].P1  |Priority_Check__101 |    27|
+|46    |  \genblk6[1].genblk1[0].(null)[52].P1  |Priority_Check__89  |    27|
+|47    |  \genblk6[3].genblk1[0].(null)[52].P1  |Priority_Check__72  |    27|
+|48    |  \genblk6[2].genblk1[0].(null)[52].P1  |Priority_Check__7   |    27|
+|49    |  \genblk6[0].genblk1[0].(null)[50].P1  |Priority_Check__59  |    27|
+|50    |  \genblk6[2].genblk1[0].(null)[50].P1  |Priority_Check__48  |    27|
+|51    |  \genblk6[1].genblk1[0].(null)[50].P1  |Priority_Check__55  |    27|
+|52    |  \genblk6[3].genblk1[0].(null)[50].P1  |Priority_Check__39  |    27|
+|53    |  \genblk6[0].genblk1[0].(null)[48].P1  |Priority_Check__60  |    27|
+|54    |  \genblk6[2].genblk1[0].(null)[48].P1  |Priority_Check__49  |    27|
+|55    |  \genblk6[1].genblk1[0].(null)[48].P1  |Priority_Check__56  |    27|
+|56    |  \genblk6[3].genblk1[0].(null)[48].P1  |Priority_Check__40  |    27|
+|57    |  \genblk6[0].genblk1[0].(null)[46].P1  |Priority_Check__205 |    27|
+|58    |  \genblk6[2].genblk1[0].(null)[46].P1  |Priority_Check__175 |    27|
+|59    |  \genblk6[1].genblk1[0].(null)[46].P1  |Priority_Check__190 |    27|
+|60    |  \genblk6[3].genblk1[0].(null)[46].P1  |Priority_Check__160 |    27|
+|61    |  \genblk6[0].genblk1[0].(null)[44].P1  |Priority_Check__206 |    27|
+|62    |  \genblk6[2].genblk1[0].(null)[44].P1  |Priority_Check__176 |    27|
+|63    |  \genblk6[1].genblk1[0].(null)[44].P1  |Priority_Check__191 |    27|
+|64    |  \genblk6[3].genblk1[0].(null)[44].P1  |Priority_Check__161 |    27|
+|65    |  \genblk6[0].genblk1[0].(null)[42].P1  |Priority_Check__207 |    27|
+|66    |  \genblk6[2].genblk1[0].(null)[42].P1  |Priority_Check__177 |    27|
+|67    |  \genblk6[1].genblk1[0].(null)[42].P1  |Priority_Check__192 |    27|
+|68    |  \genblk6[3].genblk1[0].(null)[42].P1  |Priority_Check__162 |    27|
+|69    |  \genblk6[0].genblk1[0].(null)[40].P1  |Priority_Check__208 |    27|
+|70    |  \genblk6[2].genblk1[0].(null)[40].P1  |Priority_Check__178 |    27|
+|71    |  \genblk6[1].genblk1[0].(null)[40].P1  |Priority_Check__193 |    27|
+|72    |  \genblk6[3].genblk1[0].(null)[40].P1  |Priority_Check__163 |    27|
+|73    |  \genblk6[0].genblk1[0].(null)[38].P1  |Priority_Check__209 |    27|
+|74    |  \genblk6[2].genblk1[0].(null)[38].P1  |Priority_Check__179 |    27|
+|75    |  \genblk6[1].genblk1[0].(null)[38].P1  |Priority_Check__194 |    27|
+|76    |  \genblk6[3].genblk1[0].(null)[38].P1  |Priority_Check__164 |    27|
+|77    |  \genblk6[0].genblk1[0].(null)[36].P1  |Priority_Check__210 |    27|
+|78    |  \genblk6[2].genblk1[0].(null)[36].P1  |Priority_Check__180 |    27|
+|79    |  \genblk6[1].genblk1[0].(null)[36].P1  |Priority_Check__195 |    27|
+|80    |  \genblk6[3].genblk1[0].(null)[36].P1  |Priority_Check__165 |    27|
+|81    |  \genblk6[0].genblk1[0].(null)[34].P1  |Priority_Check__211 |    27|
+|82    |  \genblk6[2].genblk1[0].(null)[34].P1  |Priority_Check__181 |    27|
+|83    |  \genblk6[1].genblk1[0].(null)[34].P1  |Priority_Check__196 |    27|
+|84    |  \genblk6[3].genblk1[0].(null)[34].P1  |Priority_Check__166 |    27|
+|85    |  \genblk6[0].genblk1[0].(null)[32].P1  |Priority_Check__212 |    27|
+|86    |  \genblk6[2].genblk1[0].(null)[32].P1  |Priority_Check__182 |    27|
+|87    |  \genblk6[1].genblk1[0].(null)[32].P1  |Priority_Check__197 |    27|
+|88    |  \genblk6[3].genblk1[0].(null)[32].P1  |Priority_Check__167 |    27|
+|89    |  \genblk6[3].genblk1[3].(null)[0].P1   |Priority_Check__10  |    33|
+|90    |  \genblk6[1].genblk1[5].(null)[0].P1   |Priority_Check__50  |    27|
+|91    |  \genblk6[0].genblk1[5].(null)[0].P1   |Priority_Check__27  |    27|
+|92    |  \genblk6[2].genblk1[5].(null)[0].P1   |Priority_Check__43  |    27|
+|93    |  \genblk6[3].genblk1[4].(null)[2].P1   |Priority_Check__26  |    30|
+|94    |  \genblk6[3].genblk1[2].(null)[6].P1   |Priority_Check__36  |    29|
+|95    |  \genblk6[3].genblk1[0].(null)[2].P1   |Priority_Check__20  |    27|
+|96    |  \genblk6[3].genblk1[0].(null)[0].P1   |Priority_Check__21  |    27|
+|97    |  \genblk6[2].genblk1[0].(null)[14].P1  |Priority_Check__132 |    27|
+|98    |  \genblk6[2].genblk1[0].(null)[12].P1  |Priority_Check__133 |    27|
+|99    |  \genblk6[1].genblk1[0].(null)[14].P1  |Priority_Check__116 |    27|
+|100   |  \genblk6[1].genblk1[0].(null)[12].P1  |Priority_Check__117 |    27|
+|101   |  \genblk6[0].genblk1[0].(null)[12].P1  |Priority_Check__1   |    27|
+|102   |  \genblk6[1].genblk1[0].(null)[4].P1   |Priority_Check__143 |    27|
+|103   |  \genblk6[2].genblk1[0].(null)[2].P1   |Priority_Check__136 |    27|
+|104   |  \genblk6[2].genblk1[0].(null)[4].P1   |Priority_Check__135 |    27|
+|105   |  \genblk6[1].genblk1[0].(null)[26].P1  |Priority_Check__221 |    27|
+|106   |  \genblk6[1].genblk1[0].(null)[0].P1   |Priority_Check__145 |    27|
+|107   |  \genblk6[3].genblk1[0].(null)[6].P1   |Priority_Check__18  |    27|
+|108   |  \genblk6[3].genblk1[0].(null)[12].P1  |Priority_Check__104 |    27|
+|109   |  \genblk6[2].genblk1[0].(null)[6].P1   |Priority_Check__134 |    27|
+|110   |  \genblk6[1].genblk1[0].(null)[2].P1   |Priority_Check__144 |    27|
+|111   |  \genblk6[0].genblk1[0].(null)[10].P1  |Priority_Check__32  |    28|
+|112   |  \genblk6[1].genblk1[0].(null)[10].P1  |Priority_Check__5   |    27|
+|113   |  \genblk6[1].genblk1[0].(null)[6].P1   |Priority_Check__142 |    27|
+|114   |  \genblk6[0].genblk1[0].(null)[2].P1   |Priority_Check__151 |    27|
+|115   |  \genblk6[3].genblk1[0].(null)[4].P1   |Priority_Check__19  |    27|
+|116   |  \genblk6[0].genblk1[0].(null)[4].P1   |Priority_Check__150 |    27|
+|117   |  \genblk6[1].genblk1[0].(null)[8].P1   |Priority_Check__4   |    27|
+|118   |  \genblk6[3].genblk1[0].(null)[14].P1  |Priority_Check__103 |    27|
+|119   |  \genblk6[0].genblk1[0].(null)[6].P1   |Priority_Check__149 |    27|
+|120   |  \genblk6[1].genblk1[0].(null)[30].P1  |Priority_Check__223 |    27|
+|121   |  \genblk6[1].genblk1[0].(null)[28].P1  |Priority_Check__222 |    27|
+|122   |  \genblk6[1].genblk1[0].(null)[24].P1  |Priority_Check__220 |    27|
+|123   |  \genblk6[1].genblk1[0].(null)[22].P1  |Priority_Check__242 |    27|
+|124   |  \genblk6[1].genblk1[0].(null)[20].P1  |Priority_Check__241 |    27|
+|125   |  \genblk6[2].genblk1[0].(null)[20].P1  |Priority_Check__111 |    27|
+|126   |  \genblk6[2].genblk1[0].(null)[22].P1  |Priority_Check__110 |    27|
+|127   |  \genblk6[0].genblk1[0].(null)[30].P1  |Priority_Check__216 |    27|
+|128   |  \genblk6[0].genblk1[0].(null)[28].P1  |Priority_Check__215 |    27|
+|129   |  \genblk6[0].genblk1[0].(null)[24].P1  |Priority_Check__213 |    27|
+|130   |  \genblk6[0].genblk1[0].(null)[22].P1  |Priority_Check__122 |    27|
+|131   |  \genblk6[2].genblk1[0].(null)[24].P1  |Priority_Check__229 |    27|
+|132   |  \genblk6[0].genblk1[0].(null)[20].P1  |Priority_Check__123 |    27|
+|133   |  \genblk6[3].genblk1[0].(null)[24].P1  |Priority_Check__42  |    27|
+|134   |  \genblk6[3].genblk1[0].(null)[26].P1  |Priority_Check__41  |    27|
+|135   |  \genblk6[3].genblk1[0].(null)[28].P1  |Priority_Check__236 |    27|
+|136   |  \genblk6[3].genblk1[0].(null)[30].P1  |Priority_Check__237 |    27|
+|137   |  \genblk6[2].genblk1[0].(null)[30].P1  |Priority_Check__232 |    27|
+|138   |  \genblk6[2].genblk1[0].(null)[28].P1  |Priority_Check__231 |    27|
+|139   |  \genblk6[0].genblk1[0].(null)[8].P1   |Priority_Check__33  |    28|
+|140   |  \genblk6[0].genblk1[0].(null)[26].P1  |Priority_Check__214 |    27|
+|141   |  \genblk6[2].genblk1[0].(null)[26].P1  |Priority_Check__230 |    27|
+|142   |  \genblk6[0].genblk1[1].(null)[6].P1   |Priority_Check__3   |    31|
+|143   |  \genblk6[2].genblk1[1].(null)[0].P1   |Priority_Check__131 |    28|
+|144   |  \genblk6[2].genblk1[1].(null)[4].P1   |Priority_Check__22  |    31|
+|145   |  \genblk6[3].genblk1[1].(null)[4].P1   |Priority_Check__13  |    31|
+|146   |  \genblk6[0].genblk1[1].(null)[0].P1   |Priority_Check__148 |    28|
+|147   |  \genblk6[2].genblk1[1].(null)[8].P1   |Priority_Check__109 |    31|
+|148   |  \genblk6[1].genblk1[1].(null)[8].P1   |Priority_Check__243 |    31|
+|149   |  \genblk6[0].genblk1[1].(null)[8].P1   |Priority_Check__121 |    31|
+|150   |  \genblk6[3].genblk1[1].(null)[30].P1  |Priority_Check__64  |    31|
+|151   |  \genblk6[1].genblk1[1].(null)[30].P1  |Priority_Check__81  |    31|
+|152   |  \genblk6[2].genblk1[1].(null)[30].P1  |Priority_Check__74  |    31|
+|153   |  \genblk6[0].genblk1[1].(null)[30].P1  |Priority_Check__93  |    31|
+|154   |  \genblk6[3].genblk1[1].(null)[28].P1  |Priority_Check__65  |    31|
+|155   |  \genblk6[1].genblk1[1].(null)[28].P1  |Priority_Check__82  |    31|
+|156   |  \genblk6[2].genblk1[1].(null)[28].P1  |Priority_Check__75  |    31|
+|157   |  \genblk6[0].genblk1[1].(null)[28].P1  |Priority_Check__94  |    31|
+|158   |  \genblk6[0].genblk1[1].(null)[26].P1  |Priority_Check__95  |    31|
+|159   |  \genblk6[1].genblk1[1].(null)[26].P1  |Priority_Check__83  |    31|
+|160   |  \genblk6[3].genblk1[1].(null)[26].P1  |Priority_Check__66  |    31|
+|161   |  \genblk6[2].genblk1[1].(null)[26].P1  |Priority_Check__9   |    31|
+|162   |  \genblk6[0].genblk1[1].(null)[24].P1  |Priority_Check__58  |    31|
+|163   |  \genblk6[2].genblk1[1].(null)[24].P1  |Priority_Check__47  |    26|
+|164   |  \genblk6[1].genblk1[1].(null)[24].P1  |Priority_Check__54  |    26|
+|165   |  \genblk6[3].genblk1[1].(null)[24].P1  |Priority_Check__37  |    31|
+|166   |  \genblk6[0].genblk1[1].(null)[22].P1  |Priority_Check__201 |    31|
+|167   |  \genblk6[2].genblk1[1].(null)[22].P1  |Priority_Check__171 |    31|
+|168   |  \genblk6[1].genblk1[1].(null)[22].P1  |Priority_Check__186 |    31|
+|169   |  \genblk6[3].genblk1[1].(null)[22].P1  |Priority_Check__156 |    31|
+|170   |  \genblk6[0].genblk1[1].(null)[20].P1  |Priority_Check__202 |    31|
+|171   |  \genblk6[2].genblk1[1].(null)[20].P1  |Priority_Check__172 |    31|
+|172   |  \genblk6[1].genblk1[1].(null)[20].P1  |Priority_Check__187 |    31|
+|173   |  \genblk6[3].genblk1[1].(null)[20].P1  |Priority_Check__157 |    31|
+|174   |  \genblk6[0].genblk1[1].(null)[18].P1  |Priority_Check__203 |    31|
+|175   |  \genblk6[2].genblk1[1].(null)[18].P1  |Priority_Check__173 |    31|
+|176   |  \genblk6[1].genblk1[1].(null)[18].P1  |Priority_Check__188 |    31|
+|177   |  \genblk6[3].genblk1[1].(null)[18].P1  |Priority_Check__158 |    31|
+|178   |  \genblk6[0].genblk1[1].(null)[16].P1  |Priority_Check__204 |    31|
+|179   |  \genblk6[2].genblk1[1].(null)[16].P1  |Priority_Check__174 |    31|
+|180   |  \genblk6[1].genblk1[1].(null)[16].P1  |Priority_Check__189 |    31|
+|181   |  \genblk6[3].genblk1[1].(null)[16].P1  |Priority_Check__159 |    31|
+|182   |  \genblk6[3].genblk1[2].(null)[0].P1   |Priority_Check__12  |    29|
+|183   |  \genblk6[3].genblk1[2].(null)[2].P1   |Priority_Check__11  |    32|
+|184   |  \genblk6[1].genblk1[4].(null)[0].P1   |Priority_Check__228 |    29|
+|185   |  \genblk6[1].genblk1[4].(null)[2].P1   |Priority_Check__51  |    29|
+|186   |  \genblk6[0].genblk1[4].(null)[2].P1   |Priority_Check__57  |    30|
+|187   |  \genblk6[0].genblk1[4].(null)[0].P1   |Priority_Check__28  |    29|
+|188   |  \genblk6[2].genblk1[4].(null)[0].P1   |Priority_Check__105 |    29|
+|189   |  \genblk6[2].genblk1[4].(null)[2].P1   |Priority_Check__44  |    29|
+|190   |  \genblk6[3].genblk1[3].(null)[6].P1   |Priority_Check__61  |    29|
+|191   |  \genblk6[3].genblk1[3].(null)[4].P1   |Priority_Check__153 |    29|
+|192   |  \genblk6[3].genblk1[1].(null)[12].P1  |Priority_Check__38  |    31|
+|193   |  \genblk6[3].genblk1[1].(null)[14].P1  |Priority_Check__238 |    31|
+|194   |  \genblk6[3].genblk1[1].(null)[0].P1   |Priority_Check__15  |    28|
+|195   |  \genblk6[2].genblk1[1].(null)[6].P1   |Priority_Check__129 |    31|
+|196   |  \genblk6[1].genblk1[1].(null)[6].P1   |Priority_Check__115 |    31|
+|197   |  \genblk6[1].genblk1[1].(null)[2].P1   |Priority_Check__140 |    31|
+|198   |  \genblk6[2].genblk1[1].(null)[2].P1   |Priority_Check__130 |    31|
+|199   |  \genblk6[1].genblk1[1].(null)[12].P1  |Priority_Check__224 |    31|
+|200   |  \genblk6[1].genblk1[1].(null)[0].P1   |Priority_Check__141 |    28|
+|201   |  \genblk6[3].genblk1[1].(null)[2].P1   |Priority_Check__14  |    31|
+|202   |  \genblk6[3].genblk1[1].(null)[6].P1   |Priority_Check__102 |    31|
+|203   |  \genblk6[0].genblk1[1].(null)[4].P1   |Priority_Check__31  |    27|
+|204   |  \genblk6[1].genblk1[1].(null)[4].P1   |Priority_Check__6   |    31|
+|205   |  \genblk6[0].genblk1[1].(null)[2].P1   |Priority_Check__147 |    31|
+|206   |  \genblk6[1].genblk1[1].(null)[14].P1  |Priority_Check__225 |    31|
+|207   |  \genblk6[1].genblk1[1].(null)[10].P1  |Priority_Check__244 |    31|
+|208   |  \genblk6[2].genblk1[1].(null)[10].P1  |Priority_Check__108 |    31|
+|209   |  \genblk6[0].genblk1[1].(null)[14].P1  |Priority_Check__218 |    31|
+|210   |  \genblk6[0].genblk1[1].(null)[12].P1  |Priority_Check__217 |    31|
+|211   |  \genblk6[0].genblk1[1].(null)[10].P1  |Priority_Check__120 |    31|
+|212   |  \genblk6[2].genblk1[1].(null)[12].P1  |Priority_Check__233 |    31|
+|213   |  \genblk6[2].genblk1[1].(null)[14].P1  |Priority_Check__234 |    31|
+|214   |  \genblk6[0].genblk1[2].(null)[2].P1   |Priority_Check__30  |    29|
+|215   |  \genblk6[2].genblk1[2].(null)[0].P1   |Priority_Check__128 |    29|
+|216   |  \genblk6[2].genblk1[2].(null)[2].P1   |Priority_Check__127 |    32|
+|217   |  \genblk6[0].genblk1[2].(null)[0].P1   |Priority_Check__146 |    29|
+|218   |  \genblk6[2].genblk1[2].(null)[4].P1   |Priority_Check__107 |    29|
+|219   |  \genblk6[1].genblk1[2].(null)[4].P1   |Priority_Check__245 |    29|
+|220   |  \genblk6[0].genblk1[2].(null)[4].P1   |Priority_Check__119 |    29|
+|221   |  \genblk6[3].genblk1[2].(null)[14].P1  |Priority_Check__62  |    29|
+|222   |  \genblk6[1].genblk1[2].(null)[14].P1  |Priority_Check__80  |    29|
+|223   |  \genblk6[2].genblk1[2].(null)[14].P1  |Priority_Check__73  |    29|
+|224   |  \genblk6[0].genblk1[2].(null)[14].P1  |Priority_Check__91  |    29|
+|225   |  \genblk6[0].genblk1[2].(null)[12].P1  |Priority_Check__92  |    31|
+|226   |  \genblk6[1].genblk1[2].(null)[12].P1  |Priority_Check__53  |    29|
+|227   |  \genblk6[3].genblk1[2].(null)[12].P1  |Priority_Check__63  |    31|
+|228   |  \genblk6[2].genblk1[2].(null)[12].P1  |Priority_Check__46  |    29|
+|229   |  \genblk6[0].genblk1[2].(null)[10].P1  |Priority_Check__199 |    29|
+|230   |  \genblk6[2].genblk1[2].(null)[10].P1  |Priority_Check__169 |    29|
+|231   |  \genblk6[1].genblk1[2].(null)[10].P1  |Priority_Check__184 |    29|
+|232   |  \genblk6[3].genblk1[2].(null)[10].P1  |Priority_Check__154 |    29|
+|233   |  \genblk6[0].genblk1[2].(null)[8].P1   |Priority_Check__200 |    29|
+|234   |  \genblk6[2].genblk1[2].(null)[8].P1   |Priority_Check__170 |    29|
+|235   |  \genblk6[1].genblk1[2].(null)[8].P1   |Priority_Check__185 |    29|
+|236   |  \genblk6[3].genblk1[2].(null)[8].P1   |Priority_Check__155 |    29|
+|237   |  \genblk6[1].genblk1[3].(null)[0].P1   |Priority_Check__138 |    33|
+|238   |  \genblk6[1].genblk1[3].(null)[2].P1   |Priority_Check__227 |    29|
+|239   |  \genblk6[1].genblk1[3].(null)[6].P1   |Priority_Check__52  |    28|
+|240   |  \genblk6[1].genblk1[3].(null)[4].P1   |Priority_Check__183 |    29|
+|241   |  \genblk6[0].genblk1[3].(null)[6].P1   |Priority_Check__90  |    29|
+|242   |  \genblk6[0].genblk1[3].(null)[4].P1   |Priority_Check__198 |    29|
+|243   |  \genblk6[0].genblk1[3].(null)[2].P1   |Priority_Check__118 |    33|
+|244   |  \genblk6[0].genblk1[3].(null)[0].P1   |Priority_Check__29  |    28|
+|245   |  \genblk6[2].genblk1[3].(null)[2].P1   |Priority_Check__106 |    33|
+|246   |  \genblk6[2].genblk1[3].(null)[0].P1   |Priority_Check__126 |    33|
+|247   |  \genblk6[2].genblk1[3].(null)[6].P1   |Priority_Check__45  |    28|
+|248   |  \genblk6[2].genblk1[3].(null)[4].P1   |Priority_Check__168 |    29|
+|249   |  \genblk6[1].genblk1[2].(null)[2].P1   |Priority_Check__114 |    32|
+|250   |  \genblk6[1].genblk1[2].(null)[0].P1   |Priority_Check__139 |    29|
+|251   |  \genblk6[1].genblk1[2].(null)[6].P1   |Priority_Check__226 |    29|
+|252   |  \genblk6[0].genblk1[2].(null)[6].P1   |Priority_Check__219 |    29|
+|253   |  \genblk6[2].genblk1[2].(null)[6].P1   |Priority_Check__235 |    29|
++------+----------------------------------------+--------------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:07:48 ; elapsed = 00:14:10 . Memory (MB): peak = 1158.129 ; gain = 982.277
+Finished Writing Synthesis Report : Time (s): cpu = 00:05:34 ; elapsed = 00:11:43 . Memory (MB): peak = 1000.668 ; gain = 824.676
 ---------------------------------------------------------------------------------
-Synthesis finished with 0 errors, 0 critical warnings and 1 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:07:06 ; elapsed = 00:14:21 . Memory (MB): peak = 1158.129 ; gain = 619.402
-Synthesis Optimization Complete : Time (s): cpu = 00:07:48 ; elapsed = 00:14:55 . Memory (MB): peak = 1158.129 ; gain = 982.277
+Synthesis finished with 0 errors, 0 critical warnings and 4577 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:04:52 ; elapsed = 00:12:36 . Memory (MB): peak = 1000.668 ; gain = 461.531
+Synthesis Optimization Complete : Time (s): cpu = 00:05:34 ; elapsed = 00:13:01 . Memory (MB): peak = 1000.668 ; gain = 824.676
 INFO: [Project 1-571] Translating synthesized netlist
 INFO: [Netlist 29-17] Analyzing 682 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
-WARNING: [Netlist 29-101] Netlist 'Interrupt_Controller' is not ideal for floorplanning, since the cellview 'Interrupt_Controller' contains a large number of primitives.  Please consider enabling hierarchy in synthesis if you want to do floorplanning.
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
 INFO: [Common 17-83] Releasing license: Synthesis
-245 Infos, 3 Warnings, 0 Critical Warnings and 0 Errors encountered.
+246 Infos, 102 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:07:54 ; elapsed = 00:15:04 . Memory (MB): peak = 1158.129 ; gain = 968.043
-write_checkpoint: Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 1158.129 ; gain = 0.000
-report_utilization: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.985 . Memory (MB): peak = 1158.129 ; gain = 0.000
-INFO: [Common 17-206] Exiting Vivado at Thu Feb 22 00:29:45 2018...
+synth_design: Time (s): cpu = 00:05:46 ; elapsed = 00:13:39 . Memory (MB): peak = 1000.668 ; gain = 810.156
+write_checkpoint: Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 1000.668 ; gain = 0.000
+report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:04 . Memory (MB): peak = 1000.668 ; gain = 0.000
+INFO: [Common 17-206] Exiting Vivado at Thu Feb 22 23:51:28 2018...

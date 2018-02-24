@@ -1,0 +1,2115 @@
+Copyright 1986-2015 Xilinx, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2015.2 (win64) Build 1266856 Fri Jun 26 16:35:25 MDT 2015
+| Date         : Sat Feb 24 23:52:17 2018
+| Host         : G-TIRUPATHI running 64-bit major release  (build 9200)
+| Command      : report_timing_summary -warn_on_violation -max_paths 10 -file Interrupt_Controller_timing_summary_routed.rpt -rpx Interrupt_Controller_timing_summary_routed.rpx
+| Design       : Interrupt_Controller
+| Device       : 7a100t-csg324
+| Speed File   : -1  PRODUCTION 1.14 2014-09-11
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Summary Report
+
+------------------------------------------------------------------------------------------------
+| Timer Settings
+| --------------
+------------------------------------------------------------------------------------------------
+
+  Enable Multi Corner Analysis               :  Yes
+  Enable Pessimism Removal                   :  Yes
+  Pessimism Removal Resolution               :  Nearest Common Node
+  Enable Input Delay Default Clock           :  No
+  Enable Preset / Clear Arcs                 :  No
+  Disable Flight Delays                      :  No
+
+  Corner  Analyze    Analyze    
+  Name    Max Paths  Min Paths  
+  ------  ---------  ---------  
+  Slow    Yes        Yes        
+  Fast    Yes        Yes        
+
+
+
+check_timing report
+
+Table of Contents
+-----------------
+1. checking no_clock
+2. checking constant_clock
+3. checking pulse_width_clock
+4. checking unconstrained_internal_endpoints
+5. checking no_input_delay
+6. checking no_output_delay
+7. checking multiple_clock
+8. checking generated_clocks
+9. checking loops
+10. checking partial_input_delay
+11. checking partial_output_delay
+12. checking latch_loops
+
+1. checking no_clock
+--------------------
+ There are 0 register/latch pins with no clock.
+
+
+2. checking constant_clock
+--------------------------
+ There are 0 register/latch pins with constant_clock.
+
+
+3. checking pulse_width_clock
+-----------------------------
+ There are 0 register/latch pins which need pulse_width check
+
+
+4. checking unconstrained_internal_endpoints
+--------------------------------------------
+ There are 0 pins that are not constrained for maximum delay.
+
+ There are 0 pins that are not constrained for maximum delay due to constant clock.
+
+
+5. checking no_input_delay
+--------------------------
+ There are 165 input ports with no input delay specified. (HIGH)
+
+ There are 0 input ports with no input delay but user has a false path constraint.
+
+
+6. checking no_output_delay
+---------------------------
+ There are 37 ports with no output delay specified. (HIGH)
+
+ There are 0 ports with no output delay but user has a false path constraint
+
+ There are 0 ports with no output delay but with a timing clock defined on it or propagating through it
+
+
+7. checking multiple_clock
+--------------------------
+ There are 0 register/latch pins with multiple clocks.
+
+
+8. checking generated_clocks
+----------------------------
+ There are 0 generated clocks that are not connected to a clock source.
+
+
+9. checking loops
+-----------------
+ There are 0 combinational loops in the design.
+
+
+10. checking partial_input_delay
+--------------------------------
+ There are 0 input ports with partial input delay specified.
+
+
+11. checking partial_output_delay
+---------------------------------
+ There are 0 ports with partial output delay specified.
+
+
+12. checking latch_loops
+------------------------
+ There are 0 combinational latch loops in the design through latch input
+
+
+
+------------------------------------------------------------------------------------------------
+| Design Timing Summary
+| ---------------------
+------------------------------------------------------------------------------------------------
+
+    WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
+    -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
+      0.236        0.000                      0                  555        0.177        0.000                      0                  555       19.500        0.000                       0                  4598  
+
+
+All user specified timing constraints are met.
+
+
+------------------------------------------------------------------------------------------------
+| Clock Summary
+| -------------
+------------------------------------------------------------------------------------------------
+
+Clock   Waveform(ns)       Period(ns)      Frequency(MHz)
+-----   ------------       ----------      --------------
+clk_in  {0.000 20.000}     40.000          25.000          
+
+
+------------------------------------------------------------------------------------------------
+| Intra Clock Table
+| -----------------
+------------------------------------------------------------------------------------------------
+
+Clock             WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
+-----             -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
+clk_in              0.236        0.000                      0                  555        0.177        0.000                      0                  555       19.500        0.000                       0                  4598  
+
+
+------------------------------------------------------------------------------------------------
+| Inter Clock Table
+| -----------------
+------------------------------------------------------------------------------------------------
+
+From Clock    To Clock          WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints  
+----------    --------          -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------  
+
+
+------------------------------------------------------------------------------------------------
+| Other Path Groups Table
+| -----------------------
+------------------------------------------------------------------------------------------------
+
+Path Group    From Clock    To Clock          WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints  
+----------    ----------    --------          -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------  
+
+
+------------------------------------------------------------------------------------------------
+| Timing Details
+| --------------
+------------------------------------------------------------------------------------------------
+
+
+---------------------------------------------------------------------------------------------------
+From Clock:  clk_in
+  To Clock:  clk_in
+
+Setup :            0  Failing Endpoints,  Worst Slack        0.236ns,  Total Violation        0.000ns
+Hold  :            0  Failing Endpoints,  Worst Slack        0.177ns,  Total Violation        0.000ns
+PW    :            0  Failing Endpoints,  Worst Slack       19.500ns,  Total Violation        0.000ns
+---------------------------------------------------------------------------------------------------
+
+
+Max Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             0.236ns  (required time - arrival time)
+  Source:                 ICDIPR_S_reg[12][10]/C
+                            (rising edge-triggered cell FDCE clocked by clk_in  {rise@0.000ns fall@20.000ns period=40.000ns})
+  Destination:            data_out_reg[7]/D
+                            (rising edge-triggered cell FDRE clocked by clk_in  {rise@0.000ns fall@20.000ns period=40.000ns})
+  Path Group:             clk_in
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            40.000ns  (clk_in rise@40.000ns - clk_in rise@0.000ns)
+  Data Path Delay:        39.502ns  (logic 9.880ns (25.011%)  route 29.622ns (74.989%))
+  Logic Levels:           40  (CARRY4=6 LUT3=6 LUT4=9 LUT5=6 LUT6=12 MUXF7=1)
+  Clock Path Skew:        -0.304ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.332ns = ( 44.332 - 40.000 ) 
+    Source Clock Delay      (SCD):    4.887ns
+    Clock Pessimism Removal (CPR):    0.250ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_in rise edge)     0.000     0.000 r  
+    E15                                               0.000     0.000 r  clk_in (IN)
+                         net (fo=0)                   0.000     0.000    clk_in
+    E15                  IBUF (Prop_ibuf_I_O)         0.965     0.965 r  clk_in_IBUF_inst/O
+                         net (fo=1, routed)           2.016     2.980    clk_in_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.096     3.076 r  clk_in_IBUF_BUFG_inst/O
+                         net (fo=4597, routed)        1.810     4.887    clk_in_IBUF_BUFG
+    SLICE_X45Y44         FDCE                                         r  ICDIPR_S_reg[12][10]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X45Y44         FDCE (Prop_fdce_C_Q)         0.456     5.343 r  ICDIPR_S_reg[12][10]/Q
+                         net (fo=25, routed)          1.282     6.624    ICDIPR_S_reg_n_0_[12][10]
+    SLICE_X47Y39         LUT4 (Prop_lut4_I2_O)        0.124     6.748 r  genblk1[3].genblk1[5].interrupt_states[3][5][1]_i_198/O
+                         net (fo=1, routed)           0.000     6.748    genblk1[3].genblk1[5].interrupt_states[3][5][1]_i_198_n_0
+    SLICE_X47Y39         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550     7.298 r  genblk1[3].genblk1[5].interrupt_states_reg[3][5][1]_i_144/CO[3]
+                         net (fo=3, routed)           1.281     8.579    genblk1[3].genblk1[5].interrupt_states_reg[3][5][1]_i_144_n_0
+    SLICE_X51Y38         LUT6 (Prop_lut6_I1_O)        0.124     8.703 r  genblk5[3].IRQ[3]_i_1366/O
+                         net (fo=2, routed)           0.544     9.247    genblk5[3].IRQ[3]_i_1366_n_0
+    SLICE_X51Y39         LUT3 (Prop_lut3_I0_O)        0.120     9.367 r  genblk5[3].IRQ[3]_i_1164/O
+                         net (fo=10, routed)          0.849    10.216    genblk5[3].IRQ[3]_i_1164_n_0
+    SLICE_X52Y40         LUT4 (Prop_lut4_I3_O)        0.353    10.569 r  genblk5[3].IRQ[3]_i_1000/O
+                         net (fo=3, routed)           1.066    11.635    output_priority[3][0][24][3]
+    SLICE_X53Y40         LUT5 (Prop_lut5_I4_O)        0.326    11.961 r  genblk1[3].genblk1[5].interrupt_states[3][5][1]_i_186/O
+                         net (fo=1, routed)           0.471    12.432    genblk1[3].genblk1[5].interrupt_states[3][5][1]_i_186_n_0
+    SLICE_X53Y41         CARRY4 (Prop_carry4_DI[1]_CO[3])
+                                                      0.507    12.939 r  genblk1[3].genblk1[5].interrupt_states_reg[3][5][1]_i_140/CO[3]
+                         net (fo=3, routed)           1.705    14.644    genblk1[3].genblk1[5].interrupt_states_reg[3][5][1]_i_140_n_0
+    SLICE_X62Y41         LUT5 (Prop_lut5_I1_O)        0.124    14.768 r  genblk5[3].IRQ[3]_i_1162/O
+                         net (fo=2, routed)           0.670    15.439    genblk5[3].IRQ[3]_i_1162_n_0
+    SLICE_X62Y41         LUT3 (Prop_lut3_I0_O)        0.153    15.592 r  genblk5[3].IRQ[3]_i_826/O
+                         net (fo=10, routed)          0.857    16.448    genblk5[3].IRQ[3]_i_826_n_0
+    SLICE_X63Y41         LUT4 (Prop_lut4_I3_O)        0.359    16.807 r  genblk5[3].IRQ[3]_i_723/O
+                         net (fo=2, routed)           0.990    17.797    output_priority[3][1][12][1]
+    SLICE_X63Y40         LUT5 (Prop_lut5_I4_O)        0.354    18.151 r  genblk5[3].IRQ[3]_i_786/O
+                         net (fo=1, routed)           0.000    18.151    genblk5[3].IRQ[3]_i_786_n_0
+    SLICE_X63Y40         CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.483    18.634 r  genblk5[3].IRQ_reg[3]_i_491/CO[3]
+                         net (fo=3, routed)           0.922    19.556    genblk5[3].IRQ_reg[3]_i_491_n_0
+    SLICE_X66Y40         LUT3 (Prop_lut3_I1_O)        0.150    19.706 r  genblk5[3].IRQ[3]_i_822/O
+                         net (fo=2, routed)           0.587    20.293    genblk5[3].IRQ[3]_i_822_n_0
+    SLICE_X65Y40         LUT5 (Prop_lut5_I4_O)        0.322    20.615 r  genblk5[3].IRQ[3]_i_570/O
+                         net (fo=8, routed)           0.890    21.505    genblk5[3].IRQ[3]_i_570_n_0
+    SLICE_X67Y41         LUT4 (Prop_lut4_I3_O)        0.326    21.831 r  genblk5[3].IRQ[3]_i_448/O
+                         net (fo=3, routed)           0.667    22.498    output_priority[3][2][6][0]
+    SLICE_X68Y42         LUT4 (Prop_lut4_I3_O)        0.124    22.622 r  genblk1[3].genblk1[5].interrupt_states[3][5][1]_i_138/O
+                         net (fo=1, routed)           0.000    22.622    genblk1[3].genblk1[5].interrupt_states[3][5][1]_i_138_n_0
+    SLICE_X68Y42         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532    23.154 r  genblk1[3].genblk1[5].interrupt_states_reg[3][5][1]_i_89/CO[3]
+                         net (fo=1, routed)           0.749    23.903    genblk1[3].genblk1[5].interrupt_states_reg[3][5][1]_i_89_n_0
+    SLICE_X70Y41         LUT6 (Prop_lut6_I3_O)        0.124    24.027 f  genblk1[3].genblk1[5].interrupt_states[3][5][1]_i_42/O
+                         net (fo=2, routed)           0.580    24.607    genblk1[3].genblk1[5].interrupt_states[3][5][1]_i_42_n_0
+    SLICE_X69Y41         LUT5 (Prop_lut5_I0_O)        0.124    24.731 f  genblk1[3].genblk1[5].interrupt_states[3][5][1]_i_20/O
+                         net (fo=16, routed)          0.957    25.688    genblk1[3].genblk1[5].interrupt_states[3][5][1]_i_20_n_0
+    SLICE_X66Y42         LUT4 (Prop_lut4_I1_O)        0.124    25.812 f  genblk5[3].IRQ[3]_i_217/O
+                         net (fo=3, routed)           1.110    26.922    output_priority[3][3][3][2]
+    SLICE_X40Y43         LUT6 (Prop_lut6_I3_O)        0.124    27.046 r  genblk1[3].genblk1[5].interrupt_states[3][5][1]_i_61/O
+                         net (fo=1, routed)           0.465    27.511    genblk1[3].genblk1[5].interrupt_states[3][5][1]_i_61_n_0
+    SLICE_X39Y42         CARRY4 (Prop_carry4_DI[1]_CO[3])
+                                                      0.507    28.018 f  genblk1[3].genblk1[5].interrupt_states_reg[3][5][1]_i_29/CO[3]
+                         net (fo=2, routed)           0.737    28.755    genblk1[3].genblk1[5].interrupt_states_reg[3][5][1]_i_29_n_0
+    SLICE_X39Y41         LUT6 (Prop_lut6_I1_O)        0.124    28.879 f  genblk5[3].IRQ[3]_i_312/O
+                         net (fo=2, routed)           0.425    29.304    genblk5[3].IRQ[3]_i_312_n_0
+    SLICE_X38Y41         LUT3 (Prop_lut3_I0_O)        0.116    29.420 f  genblk5[3].IRQ[3]_i_163/O
+                         net (fo=12, routed)          1.557    30.978    genblk5[3].IRQ[3]_i_163_n_0
+    SLICE_X38Y57         LUT4 (Prop_lut4_I3_O)        0.356    31.334 f  genblk5[3].IRQ[3]_i_64/O
+                         net (fo=2, routed)           1.131    32.464    output_priority[3][4][1][7]
+    SLICE_X38Y58         LUT4 (Prop_lut4_I2_O)        0.380    32.844 r  genblk2[3].genblk1[31].interrupt_states[3][31][1]_i_114/O
+                         net (fo=1, routed)           0.000    32.844    genblk2[3].genblk1[31].interrupt_states[3][31][1]_i_114_n_0
+    SLICE_X38Y58         CARRY4 (Prop_carry4_DI[3]_CO[3])
+                                                      0.338    33.182 f  genblk2[3].genblk1[31].interrupt_states_reg[3][31][1]_i_48/CO[3]
+                         net (fo=2, routed)           0.914    34.096    genblk2[3].genblk1[31].interrupt_states_reg[3][31][1]_i_48_n_0
+    SLICE_X38Y60         LUT6 (Prop_lut6_I1_O)        0.124    34.220 r  genblk2[3].genblk1[31].interrupt_states[3][31][1]_i_22/O
+                         net (fo=2, routed)           0.417    34.638    genblk2[3].genblk1[31].interrupt_states[3][31][1]_i_22_n_0
+    SLICE_X38Y61         LUT3 (Prop_lut3_I0_O)        0.116    34.754 f  genblk2[3].genblk1[31].interrupt_states[3][31][1]_i_13/O
+                         net (fo=5, routed)           0.497    35.251    genblk2[3].genblk1[31].interrupt_states[3][31][1]_i_13_n_0
+    SLICE_X39Y61         LUT5 (Prop_lut5_I4_O)        0.328    35.579 f  genblk1[3].genblk1[5].interrupt_states[3][5][1]_i_6/O
+                         net (fo=24, routed)          1.120    36.698    HP_ID[3][5][0][4]
+    SLICE_X51Y62         LUT3 (Prop_lut3_I2_O)        0.124    36.822 f  genblk1[3].genblk1[3].interrupt_states[3][3][1]_i_5/O
+                         net (fo=9, routed)           1.863    38.685    genblk1[3].genblk1[3].interrupt_states[3][3][1]_i_5_n_0
+    SLICE_X64Y88         LUT6 (Prop_lut6_I4_O)        0.124    38.809 f  data_out[7]_i_137/O
+                         net (fo=1, routed)           0.848    39.656    data_out[7]_i_137_n_0
+    SLICE_X64Y83         LUT6 (Prop_lut6_I5_O)        0.124    39.780 f  data_out[7]_i_127/O
+                         net (fo=1, routed)           0.443    40.223    data_out[7]_i_127_n_0
+    SLICE_X64Y82         LUT4 (Prop_lut4_I0_O)        0.124    40.347 f  data_out[7]_i_121/O
+                         net (fo=1, routed)           0.882    41.230    data_out[7]_i_121_n_0
+    SLICE_X59Y78         LUT6 (Prop_lut6_I5_O)        0.124    41.354 f  data_out[7]_i_99/O
+                         net (fo=1, routed)           0.634    41.988    data_out[7]_i_99_n_0
+    SLICE_X51Y77         LUT6 (Prop_lut6_I0_O)        0.124    42.112 f  data_out[7]_i_65/O
+                         net (fo=1, routed)           0.448    42.559    data_out[7]_i_65_n_0
+    SLICE_X49Y77         LUT6 (Prop_lut6_I0_O)        0.124    42.683 f  data_out[7]_i_34/O
+                         net (fo=1, routed)           0.620    43.304    data_out[7]_i_34_n_0
+    SLICE_X48Y75         LUT6 (Prop_lut6_I0_O)        0.124    43.428 f  data_out[7]_i_15/O
+                         net (fo=1, routed)           0.000    43.428    data_out[7]_i_15_n_0
+    SLICE_X48Y75         MUXF7 (Prop_muxf7_I1_O)      0.217    43.645 f  data_out_reg[7]_i_5/O
+                         net (fo=1, routed)           0.445    44.089    data_out_reg[7]_i_5_n_0
+    SLICE_X46Y77         LUT6 (Prop_lut6_I3_O)        0.299    44.388 r  data_out[7]_i_1/O
+                         net (fo=1, routed)           0.000    44.388    data_out[7]_i_1_n_0
+    SLICE_X46Y77         FDRE                                         r  data_out_reg[7]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_in rise edge)    40.000    40.000 r  
+    E15                                               0.000    40.000 r  clk_in (IN)
+                         net (fo=0)                   0.000    40.000    clk_in
+    E15                  IBUF (Prop_ibuf_I_O)         0.831    40.831 r  clk_in_IBUF_inst/O
+                         net (fo=1, routed)           1.911    42.742    clk_in_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.091    42.833 r  clk_in_IBUF_BUFG_inst/O
+                         net (fo=4597, routed)        1.499    44.332    clk_in_IBUF_BUFG
+    SLICE_X46Y77         FDRE                                         r  data_out_reg[7]/C
+                         clock pessimism              0.250    44.583    
+                         clock uncertainty           -0.035    44.547    
+    SLICE_X46Y77         FDRE (Setup_fdre_C_D)        0.077    44.624    data_out_reg[7]
+  -------------------------------------------------------------------
+                         required time                         44.624    
+                         arrival time                         -44.388    
+  -------------------------------------------------------------------
+                         slack                                  0.236    
+
+Slack (MET) :             0.825ns  (required time - arrival time)
+  Source:                 ICDIPR_S_reg[12][10]/C
+                            (rising edge-triggered cell FDCE clocked by clk_in  {rise@0.000ns fall@20.000ns period=40.000ns})
+  Destination:            data_out_reg[6]/D
+                            (rising edge-triggered cell FDRE clocked by clk_in  {rise@0.000ns fall@20.000ns period=40.000ns})
+  Path Group:             clk_in
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            40.000ns  (clk_in rise@40.000ns - clk_in rise@0.000ns)
+  Data Path Delay:        38.864ns  (logic 10.076ns (25.926%)  route 28.788ns (74.074%))
+  Logic Levels:           40  (CARRY4=6 LUT3=6 LUT4=11 LUT5=5 LUT6=11 MUXF7=1)
+  Clock Path Skew:        -0.304ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.332ns = ( 44.332 - 40.000 ) 
+    Source Clock Delay      (SCD):    4.887ns
+    Clock Pessimism Removal (CPR):    0.250ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_in rise edge)     0.000     0.000 r  
+    E15                                               0.000     0.000 r  clk_in (IN)
+                         net (fo=0)                   0.000     0.000    clk_in
+    E15                  IBUF (Prop_ibuf_I_O)         0.965     0.965 r  clk_in_IBUF_inst/O
+                         net (fo=1, routed)           2.016     2.980    clk_in_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.096     3.076 r  clk_in_IBUF_BUFG_inst/O
+                         net (fo=4597, routed)        1.810     4.887    clk_in_IBUF_BUFG
+    SLICE_X45Y44         FDCE                                         r  ICDIPR_S_reg[12][10]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X45Y44         FDCE (Prop_fdce_C_Q)         0.456     5.343 r  ICDIPR_S_reg[12][10]/Q
+                         net (fo=25, routed)          1.282     6.624    ICDIPR_S_reg_n_0_[12][10]
+    SLICE_X47Y39         LUT4 (Prop_lut4_I2_O)        0.124     6.748 r  genblk1[3].genblk1[5].interrupt_states[3][5][1]_i_198/O
+                         net (fo=1, routed)           0.000     6.748    genblk1[3].genblk1[5].interrupt_states[3][5][1]_i_198_n_0
+    SLICE_X47Y39         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550     7.298 r  genblk1[3].genblk1[5].interrupt_states_reg[3][5][1]_i_144/CO[3]
+                         net (fo=3, routed)           1.281     8.579    genblk1[3].genblk1[5].interrupt_states_reg[3][5][1]_i_144_n_0
+    SLICE_X51Y38         LUT6 (Prop_lut6_I1_O)        0.124     8.703 r  genblk5[3].IRQ[3]_i_1366/O
+                         net (fo=2, routed)           0.544     9.247    genblk5[3].IRQ[3]_i_1366_n_0
+    SLICE_X51Y39         LUT3 (Prop_lut3_I0_O)        0.120     9.367 r  genblk5[3].IRQ[3]_i_1164/O
+                         net (fo=10, routed)          0.849    10.216    genblk5[3].IRQ[3]_i_1164_n_0
+    SLICE_X52Y40         LUT4 (Prop_lut4_I3_O)        0.353    10.569 r  genblk5[3].IRQ[3]_i_1000/O
+                         net (fo=3, routed)           1.066    11.635    output_priority[3][0][24][3]
+    SLICE_X53Y40         LUT5 (Prop_lut5_I4_O)        0.326    11.961 r  genblk1[3].genblk1[5].interrupt_states[3][5][1]_i_186/O
+                         net (fo=1, routed)           0.471    12.432    genblk1[3].genblk1[5].interrupt_states[3][5][1]_i_186_n_0
+    SLICE_X53Y41         CARRY4 (Prop_carry4_DI[1]_CO[3])
+                                                      0.507    12.939 r  genblk1[3].genblk1[5].interrupt_states_reg[3][5][1]_i_140/CO[3]
+                         net (fo=3, routed)           1.705    14.644    genblk1[3].genblk1[5].interrupt_states_reg[3][5][1]_i_140_n_0
+    SLICE_X62Y41         LUT5 (Prop_lut5_I1_O)        0.124    14.768 r  genblk5[3].IRQ[3]_i_1162/O
+                         net (fo=2, routed)           0.670    15.439    genblk5[3].IRQ[3]_i_1162_n_0
+    SLICE_X62Y41         LUT3 (Prop_lut3_I0_O)        0.153    15.592 r  genblk5[3].IRQ[3]_i_826/O
+                         net (fo=10, routed)          0.857    16.448    genblk5[3].IRQ[3]_i_826_n_0
+    SLICE_X63Y41         LUT4 (Prop_lut4_I3_O)        0.359    16.807 r  genblk5[3].IRQ[3]_i_723/O
+                         net (fo=2, routed)           0.990    17.797    output_priority[3][1][12][1]
+    SLICE_X63Y40         LUT5 (Prop_lut5_I4_O)        0.354    18.151 r  genblk5[3].IRQ[3]_i_786/O
+                         net (fo=1, routed)           0.000    18.151    genblk5[3].IRQ[3]_i_786_n_0
+    SLICE_X63Y40         CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.483    18.634 r  genblk5[3].IRQ_reg[3]_i_491/CO[3]
+                         net (fo=3, routed)           0.922    19.556    genblk5[3].IRQ_reg[3]_i_491_n_0
+    SLICE_X66Y40         LUT3 (Prop_lut3_I1_O)        0.150    19.706 r  genblk5[3].IRQ[3]_i_822/O
+                         net (fo=2, routed)           0.587    20.293    genblk5[3].IRQ[3]_i_822_n_0
+    SLICE_X65Y40         LUT5 (Prop_lut5_I4_O)        0.322    20.615 r  genblk5[3].IRQ[3]_i_570/O
+                         net (fo=8, routed)           0.890    21.505    genblk5[3].IRQ[3]_i_570_n_0
+    SLICE_X67Y41         LUT4 (Prop_lut4_I3_O)        0.326    21.831 r  genblk5[3].IRQ[3]_i_448/O
+                         net (fo=3, routed)           0.667    22.498    output_priority[3][2][6][0]
+    SLICE_X68Y42         LUT4 (Prop_lut4_I3_O)        0.124    22.622 r  genblk1[3].genblk1[5].interrupt_states[3][5][1]_i_138/O
+                         net (fo=1, routed)           0.000    22.622    genblk1[3].genblk1[5].interrupt_states[3][5][1]_i_138_n_0
+    SLICE_X68Y42         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532    23.154 r  genblk1[3].genblk1[5].interrupt_states_reg[3][5][1]_i_89/CO[3]
+                         net (fo=1, routed)           0.749    23.903    genblk1[3].genblk1[5].interrupt_states_reg[3][5][1]_i_89_n_0
+    SLICE_X70Y41         LUT6 (Prop_lut6_I3_O)        0.124    24.027 f  genblk1[3].genblk1[5].interrupt_states[3][5][1]_i_42/O
+                         net (fo=2, routed)           0.580    24.607    genblk1[3].genblk1[5].interrupt_states[3][5][1]_i_42_n_0
+    SLICE_X69Y41         LUT5 (Prop_lut5_I0_O)        0.124    24.731 f  genblk1[3].genblk1[5].interrupt_states[3][5][1]_i_20/O
+                         net (fo=16, routed)          0.957    25.688    genblk1[3].genblk1[5].interrupt_states[3][5][1]_i_20_n_0
+    SLICE_X66Y42         LUT4 (Prop_lut4_I1_O)        0.124    25.812 f  genblk5[3].IRQ[3]_i_217/O
+                         net (fo=3, routed)           1.110    26.922    output_priority[3][3][3][2]
+    SLICE_X40Y43         LUT6 (Prop_lut6_I3_O)        0.124    27.046 r  genblk1[3].genblk1[5].interrupt_states[3][5][1]_i_61/O
+                         net (fo=1, routed)           0.465    27.511    genblk1[3].genblk1[5].interrupt_states[3][5][1]_i_61_n_0
+    SLICE_X39Y42         CARRY4 (Prop_carry4_DI[1]_CO[3])
+                                                      0.507    28.018 f  genblk1[3].genblk1[5].interrupt_states_reg[3][5][1]_i_29/CO[3]
+                         net (fo=2, routed)           0.737    28.755    genblk1[3].genblk1[5].interrupt_states_reg[3][5][1]_i_29_n_0
+    SLICE_X39Y41         LUT6 (Prop_lut6_I1_O)        0.124    28.879 f  genblk5[3].IRQ[3]_i_312/O
+                         net (fo=2, routed)           0.425    29.304    genblk5[3].IRQ[3]_i_312_n_0
+    SLICE_X38Y41         LUT3 (Prop_lut3_I0_O)        0.116    29.420 f  genblk5[3].IRQ[3]_i_163/O
+                         net (fo=12, routed)          1.557    30.978    genblk5[3].IRQ[3]_i_163_n_0
+    SLICE_X38Y57         LUT4 (Prop_lut4_I3_O)        0.356    31.334 f  genblk5[3].IRQ[3]_i_64/O
+                         net (fo=2, routed)           1.131    32.464    output_priority[3][4][1][7]
+    SLICE_X38Y58         LUT4 (Prop_lut4_I2_O)        0.380    32.844 r  genblk2[3].genblk1[31].interrupt_states[3][31][1]_i_114/O
+                         net (fo=1, routed)           0.000    32.844    genblk2[3].genblk1[31].interrupt_states[3][31][1]_i_114_n_0
+    SLICE_X38Y58         CARRY4 (Prop_carry4_DI[3]_CO[3])
+                                                      0.338    33.182 r  genblk2[3].genblk1[31].interrupt_states_reg[3][31][1]_i_48/CO[3]
+                         net (fo=2, routed)           0.914    34.096    genblk2[3].genblk1[31].interrupt_states_reg[3][31][1]_i_48_n_0
+    SLICE_X38Y60         LUT6 (Prop_lut6_I1_O)        0.124    34.220 f  genblk2[3].genblk1[31].interrupt_states[3][31][1]_i_22/O
+                         net (fo=2, routed)           0.417    34.638    genblk2[3].genblk1[31].interrupt_states[3][31][1]_i_22_n_0
+    SLICE_X38Y61         LUT3 (Prop_lut3_I0_O)        0.116    34.754 r  genblk2[3].genblk1[31].interrupt_states[3][31][1]_i_13/O
+                         net (fo=5, routed)           0.521    35.275    genblk2[3].genblk1[31].interrupt_states[3][31][1]_i_13_n_0
+    SLICE_X38Y62         LUT4 (Prop_lut4_I3_O)        0.328    35.603 r  genblk1[3].genblk1[5].interrupt_states[3][5][1]_i_7/O
+                         net (fo=23, routed)          1.288    36.891    HP_ID[3][5][0][3]
+    SLICE_X55Y64         LUT3 (Prop_lut3_I0_O)        0.124    37.015 f  data_out[7]_i_138/O
+                         net (fo=6, routed)           1.367    38.382    data_out[7]_i_138_n_0
+    SLICE_X65Y83         LUT4 (Prop_lut4_I0_O)        0.118    38.500 f  data_out[7]_i_134/O
+                         net (fo=2, routed)           0.448    38.948    data_out[7]_i_134_n_0
+    SLICE_X64Y83         LUT6 (Prop_lut6_I0_O)        0.326    39.274 f  data_out[6]_i_85/O
+                         net (fo=1, routed)           0.512    39.786    data_out[6]_i_85_n_0
+    SLICE_X65Y83         LUT4 (Prop_lut4_I0_O)        0.124    39.910 f  data_out[6]_i_81/O
+                         net (fo=1, routed)           0.848    40.759    data_out[6]_i_81_n_0
+    SLICE_X59Y78         LUT6 (Prop_lut6_I5_O)        0.124    40.883 f  data_out[6]_i_68/O
+                         net (fo=1, routed)           0.622    41.505    data_out[6]_i_68_n_0
+    SLICE_X51Y78         LUT6 (Prop_lut6_I0_O)        0.124    41.629 f  data_out[6]_i_49/O
+                         net (fo=1, routed)           0.302    41.931    data_out[6]_i_49_n_0
+    SLICE_X50Y77         LUT6 (Prop_lut6_I0_O)        0.124    42.055 f  data_out[6]_i_28/O
+                         net (fo=1, routed)           0.614    42.669    data_out[6]_i_28_n_0
+    SLICE_X51Y75         LUT6 (Prop_lut6_I0_O)        0.124    42.793 f  data_out[6]_i_12/O
+                         net (fo=1, routed)           0.000    42.793    data_out[6]_i_12_n_0
+    SLICE_X51Y75         MUXF7 (Prop_muxf7_I1_O)      0.217    43.010 f  data_out_reg[6]_i_4/O
+                         net (fo=1, routed)           0.442    43.452    data_out_reg[6]_i_4_n_0
+    SLICE_X51Y78         LUT6 (Prop_lut6_I3_O)        0.299    43.751 r  data_out[6]_i_1/O
+                         net (fo=1, routed)           0.000    43.751    data_out[6]_i_1_n_0
+    SLICE_X51Y78         FDRE                                         r  data_out_reg[6]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_in rise edge)    40.000    40.000 r  
+    E15                                               0.000    40.000 r  clk_in (IN)
+                         net (fo=0)                   0.000    40.000    clk_in
+    E15                  IBUF (Prop_ibuf_I_O)         0.831    40.831 r  clk_in_IBUF_inst/O
+                         net (fo=1, routed)           1.911    42.742    clk_in_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.091    42.833 r  clk_in_IBUF_BUFG_inst/O
+                         net (fo=4597, routed)        1.499    44.332    clk_in_IBUF_BUFG
+    SLICE_X51Y78         FDRE                                         r  data_out_reg[6]/C
+                         clock pessimism              0.250    44.583    
+                         clock uncertainty           -0.035    44.547    
+    SLICE_X51Y78         FDRE (Setup_fdre_C_D)        0.029    44.576    data_out_reg[6]
+  -------------------------------------------------------------------
+                         required time                         44.576    
+                         arrival time                         -43.751    
+  -------------------------------------------------------------------
+                         slack                                  0.825    
+
+Slack (MET) :             1.334ns  (required time - arrival time)
+  Source:                 ICDIPR_S_reg[14][25]/C
+                            (rising edge-triggered cell FDCE clocked by clk_in  {rise@0.000ns fall@20.000ns period=40.000ns})
+  Destination:            data_out_reg[8]/D
+                            (rising edge-triggered cell FDRE clocked by clk_in  {rise@0.000ns fall@20.000ns period=40.000ns})
+  Path Group:             clk_in
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            40.000ns  (clk_in rise@40.000ns - clk_in rise@0.000ns)
+  Data Path Delay:        38.704ns  (logic 10.272ns (26.540%)  route 28.432ns (73.460%))
+  Logic Levels:           41  (CARRY4=7 LUT2=1 LUT3=8 LUT4=5 LUT5=11 LUT6=8 MUXF7=1)
+  Clock Path Skew:        -0.040ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.348ns = ( 44.348 - 40.000 ) 
+    Source Clock Delay      (SCD):    4.711ns
+    Clock Pessimism Removal (CPR):    0.322ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_in rise edge)     0.000     0.000 r  
+    E15                                               0.000     0.000 r  clk_in (IN)
+                         net (fo=0)                   0.000     0.000    clk_in
+    E15                  IBUF (Prop_ibuf_I_O)         0.965     0.965 r  clk_in_IBUF_inst/O
+                         net (fo=1, routed)           2.016     2.980    clk_in_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.096     3.076 r  clk_in_IBUF_BUFG_inst/O
+                         net (fo=4597, routed)        1.634     4.711    clk_in_IBUF_BUFG
+    SLICE_X46Y53         FDCE                                         r  ICDIPR_S_reg[14][25]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X46Y53         FDCE (Prop_fdce_C_Q)         0.518     5.229 r  ICDIPR_S_reg[14][25]/Q
+                         net (fo=29, routed)          1.744     6.973    ICDIPR_S_reg_n_0_[14][25]
+    SLICE_X62Y51         LUT4 (Prop_lut4_I0_O)        0.124     7.097 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_519/O
+                         net (fo=1, routed)           0.000     7.097    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_519_n_0
+    SLICE_X62Y51         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.513     7.610 r  genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_358/CO[3]
+                         net (fo=3, routed)           0.952     8.562    genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_358_n_0
+    SLICE_X62Y48         LUT6 (Prop_lut6_I1_O)        0.124     8.686 r  genblk5[0].IRQ[0]_i_1042/O
+                         net (fo=2, routed)           0.703     9.389    genblk5[0].IRQ[0]_i_1042_n_0
+    SLICE_X64Y50         LUT3 (Prop_lut3_I0_O)        0.120     9.509 f  genblk5[0].IRQ[0]_i_976/O
+                         net (fo=16, routed)          0.985    10.494    genblk5[0].IRQ[0]_i_976_n_0
+    SLICE_X60Y51         LUT4 (Prop_lut4_I2_O)        0.327    10.821 r  genblk5[0].IRQ[0]_i_1039/O
+                         net (fo=1, routed)           0.846    11.667    genblk5[0].IRQ[0]_i_1039_n_0
+    SLICE_X60Y51         LUT5 (Prop_lut5_I4_O)        0.153    11.820 r  genblk5[0].IRQ[0]_i_972/O
+                         net (fo=2, routed)           0.599    12.419    genblk5[0].IRQ[0]_i_972_n_0
+    SLICE_X59Y50         LUT5 (Prop_lut5_I0_O)        0.331    12.750 r  genblk5[0].IRQ[0]_i_660/O
+                         net (fo=1, routed)           0.520    13.271    genblk5[0].IRQ[0]_i_660_n_0
+    SLICE_X59Y51         CARRY4 (Prop_carry4_DI[2]_CO[3])
+                                                      0.398    13.669 r  genblk5[0].IRQ_reg[0]_i_464/CO[3]
+                         net (fo=3, routed)           1.309    14.978    genblk5[0].IRQ_reg[0]_i_464_n_0
+    SLICE_X61Y45         LUT5 (Prop_lut5_I1_O)        0.124    15.102 r  genblk5[0].IRQ[0]_i_1001/O
+                         net (fo=2, routed)           0.416    15.518    genblk5[0].IRQ[0]_i_1001_n_0
+    SLICE_X60Y46         LUT3 (Prop_lut3_I0_O)        0.116    15.634 r  genblk5[0].IRQ[0]_i_695/O
+                         net (fo=12, routed)          1.152    16.786    genblk5[0].IRQ[0]_i_695_n_0
+    SLICE_X58Y49         LUT4 (Prop_lut4_I3_O)        0.350    17.136 r  genblk5[0].IRQ[0]_i_494/O
+                         net (fo=3, routed)           1.156    18.292    output_priority[0][1][14][7]
+    SLICE_X58Y47         LUT5 (Prop_lut5_I4_O)        0.360    18.652 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_209/O
+                         net (fo=1, routed)           0.000    18.652    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_209_n_0
+    SLICE_X58Y47         CARRY4 (Prop_carry4_DI[3]_CO[3])
+                                                      0.338    18.990 f  genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_83/CO[3]
+                         net (fo=3, routed)           1.050    20.041    genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_83_n_0
+    SLICE_X58Y43         LUT5 (Prop_lut5_I3_O)        0.150    20.191 f  genblk5[0].IRQ[0]_i_492/O
+                         net (fo=13, routed)          0.384    20.574    genblk5[0].IRQ[0]_i_492_n_0
+    SLICE_X58Y44         LUT3 (Prop_lut3_I2_O)        0.348    20.922 f  genblk5[0].IRQ[0]_i_495/O
+                         net (fo=12, routed)          0.725    21.647    genblk5[0].IRQ[0]_i_495_n_0
+    SLICE_X54Y44         LUT6 (Prop_lut6_I3_O)        0.124    21.771 r  genblk5[0].IRQ[0]_i_684/O
+                         net (fo=1, routed)           1.165    22.936    genblk5[0].IRQ[0]_i_684_n_0
+    SLICE_X49Y39         LUT5 (Prop_lut5_I4_O)        0.152    23.088 r  genblk5[0].IRQ[0]_i_485/O
+                         net (fo=2, routed)           0.626    23.714    genblk5[0].IRQ[0]_i_485_n_0
+    SLICE_X49Y40         LUT3 (Prop_lut3_I0_O)        0.332    24.046 r  genblk5[0].IRQ[0]_i_338/O
+                         net (fo=1, routed)           0.000    24.046    genblk5[0].IRQ[0]_i_338_n_0
+    SLICE_X49Y40         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532    24.578 f  genblk5[0].IRQ_reg[0]_i_177/CO[3]
+                         net (fo=3, routed)           0.758    25.336    genblk5[0].IRQ_reg[0]_i_177_n_0
+    SLICE_X50Y40         LUT5 (Prop_lut5_I3_O)        0.124    25.460 f  genblk5[0].IRQ[0]_i_367/O
+                         net (fo=13, routed)          0.610    26.069    genblk5[0].IRQ[0]_i_367_n_0
+    SLICE_X47Y40         LUT3 (Prop_lut3_I2_O)        0.124    26.193 f  genblk5[0].IRQ[0]_i_372/O
+                         net (fo=12, routed)          0.946    27.139    genblk5[0].IRQ[0]_i_372_n_0
+    SLICE_X46Y40         LUT6 (Prop_lut6_I3_O)        0.124    27.263 r  genblk5[0].IRQ[0]_i_687/O
+                         net (fo=1, routed)           0.876    28.139    genblk5[0].IRQ[0]_i_687_n_0
+    SLICE_X41Y39         LUT5 (Prop_lut5_I4_O)        0.150    28.289 r  genblk5[0].IRQ[0]_i_488/O
+                         net (fo=2, routed)           0.832    29.121    genblk5[0].IRQ[0]_i_488_n_0
+    SLICE_X41Y40         LUT3 (Prop_lut3_I0_O)        0.326    29.447 r  genblk5[0].IRQ[0]_i_345/O
+                         net (fo=1, routed)           0.000    29.447    genblk5[0].IRQ[0]_i_345_n_0
+    SLICE_X41Y40         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    29.997 f  genblk5[0].IRQ_reg[0]_i_180/CO[3]
+                         net (fo=2, routed)           0.834    30.831    genblk5[0].IRQ_reg[0]_i_180_n_0
+    SLICE_X42Y41         LUT5 (Prop_lut5_I3_O)        0.124    30.955 f  genblk5[0].IRQ[0]_i_215/O
+                         net (fo=13, routed)          0.500    31.455    genblk5[0].IRQ[0]_i_215_n_0
+    SLICE_X42Y41         LUT3 (Prop_lut3_I2_O)        0.124    31.579 f  genblk5[0].IRQ[0]_i_220/O
+                         net (fo=12, routed)          0.736    32.314    genblk5[0].IRQ[0]_i_220_n_0
+    SLICE_X42Y43         LUT6 (Prop_lut6_I3_O)        0.124    32.438 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_269/O
+                         net (fo=1, routed)           1.174    33.612    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_269_n_0
+    SLICE_X40Y63         LUT5 (Prop_lut5_I4_O)        0.124    33.736 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_131/O
+                         net (fo=2, routed)           0.809    34.545    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_131_n_0
+    SLICE_X41Y61         LUT3 (Prop_lut3_I0_O)        0.124    34.669 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_55/O
+                         net (fo=1, routed)           0.000    34.669    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_55_n_0
+    SLICE_X41Y61         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    35.219 r  genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_24/CO[3]
+                         net (fo=2, routed)           0.860    36.079    genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_24_n_0
+    SLICE_X43Y59         LUT5 (Prop_lut5_I1_O)        0.118    36.197 r  genblk5[0].IRQ[0]_i_114/O
+                         net (fo=9, routed)           0.512    36.709    genblk5[0].IRQ[0]_i_114_n_0
+    SLICE_X43Y60         LUT4 (Prop_lut4_I3_O)        0.321    37.030 r  genblk5[0].IRQ[0]_i_118/O
+                         net (fo=8, routed)           0.590    37.620    genblk5[0].IRQ[0]_i_118_n_0
+    SLICE_X42Y60         LUT6 (Prop_lut6_I5_O)        0.332    37.952 r  genblk5[0].IRQ[0]_i_58/O
+                         net (fo=4, routed)           0.746    38.698    output_priority[0][5][0][0]
+    SLICE_X44Y62         LUT4 (Prop_lut4_I3_O)        0.124    38.822 r  genblk5[0].IRQ[0]_i_18/O
+                         net (fo=1, routed)           0.000    38.822    genblk5[0].IRQ[0]_i_18_n_0
+    SLICE_X44Y62         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532    39.354 f  genblk5[0].IRQ_reg[0]_i_3/CO[3]
+                         net (fo=4, routed)           1.103    40.457    ICCIAR21360_in
+    SLICE_X44Y67         LUT2 (Prop_lut2_I0_O)        0.124    40.581 f  data_out[13]_i_40/O
+                         net (fo=1, routed)           0.669    41.250    ICCIAR11361_out
+    SLICE_X44Y67         LUT6 (Prop_lut6_I2_O)        0.124    41.374 r  data_out[13]_i_22/O
+                         net (fo=1, routed)           0.458    41.832    data_out[13]_i_22_n_0
+    SLICE_X40Y68         LUT6 (Prop_lut6_I2_O)        0.124    41.956 r  data_out[13]_i_9/O
+                         net (fo=4, routed)           1.088    43.043    data_out[13]_i_9_n_0
+    SLICE_X38Y88         LUT6 (Prop_lut6_I2_O)        0.124    43.167 r  data_out[8]_i_3/O
+                         net (fo=1, routed)           0.000    43.167    data_out[8]_i_3_n_0
+    SLICE_X38Y88         MUXF7 (Prop_muxf7_I1_O)      0.247    43.414 r  data_out_reg[8]_i_1/O
+                         net (fo=1, routed)           0.000    43.414    data_out_reg[8]_i_1_n_0
+    SLICE_X38Y88         FDRE                                         r  data_out_reg[8]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_in rise edge)    40.000    40.000 r  
+    E15                                               0.000    40.000 r  clk_in (IN)
+                         net (fo=0)                   0.000    40.000    clk_in
+    E15                  IBUF (Prop_ibuf_I_O)         0.831    40.831 r  clk_in_IBUF_inst/O
+                         net (fo=1, routed)           1.911    42.742    clk_in_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.091    42.833 r  clk_in_IBUF_BUFG_inst/O
+                         net (fo=4597, routed)        1.515    44.348    clk_in_IBUF_BUFG
+    SLICE_X38Y88         FDRE                                         r  data_out_reg[8]/C
+                         clock pessimism              0.322    44.671    
+                         clock uncertainty           -0.035    44.635    
+    SLICE_X38Y88         FDRE (Setup_fdre_C_D)        0.113    44.748    data_out_reg[8]
+  -------------------------------------------------------------------
+                         required time                         44.748    
+                         arrival time                         -43.414    
+  -------------------------------------------------------------------
+                         slack                                  1.334    
+
+Slack (MET) :             1.363ns  (required time - arrival time)
+  Source:                 ICDIPR_S_reg[14][25]/C
+                            (rising edge-triggered cell FDCE clocked by clk_in  {rise@0.000ns fall@20.000ns period=40.000ns})
+  Destination:            data_out_reg[11]/D
+                            (rising edge-triggered cell FDRE clocked by clk_in  {rise@0.000ns fall@20.000ns period=40.000ns})
+  Path Group:             clk_in
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            40.000ns  (clk_in rise@40.000ns - clk_in rise@0.000ns)
+  Data Path Delay:        38.675ns  (logic 10.239ns (26.475%)  route 28.436ns (73.525%))
+  Logic Levels:           41  (CARRY4=7 LUT2=1 LUT3=8 LUT4=5 LUT5=11 LUT6=8 MUXF7=1)
+  Clock Path Skew:        -0.040ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.348ns = ( 44.348 - 40.000 ) 
+    Source Clock Delay      (SCD):    4.711ns
+    Clock Pessimism Removal (CPR):    0.322ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_in rise edge)     0.000     0.000 r  
+    E15                                               0.000     0.000 r  clk_in (IN)
+                         net (fo=0)                   0.000     0.000    clk_in
+    E15                  IBUF (Prop_ibuf_I_O)         0.965     0.965 r  clk_in_IBUF_inst/O
+                         net (fo=1, routed)           2.016     2.980    clk_in_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.096     3.076 r  clk_in_IBUF_BUFG_inst/O
+                         net (fo=4597, routed)        1.634     4.711    clk_in_IBUF_BUFG
+    SLICE_X46Y53         FDCE                                         r  ICDIPR_S_reg[14][25]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X46Y53         FDCE (Prop_fdce_C_Q)         0.518     5.229 r  ICDIPR_S_reg[14][25]/Q
+                         net (fo=29, routed)          1.744     6.973    ICDIPR_S_reg_n_0_[14][25]
+    SLICE_X62Y51         LUT4 (Prop_lut4_I0_O)        0.124     7.097 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_519/O
+                         net (fo=1, routed)           0.000     7.097    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_519_n_0
+    SLICE_X62Y51         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.513     7.610 r  genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_358/CO[3]
+                         net (fo=3, routed)           0.952     8.562    genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_358_n_0
+    SLICE_X62Y48         LUT6 (Prop_lut6_I1_O)        0.124     8.686 r  genblk5[0].IRQ[0]_i_1042/O
+                         net (fo=2, routed)           0.703     9.389    genblk5[0].IRQ[0]_i_1042_n_0
+    SLICE_X64Y50         LUT3 (Prop_lut3_I0_O)        0.120     9.509 f  genblk5[0].IRQ[0]_i_976/O
+                         net (fo=16, routed)          0.985    10.494    genblk5[0].IRQ[0]_i_976_n_0
+    SLICE_X60Y51         LUT4 (Prop_lut4_I2_O)        0.327    10.821 r  genblk5[0].IRQ[0]_i_1039/O
+                         net (fo=1, routed)           0.846    11.667    genblk5[0].IRQ[0]_i_1039_n_0
+    SLICE_X60Y51         LUT5 (Prop_lut5_I4_O)        0.153    11.820 r  genblk5[0].IRQ[0]_i_972/O
+                         net (fo=2, routed)           0.599    12.419    genblk5[0].IRQ[0]_i_972_n_0
+    SLICE_X59Y50         LUT5 (Prop_lut5_I0_O)        0.331    12.750 r  genblk5[0].IRQ[0]_i_660/O
+                         net (fo=1, routed)           0.520    13.271    genblk5[0].IRQ[0]_i_660_n_0
+    SLICE_X59Y51         CARRY4 (Prop_carry4_DI[2]_CO[3])
+                                                      0.398    13.669 r  genblk5[0].IRQ_reg[0]_i_464/CO[3]
+                         net (fo=3, routed)           1.309    14.978    genblk5[0].IRQ_reg[0]_i_464_n_0
+    SLICE_X61Y45         LUT5 (Prop_lut5_I1_O)        0.124    15.102 r  genblk5[0].IRQ[0]_i_1001/O
+                         net (fo=2, routed)           0.416    15.518    genblk5[0].IRQ[0]_i_1001_n_0
+    SLICE_X60Y46         LUT3 (Prop_lut3_I0_O)        0.116    15.634 r  genblk5[0].IRQ[0]_i_695/O
+                         net (fo=12, routed)          1.152    16.786    genblk5[0].IRQ[0]_i_695_n_0
+    SLICE_X58Y49         LUT4 (Prop_lut4_I3_O)        0.350    17.136 r  genblk5[0].IRQ[0]_i_494/O
+                         net (fo=3, routed)           1.156    18.292    output_priority[0][1][14][7]
+    SLICE_X58Y47         LUT5 (Prop_lut5_I4_O)        0.360    18.652 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_209/O
+                         net (fo=1, routed)           0.000    18.652    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_209_n_0
+    SLICE_X58Y47         CARRY4 (Prop_carry4_DI[3]_CO[3])
+                                                      0.338    18.990 f  genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_83/CO[3]
+                         net (fo=3, routed)           1.050    20.041    genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_83_n_0
+    SLICE_X58Y43         LUT5 (Prop_lut5_I3_O)        0.150    20.191 f  genblk5[0].IRQ[0]_i_492/O
+                         net (fo=13, routed)          0.384    20.574    genblk5[0].IRQ[0]_i_492_n_0
+    SLICE_X58Y44         LUT3 (Prop_lut3_I2_O)        0.348    20.922 f  genblk5[0].IRQ[0]_i_495/O
+                         net (fo=12, routed)          0.725    21.647    genblk5[0].IRQ[0]_i_495_n_0
+    SLICE_X54Y44         LUT6 (Prop_lut6_I3_O)        0.124    21.771 r  genblk5[0].IRQ[0]_i_684/O
+                         net (fo=1, routed)           1.165    22.936    genblk5[0].IRQ[0]_i_684_n_0
+    SLICE_X49Y39         LUT5 (Prop_lut5_I4_O)        0.152    23.088 r  genblk5[0].IRQ[0]_i_485/O
+                         net (fo=2, routed)           0.626    23.714    genblk5[0].IRQ[0]_i_485_n_0
+    SLICE_X49Y40         LUT3 (Prop_lut3_I0_O)        0.332    24.046 r  genblk5[0].IRQ[0]_i_338/O
+                         net (fo=1, routed)           0.000    24.046    genblk5[0].IRQ[0]_i_338_n_0
+    SLICE_X49Y40         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532    24.578 f  genblk5[0].IRQ_reg[0]_i_177/CO[3]
+                         net (fo=3, routed)           0.758    25.336    genblk5[0].IRQ_reg[0]_i_177_n_0
+    SLICE_X50Y40         LUT5 (Prop_lut5_I3_O)        0.124    25.460 f  genblk5[0].IRQ[0]_i_367/O
+                         net (fo=13, routed)          0.610    26.069    genblk5[0].IRQ[0]_i_367_n_0
+    SLICE_X47Y40         LUT3 (Prop_lut3_I2_O)        0.124    26.193 f  genblk5[0].IRQ[0]_i_372/O
+                         net (fo=12, routed)          0.946    27.139    genblk5[0].IRQ[0]_i_372_n_0
+    SLICE_X46Y40         LUT6 (Prop_lut6_I3_O)        0.124    27.263 r  genblk5[0].IRQ[0]_i_687/O
+                         net (fo=1, routed)           0.876    28.139    genblk5[0].IRQ[0]_i_687_n_0
+    SLICE_X41Y39         LUT5 (Prop_lut5_I4_O)        0.150    28.289 r  genblk5[0].IRQ[0]_i_488/O
+                         net (fo=2, routed)           0.832    29.121    genblk5[0].IRQ[0]_i_488_n_0
+    SLICE_X41Y40         LUT3 (Prop_lut3_I0_O)        0.326    29.447 r  genblk5[0].IRQ[0]_i_345/O
+                         net (fo=1, routed)           0.000    29.447    genblk5[0].IRQ[0]_i_345_n_0
+    SLICE_X41Y40         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    29.997 f  genblk5[0].IRQ_reg[0]_i_180/CO[3]
+                         net (fo=2, routed)           0.834    30.831    genblk5[0].IRQ_reg[0]_i_180_n_0
+    SLICE_X42Y41         LUT5 (Prop_lut5_I3_O)        0.124    30.955 f  genblk5[0].IRQ[0]_i_215/O
+                         net (fo=13, routed)          0.500    31.455    genblk5[0].IRQ[0]_i_215_n_0
+    SLICE_X42Y41         LUT3 (Prop_lut3_I2_O)        0.124    31.579 f  genblk5[0].IRQ[0]_i_220/O
+                         net (fo=12, routed)          0.736    32.314    genblk5[0].IRQ[0]_i_220_n_0
+    SLICE_X42Y43         LUT6 (Prop_lut6_I3_O)        0.124    32.438 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_269/O
+                         net (fo=1, routed)           1.174    33.612    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_269_n_0
+    SLICE_X40Y63         LUT5 (Prop_lut5_I4_O)        0.124    33.736 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_131/O
+                         net (fo=2, routed)           0.809    34.545    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_131_n_0
+    SLICE_X41Y61         LUT3 (Prop_lut3_I0_O)        0.124    34.669 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_55/O
+                         net (fo=1, routed)           0.000    34.669    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_55_n_0
+    SLICE_X41Y61         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    35.219 r  genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_24/CO[3]
+                         net (fo=2, routed)           0.860    36.079    genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_24_n_0
+    SLICE_X43Y59         LUT5 (Prop_lut5_I1_O)        0.118    36.197 r  genblk5[0].IRQ[0]_i_114/O
+                         net (fo=9, routed)           0.512    36.709    genblk5[0].IRQ[0]_i_114_n_0
+    SLICE_X43Y60         LUT4 (Prop_lut4_I3_O)        0.321    37.030 r  genblk5[0].IRQ[0]_i_118/O
+                         net (fo=8, routed)           0.590    37.620    genblk5[0].IRQ[0]_i_118_n_0
+    SLICE_X42Y60         LUT6 (Prop_lut6_I5_O)        0.332    37.952 r  genblk5[0].IRQ[0]_i_58/O
+                         net (fo=4, routed)           0.746    38.698    output_priority[0][5][0][0]
+    SLICE_X44Y62         LUT4 (Prop_lut4_I3_O)        0.124    38.822 r  genblk5[0].IRQ[0]_i_18/O
+                         net (fo=1, routed)           0.000    38.822    genblk5[0].IRQ[0]_i_18_n_0
+    SLICE_X44Y62         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532    39.354 f  genblk5[0].IRQ_reg[0]_i_3/CO[3]
+                         net (fo=4, routed)           1.103    40.457    ICCIAR21360_in
+    SLICE_X44Y67         LUT2 (Prop_lut2_I0_O)        0.124    40.581 f  data_out[13]_i_40/O
+                         net (fo=1, routed)           0.669    41.250    ICCIAR11361_out
+    SLICE_X44Y67         LUT6 (Prop_lut6_I2_O)        0.124    41.374 r  data_out[13]_i_22/O
+                         net (fo=1, routed)           0.458    41.832    data_out[13]_i_22_n_0
+    SLICE_X40Y68         LUT6 (Prop_lut6_I2_O)        0.124    41.956 r  data_out[13]_i_9/O
+                         net (fo=4, routed)           1.092    43.047    data_out[13]_i_9_n_0
+    SLICE_X38Y88         LUT6 (Prop_lut6_I2_O)        0.124    43.171 r  data_out[11]_i_3/O
+                         net (fo=1, routed)           0.000    43.171    data_out[11]_i_3_n_0
+    SLICE_X38Y88         MUXF7 (Prop_muxf7_I1_O)      0.214    43.385 r  data_out_reg[11]_i_1/O
+                         net (fo=1, routed)           0.000    43.385    data_out_reg[11]_i_1_n_0
+    SLICE_X38Y88         FDRE                                         r  data_out_reg[11]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_in rise edge)    40.000    40.000 r  
+    E15                                               0.000    40.000 r  clk_in (IN)
+                         net (fo=0)                   0.000    40.000    clk_in
+    E15                  IBUF (Prop_ibuf_I_O)         0.831    40.831 r  clk_in_IBUF_inst/O
+                         net (fo=1, routed)           1.911    42.742    clk_in_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.091    42.833 r  clk_in_IBUF_BUFG_inst/O
+                         net (fo=4597, routed)        1.515    44.348    clk_in_IBUF_BUFG
+    SLICE_X38Y88         FDRE                                         r  data_out_reg[11]/C
+                         clock pessimism              0.322    44.671    
+                         clock uncertainty           -0.035    44.635    
+    SLICE_X38Y88         FDRE (Setup_fdre_C_D)        0.113    44.748    data_out_reg[11]
+  -------------------------------------------------------------------
+                         required time                         44.748    
+                         arrival time                         -43.385    
+  -------------------------------------------------------------------
+                         slack                                  1.363    
+
+Slack (MET) :             1.419ns  (required time - arrival time)
+  Source:                 ICDIPR_S_reg[14][25]/C
+                            (rising edge-triggered cell FDCE clocked by clk_in  {rise@0.000ns fall@20.000ns period=40.000ns})
+  Destination:            data_out_reg[13]/D
+                            (rising edge-triggered cell FDRE clocked by clk_in  {rise@0.000ns fall@20.000ns period=40.000ns})
+  Path Group:             clk_in
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            40.000ns  (clk_in rise@40.000ns - clk_in rise@0.000ns)
+  Data Path Delay:        38.614ns  (logic 10.239ns (26.516%)  route 28.375ns (73.484%))
+  Logic Levels:           41  (CARRY4=7 LUT2=1 LUT3=8 LUT4=5 LUT5=11 LUT6=8 MUXF7=1)
+  Clock Path Skew:        -0.044ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.344ns = ( 44.344 - 40.000 ) 
+    Source Clock Delay      (SCD):    4.711ns
+    Clock Pessimism Removal (CPR):    0.322ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_in rise edge)     0.000     0.000 r  
+    E15                                               0.000     0.000 r  clk_in (IN)
+                         net (fo=0)                   0.000     0.000    clk_in
+    E15                  IBUF (Prop_ibuf_I_O)         0.965     0.965 r  clk_in_IBUF_inst/O
+                         net (fo=1, routed)           2.016     2.980    clk_in_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.096     3.076 r  clk_in_IBUF_BUFG_inst/O
+                         net (fo=4597, routed)        1.634     4.711    clk_in_IBUF_BUFG
+    SLICE_X46Y53         FDCE                                         r  ICDIPR_S_reg[14][25]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X46Y53         FDCE (Prop_fdce_C_Q)         0.518     5.229 r  ICDIPR_S_reg[14][25]/Q
+                         net (fo=29, routed)          1.744     6.973    ICDIPR_S_reg_n_0_[14][25]
+    SLICE_X62Y51         LUT4 (Prop_lut4_I0_O)        0.124     7.097 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_519/O
+                         net (fo=1, routed)           0.000     7.097    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_519_n_0
+    SLICE_X62Y51         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.513     7.610 r  genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_358/CO[3]
+                         net (fo=3, routed)           0.952     8.562    genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_358_n_0
+    SLICE_X62Y48         LUT6 (Prop_lut6_I1_O)        0.124     8.686 r  genblk5[0].IRQ[0]_i_1042/O
+                         net (fo=2, routed)           0.703     9.389    genblk5[0].IRQ[0]_i_1042_n_0
+    SLICE_X64Y50         LUT3 (Prop_lut3_I0_O)        0.120     9.509 f  genblk5[0].IRQ[0]_i_976/O
+                         net (fo=16, routed)          0.985    10.494    genblk5[0].IRQ[0]_i_976_n_0
+    SLICE_X60Y51         LUT4 (Prop_lut4_I2_O)        0.327    10.821 r  genblk5[0].IRQ[0]_i_1039/O
+                         net (fo=1, routed)           0.846    11.667    genblk5[0].IRQ[0]_i_1039_n_0
+    SLICE_X60Y51         LUT5 (Prop_lut5_I4_O)        0.153    11.820 r  genblk5[0].IRQ[0]_i_972/O
+                         net (fo=2, routed)           0.599    12.419    genblk5[0].IRQ[0]_i_972_n_0
+    SLICE_X59Y50         LUT5 (Prop_lut5_I0_O)        0.331    12.750 r  genblk5[0].IRQ[0]_i_660/O
+                         net (fo=1, routed)           0.520    13.271    genblk5[0].IRQ[0]_i_660_n_0
+    SLICE_X59Y51         CARRY4 (Prop_carry4_DI[2]_CO[3])
+                                                      0.398    13.669 r  genblk5[0].IRQ_reg[0]_i_464/CO[3]
+                         net (fo=3, routed)           1.309    14.978    genblk5[0].IRQ_reg[0]_i_464_n_0
+    SLICE_X61Y45         LUT5 (Prop_lut5_I1_O)        0.124    15.102 r  genblk5[0].IRQ[0]_i_1001/O
+                         net (fo=2, routed)           0.416    15.518    genblk5[0].IRQ[0]_i_1001_n_0
+    SLICE_X60Y46         LUT3 (Prop_lut3_I0_O)        0.116    15.634 r  genblk5[0].IRQ[0]_i_695/O
+                         net (fo=12, routed)          1.152    16.786    genblk5[0].IRQ[0]_i_695_n_0
+    SLICE_X58Y49         LUT4 (Prop_lut4_I3_O)        0.350    17.136 r  genblk5[0].IRQ[0]_i_494/O
+                         net (fo=3, routed)           1.156    18.292    output_priority[0][1][14][7]
+    SLICE_X58Y47         LUT5 (Prop_lut5_I4_O)        0.360    18.652 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_209/O
+                         net (fo=1, routed)           0.000    18.652    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_209_n_0
+    SLICE_X58Y47         CARRY4 (Prop_carry4_DI[3]_CO[3])
+                                                      0.338    18.990 f  genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_83/CO[3]
+                         net (fo=3, routed)           1.050    20.041    genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_83_n_0
+    SLICE_X58Y43         LUT5 (Prop_lut5_I3_O)        0.150    20.191 f  genblk5[0].IRQ[0]_i_492/O
+                         net (fo=13, routed)          0.384    20.574    genblk5[0].IRQ[0]_i_492_n_0
+    SLICE_X58Y44         LUT3 (Prop_lut3_I2_O)        0.348    20.922 f  genblk5[0].IRQ[0]_i_495/O
+                         net (fo=12, routed)          0.725    21.647    genblk5[0].IRQ[0]_i_495_n_0
+    SLICE_X54Y44         LUT6 (Prop_lut6_I3_O)        0.124    21.771 r  genblk5[0].IRQ[0]_i_684/O
+                         net (fo=1, routed)           1.165    22.936    genblk5[0].IRQ[0]_i_684_n_0
+    SLICE_X49Y39         LUT5 (Prop_lut5_I4_O)        0.152    23.088 r  genblk5[0].IRQ[0]_i_485/O
+                         net (fo=2, routed)           0.626    23.714    genblk5[0].IRQ[0]_i_485_n_0
+    SLICE_X49Y40         LUT3 (Prop_lut3_I0_O)        0.332    24.046 r  genblk5[0].IRQ[0]_i_338/O
+                         net (fo=1, routed)           0.000    24.046    genblk5[0].IRQ[0]_i_338_n_0
+    SLICE_X49Y40         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532    24.578 f  genblk5[0].IRQ_reg[0]_i_177/CO[3]
+                         net (fo=3, routed)           0.758    25.336    genblk5[0].IRQ_reg[0]_i_177_n_0
+    SLICE_X50Y40         LUT5 (Prop_lut5_I3_O)        0.124    25.460 f  genblk5[0].IRQ[0]_i_367/O
+                         net (fo=13, routed)          0.610    26.069    genblk5[0].IRQ[0]_i_367_n_0
+    SLICE_X47Y40         LUT3 (Prop_lut3_I2_O)        0.124    26.193 f  genblk5[0].IRQ[0]_i_372/O
+                         net (fo=12, routed)          0.946    27.139    genblk5[0].IRQ[0]_i_372_n_0
+    SLICE_X46Y40         LUT6 (Prop_lut6_I3_O)        0.124    27.263 r  genblk5[0].IRQ[0]_i_687/O
+                         net (fo=1, routed)           0.876    28.139    genblk5[0].IRQ[0]_i_687_n_0
+    SLICE_X41Y39         LUT5 (Prop_lut5_I4_O)        0.150    28.289 r  genblk5[0].IRQ[0]_i_488/O
+                         net (fo=2, routed)           0.832    29.121    genblk5[0].IRQ[0]_i_488_n_0
+    SLICE_X41Y40         LUT3 (Prop_lut3_I0_O)        0.326    29.447 r  genblk5[0].IRQ[0]_i_345/O
+                         net (fo=1, routed)           0.000    29.447    genblk5[0].IRQ[0]_i_345_n_0
+    SLICE_X41Y40         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    29.997 f  genblk5[0].IRQ_reg[0]_i_180/CO[3]
+                         net (fo=2, routed)           0.834    30.831    genblk5[0].IRQ_reg[0]_i_180_n_0
+    SLICE_X42Y41         LUT5 (Prop_lut5_I3_O)        0.124    30.955 f  genblk5[0].IRQ[0]_i_215/O
+                         net (fo=13, routed)          0.500    31.455    genblk5[0].IRQ[0]_i_215_n_0
+    SLICE_X42Y41         LUT3 (Prop_lut3_I2_O)        0.124    31.579 f  genblk5[0].IRQ[0]_i_220/O
+                         net (fo=12, routed)          0.736    32.314    genblk5[0].IRQ[0]_i_220_n_0
+    SLICE_X42Y43         LUT6 (Prop_lut6_I3_O)        0.124    32.438 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_269/O
+                         net (fo=1, routed)           1.174    33.612    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_269_n_0
+    SLICE_X40Y63         LUT5 (Prop_lut5_I4_O)        0.124    33.736 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_131/O
+                         net (fo=2, routed)           0.809    34.545    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_131_n_0
+    SLICE_X41Y61         LUT3 (Prop_lut3_I0_O)        0.124    34.669 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_55/O
+                         net (fo=1, routed)           0.000    34.669    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_55_n_0
+    SLICE_X41Y61         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    35.219 r  genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_24/CO[3]
+                         net (fo=2, routed)           0.860    36.079    genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_24_n_0
+    SLICE_X43Y59         LUT5 (Prop_lut5_I1_O)        0.118    36.197 r  genblk5[0].IRQ[0]_i_114/O
+                         net (fo=9, routed)           0.512    36.709    genblk5[0].IRQ[0]_i_114_n_0
+    SLICE_X43Y60         LUT4 (Prop_lut4_I3_O)        0.321    37.030 r  genblk5[0].IRQ[0]_i_118/O
+                         net (fo=8, routed)           0.590    37.620    genblk5[0].IRQ[0]_i_118_n_0
+    SLICE_X42Y60         LUT6 (Prop_lut6_I5_O)        0.332    37.952 r  genblk5[0].IRQ[0]_i_58/O
+                         net (fo=4, routed)           0.746    38.698    output_priority[0][5][0][0]
+    SLICE_X44Y62         LUT4 (Prop_lut4_I3_O)        0.124    38.822 r  genblk5[0].IRQ[0]_i_18/O
+                         net (fo=1, routed)           0.000    38.822    genblk5[0].IRQ[0]_i_18_n_0
+    SLICE_X44Y62         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532    39.354 f  genblk5[0].IRQ_reg[0]_i_3/CO[3]
+                         net (fo=4, routed)           1.103    40.457    ICCIAR21360_in
+    SLICE_X44Y67         LUT2 (Prop_lut2_I0_O)        0.124    40.581 f  data_out[13]_i_40/O
+                         net (fo=1, routed)           0.669    41.250    ICCIAR11361_out
+    SLICE_X44Y67         LUT6 (Prop_lut6_I2_O)        0.124    41.374 r  data_out[13]_i_22/O
+                         net (fo=1, routed)           0.458    41.832    data_out[13]_i_22_n_0
+    SLICE_X40Y68         LUT6 (Prop_lut6_I2_O)        0.124    41.956 r  data_out[13]_i_9/O
+                         net (fo=4, routed)           1.031    42.987    data_out[13]_i_9_n_0
+    SLICE_X38Y83         LUT6 (Prop_lut6_I2_O)        0.124    43.111 r  data_out[13]_i_3/O
+                         net (fo=1, routed)           0.000    43.111    data_out[13]_i_3_n_0
+    SLICE_X38Y83         MUXF7 (Prop_muxf7_I1_O)      0.214    43.325 r  data_out_reg[13]_i_1/O
+                         net (fo=1, routed)           0.000    43.325    data_out_reg[13]_i_1_n_0
+    SLICE_X38Y83         FDRE                                         r  data_out_reg[13]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_in rise edge)    40.000    40.000 r  
+    E15                                               0.000    40.000 r  clk_in (IN)
+                         net (fo=0)                   0.000    40.000    clk_in
+    E15                  IBUF (Prop_ibuf_I_O)         0.831    40.831 r  clk_in_IBUF_inst/O
+                         net (fo=1, routed)           1.911    42.742    clk_in_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.091    42.833 r  clk_in_IBUF_BUFG_inst/O
+                         net (fo=4597, routed)        1.511    44.344    clk_in_IBUF_BUFG
+    SLICE_X38Y83         FDRE                                         r  data_out_reg[13]/C
+                         clock pessimism              0.322    44.667    
+                         clock uncertainty           -0.035    44.631    
+    SLICE_X38Y83         FDRE (Setup_fdre_C_D)        0.113    44.744    data_out_reg[13]
+  -------------------------------------------------------------------
+                         required time                         44.744    
+                         arrival time                         -43.325    
+  -------------------------------------------------------------------
+                         slack                                  1.419    
+
+Slack (MET) :             1.483ns  (required time - arrival time)
+  Source:                 ICDIPR_S_reg[14][25]/C
+                            (rising edge-triggered cell FDCE clocked by clk_in  {rise@0.000ns fall@20.000ns period=40.000ns})
+  Destination:            data_out_reg[10]/D
+                            (rising edge-triggered cell FDRE clocked by clk_in  {rise@0.000ns fall@20.000ns period=40.000ns})
+  Path Group:             clk_in
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            40.000ns  (clk_in rise@40.000ns - clk_in rise@0.000ns)
+  Data Path Delay:        38.504ns  (logic 10.242ns (26.600%)  route 28.262ns (73.400%))
+  Logic Levels:           41  (CARRY4=7 LUT2=1 LUT3=8 LUT4=5 LUT5=11 LUT6=8 MUXF7=1)
+  Clock Path Skew:        -0.042ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.346ns = ( 44.346 - 40.000 ) 
+    Source Clock Delay      (SCD):    4.711ns
+    Clock Pessimism Removal (CPR):    0.322ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_in rise edge)     0.000     0.000 r  
+    E15                                               0.000     0.000 r  clk_in (IN)
+                         net (fo=0)                   0.000     0.000    clk_in
+    E15                  IBUF (Prop_ibuf_I_O)         0.965     0.965 r  clk_in_IBUF_inst/O
+                         net (fo=1, routed)           2.016     2.980    clk_in_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.096     3.076 r  clk_in_IBUF_BUFG_inst/O
+                         net (fo=4597, routed)        1.634     4.711    clk_in_IBUF_BUFG
+    SLICE_X46Y53         FDCE                                         r  ICDIPR_S_reg[14][25]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X46Y53         FDCE (Prop_fdce_C_Q)         0.518     5.229 r  ICDIPR_S_reg[14][25]/Q
+                         net (fo=29, routed)          1.744     6.973    ICDIPR_S_reg_n_0_[14][25]
+    SLICE_X62Y51         LUT4 (Prop_lut4_I0_O)        0.124     7.097 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_519/O
+                         net (fo=1, routed)           0.000     7.097    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_519_n_0
+    SLICE_X62Y51         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.513     7.610 r  genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_358/CO[3]
+                         net (fo=3, routed)           0.952     8.562    genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_358_n_0
+    SLICE_X62Y48         LUT6 (Prop_lut6_I1_O)        0.124     8.686 r  genblk5[0].IRQ[0]_i_1042/O
+                         net (fo=2, routed)           0.703     9.389    genblk5[0].IRQ[0]_i_1042_n_0
+    SLICE_X64Y50         LUT3 (Prop_lut3_I0_O)        0.120     9.509 f  genblk5[0].IRQ[0]_i_976/O
+                         net (fo=16, routed)          0.985    10.494    genblk5[0].IRQ[0]_i_976_n_0
+    SLICE_X60Y51         LUT4 (Prop_lut4_I2_O)        0.327    10.821 r  genblk5[0].IRQ[0]_i_1039/O
+                         net (fo=1, routed)           0.846    11.667    genblk5[0].IRQ[0]_i_1039_n_0
+    SLICE_X60Y51         LUT5 (Prop_lut5_I4_O)        0.153    11.820 r  genblk5[0].IRQ[0]_i_972/O
+                         net (fo=2, routed)           0.599    12.419    genblk5[0].IRQ[0]_i_972_n_0
+    SLICE_X59Y50         LUT5 (Prop_lut5_I0_O)        0.331    12.750 r  genblk5[0].IRQ[0]_i_660/O
+                         net (fo=1, routed)           0.520    13.271    genblk5[0].IRQ[0]_i_660_n_0
+    SLICE_X59Y51         CARRY4 (Prop_carry4_DI[2]_CO[3])
+                                                      0.398    13.669 r  genblk5[0].IRQ_reg[0]_i_464/CO[3]
+                         net (fo=3, routed)           1.309    14.978    genblk5[0].IRQ_reg[0]_i_464_n_0
+    SLICE_X61Y45         LUT5 (Prop_lut5_I1_O)        0.124    15.102 r  genblk5[0].IRQ[0]_i_1001/O
+                         net (fo=2, routed)           0.416    15.518    genblk5[0].IRQ[0]_i_1001_n_0
+    SLICE_X60Y46         LUT3 (Prop_lut3_I0_O)        0.116    15.634 r  genblk5[0].IRQ[0]_i_695/O
+                         net (fo=12, routed)          1.152    16.786    genblk5[0].IRQ[0]_i_695_n_0
+    SLICE_X58Y49         LUT4 (Prop_lut4_I3_O)        0.350    17.136 r  genblk5[0].IRQ[0]_i_494/O
+                         net (fo=3, routed)           1.156    18.292    output_priority[0][1][14][7]
+    SLICE_X58Y47         LUT5 (Prop_lut5_I4_O)        0.360    18.652 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_209/O
+                         net (fo=1, routed)           0.000    18.652    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_209_n_0
+    SLICE_X58Y47         CARRY4 (Prop_carry4_DI[3]_CO[3])
+                                                      0.338    18.990 f  genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_83/CO[3]
+                         net (fo=3, routed)           1.050    20.041    genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_83_n_0
+    SLICE_X58Y43         LUT5 (Prop_lut5_I3_O)        0.150    20.191 f  genblk5[0].IRQ[0]_i_492/O
+                         net (fo=13, routed)          0.384    20.574    genblk5[0].IRQ[0]_i_492_n_0
+    SLICE_X58Y44         LUT3 (Prop_lut3_I2_O)        0.348    20.922 f  genblk5[0].IRQ[0]_i_495/O
+                         net (fo=12, routed)          0.725    21.647    genblk5[0].IRQ[0]_i_495_n_0
+    SLICE_X54Y44         LUT6 (Prop_lut6_I3_O)        0.124    21.771 r  genblk5[0].IRQ[0]_i_684/O
+                         net (fo=1, routed)           1.165    22.936    genblk5[0].IRQ[0]_i_684_n_0
+    SLICE_X49Y39         LUT5 (Prop_lut5_I4_O)        0.152    23.088 r  genblk5[0].IRQ[0]_i_485/O
+                         net (fo=2, routed)           0.626    23.714    genblk5[0].IRQ[0]_i_485_n_0
+    SLICE_X49Y40         LUT3 (Prop_lut3_I0_O)        0.332    24.046 r  genblk5[0].IRQ[0]_i_338/O
+                         net (fo=1, routed)           0.000    24.046    genblk5[0].IRQ[0]_i_338_n_0
+    SLICE_X49Y40         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532    24.578 f  genblk5[0].IRQ_reg[0]_i_177/CO[3]
+                         net (fo=3, routed)           0.758    25.336    genblk5[0].IRQ_reg[0]_i_177_n_0
+    SLICE_X50Y40         LUT5 (Prop_lut5_I3_O)        0.124    25.460 f  genblk5[0].IRQ[0]_i_367/O
+                         net (fo=13, routed)          0.610    26.069    genblk5[0].IRQ[0]_i_367_n_0
+    SLICE_X47Y40         LUT3 (Prop_lut3_I2_O)        0.124    26.193 f  genblk5[0].IRQ[0]_i_372/O
+                         net (fo=12, routed)          0.946    27.139    genblk5[0].IRQ[0]_i_372_n_0
+    SLICE_X46Y40         LUT6 (Prop_lut6_I3_O)        0.124    27.263 r  genblk5[0].IRQ[0]_i_687/O
+                         net (fo=1, routed)           0.876    28.139    genblk5[0].IRQ[0]_i_687_n_0
+    SLICE_X41Y39         LUT5 (Prop_lut5_I4_O)        0.150    28.289 r  genblk5[0].IRQ[0]_i_488/O
+                         net (fo=2, routed)           0.832    29.121    genblk5[0].IRQ[0]_i_488_n_0
+    SLICE_X41Y40         LUT3 (Prop_lut3_I0_O)        0.326    29.447 r  genblk5[0].IRQ[0]_i_345/O
+                         net (fo=1, routed)           0.000    29.447    genblk5[0].IRQ[0]_i_345_n_0
+    SLICE_X41Y40         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    29.997 f  genblk5[0].IRQ_reg[0]_i_180/CO[3]
+                         net (fo=2, routed)           0.834    30.831    genblk5[0].IRQ_reg[0]_i_180_n_0
+    SLICE_X42Y41         LUT5 (Prop_lut5_I3_O)        0.124    30.955 f  genblk5[0].IRQ[0]_i_215/O
+                         net (fo=13, routed)          0.500    31.455    genblk5[0].IRQ[0]_i_215_n_0
+    SLICE_X42Y41         LUT3 (Prop_lut3_I2_O)        0.124    31.579 f  genblk5[0].IRQ[0]_i_220/O
+                         net (fo=12, routed)          0.736    32.314    genblk5[0].IRQ[0]_i_220_n_0
+    SLICE_X42Y43         LUT6 (Prop_lut6_I3_O)        0.124    32.438 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_269/O
+                         net (fo=1, routed)           1.174    33.612    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_269_n_0
+    SLICE_X40Y63         LUT5 (Prop_lut5_I4_O)        0.124    33.736 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_131/O
+                         net (fo=2, routed)           0.809    34.545    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_131_n_0
+    SLICE_X41Y61         LUT3 (Prop_lut3_I0_O)        0.124    34.669 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_55/O
+                         net (fo=1, routed)           0.000    34.669    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_55_n_0
+    SLICE_X41Y61         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    35.219 r  genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_24/CO[3]
+                         net (fo=2, routed)           0.860    36.079    genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_24_n_0
+    SLICE_X43Y59         LUT5 (Prop_lut5_I1_O)        0.118    36.197 r  genblk5[0].IRQ[0]_i_114/O
+                         net (fo=9, routed)           0.512    36.709    genblk5[0].IRQ[0]_i_114_n_0
+    SLICE_X43Y60         LUT4 (Prop_lut4_I3_O)        0.321    37.030 r  genblk5[0].IRQ[0]_i_118/O
+                         net (fo=8, routed)           0.590    37.620    genblk5[0].IRQ[0]_i_118_n_0
+    SLICE_X42Y60         LUT6 (Prop_lut6_I5_O)        0.332    37.952 r  genblk5[0].IRQ[0]_i_58/O
+                         net (fo=4, routed)           0.746    38.698    output_priority[0][5][0][0]
+    SLICE_X44Y62         LUT4 (Prop_lut4_I3_O)        0.124    38.822 r  genblk5[0].IRQ[0]_i_18/O
+                         net (fo=1, routed)           0.000    38.822    genblk5[0].IRQ[0]_i_18_n_0
+    SLICE_X44Y62         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532    39.354 f  genblk5[0].IRQ_reg[0]_i_3/CO[3]
+                         net (fo=4, routed)           1.103    40.457    ICCIAR21360_in
+    SLICE_X44Y67         LUT2 (Prop_lut2_I0_O)        0.124    40.581 f  data_out[13]_i_40/O
+                         net (fo=1, routed)           0.669    41.250    ICCIAR11361_out
+    SLICE_X44Y67         LUT6 (Prop_lut6_I2_O)        0.124    41.374 r  data_out[13]_i_22/O
+                         net (fo=1, routed)           0.458    41.832    data_out[13]_i_22_n_0
+    SLICE_X40Y68         LUT6 (Prop_lut6_I2_O)        0.124    41.956 r  data_out[13]_i_9/O
+                         net (fo=4, routed)           0.918    42.873    data_out[13]_i_9_n_0
+    SLICE_X39Y86         LUT6 (Prop_lut6_I2_O)        0.124    42.997 r  data_out[10]_i_3/O
+                         net (fo=1, routed)           0.000    42.997    data_out[10]_i_3_n_0
+    SLICE_X39Y86         MUXF7 (Prop_muxf7_I1_O)      0.217    43.214 r  data_out_reg[10]_i_1/O
+                         net (fo=1, routed)           0.000    43.214    data_out_reg[10]_i_1_n_0
+    SLICE_X39Y86         FDRE                                         r  data_out_reg[10]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_in rise edge)    40.000    40.000 r  
+    E15                                               0.000    40.000 r  clk_in (IN)
+                         net (fo=0)                   0.000    40.000    clk_in
+    E15                  IBUF (Prop_ibuf_I_O)         0.831    40.831 r  clk_in_IBUF_inst/O
+                         net (fo=1, routed)           1.911    42.742    clk_in_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.091    42.833 r  clk_in_IBUF_BUFG_inst/O
+                         net (fo=4597, routed)        1.513    44.346    clk_in_IBUF_BUFG
+    SLICE_X39Y86         FDRE                                         r  data_out_reg[10]/C
+                         clock pessimism              0.322    44.669    
+                         clock uncertainty           -0.035    44.633    
+    SLICE_X39Y86         FDRE (Setup_fdre_C_D)        0.064    44.697    data_out_reg[10]
+  -------------------------------------------------------------------
+                         required time                         44.697    
+                         arrival time                         -43.214    
+  -------------------------------------------------------------------
+                         slack                                  1.483    
+
+Slack (MET) :             1.913ns  (required time - arrival time)
+  Source:                 ICDIPR_S_reg[14][25]/C
+                            (rising edge-triggered cell FDCE clocked by clk_in  {rise@0.000ns fall@20.000ns period=40.000ns})
+  Destination:            genblk2[0].genblk1[18].interrupt_states_reg[0][18][0]/D
+                            (rising edge-triggered cell FDCE clocked by clk_in  {rise@0.000ns fall@20.000ns period=40.000ns})
+  Path Group:             clk_in
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            40.000ns  (clk_in rise@40.000ns - clk_in rise@0.000ns)
+  Data Path Delay:        38.041ns  (logic 9.436ns (24.805%)  route 28.605ns (75.195%))
+  Logic Levels:           38  (CARRY4=6 LUT2=3 LUT3=8 LUT4=3 LUT5=11 LUT6=7)
+  Clock Path Skew:        -0.040ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.348ns = ( 44.348 - 40.000 ) 
+    Source Clock Delay      (SCD):    4.711ns
+    Clock Pessimism Removal (CPR):    0.322ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_in rise edge)     0.000     0.000 r  
+    E15                                               0.000     0.000 r  clk_in (IN)
+                         net (fo=0)                   0.000     0.000    clk_in
+    E15                  IBUF (Prop_ibuf_I_O)         0.965     0.965 r  clk_in_IBUF_inst/O
+                         net (fo=1, routed)           2.016     2.980    clk_in_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.096     3.076 r  clk_in_IBUF_BUFG_inst/O
+                         net (fo=4597, routed)        1.634     4.711    clk_in_IBUF_BUFG
+    SLICE_X46Y53         FDCE                                         r  ICDIPR_S_reg[14][25]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X46Y53         FDCE (Prop_fdce_C_Q)         0.518     5.229 r  ICDIPR_S_reg[14][25]/Q
+                         net (fo=29, routed)          1.744     6.973    ICDIPR_S_reg_n_0_[14][25]
+    SLICE_X62Y51         LUT4 (Prop_lut4_I0_O)        0.124     7.097 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_519/O
+                         net (fo=1, routed)           0.000     7.097    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_519_n_0
+    SLICE_X62Y51         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.513     7.610 r  genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_358/CO[3]
+                         net (fo=3, routed)           0.952     8.562    genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_358_n_0
+    SLICE_X62Y48         LUT6 (Prop_lut6_I1_O)        0.124     8.686 r  genblk5[0].IRQ[0]_i_1042/O
+                         net (fo=2, routed)           0.703     9.389    genblk5[0].IRQ[0]_i_1042_n_0
+    SLICE_X64Y50         LUT3 (Prop_lut3_I0_O)        0.120     9.509 f  genblk5[0].IRQ[0]_i_976/O
+                         net (fo=16, routed)          0.985    10.494    genblk5[0].IRQ[0]_i_976_n_0
+    SLICE_X60Y51         LUT4 (Prop_lut4_I2_O)        0.327    10.821 r  genblk5[0].IRQ[0]_i_1039/O
+                         net (fo=1, routed)           0.846    11.667    genblk5[0].IRQ[0]_i_1039_n_0
+    SLICE_X60Y51         LUT5 (Prop_lut5_I4_O)        0.153    11.820 r  genblk5[0].IRQ[0]_i_972/O
+                         net (fo=2, routed)           0.599    12.419    genblk5[0].IRQ[0]_i_972_n_0
+    SLICE_X59Y50         LUT5 (Prop_lut5_I0_O)        0.331    12.750 r  genblk5[0].IRQ[0]_i_660/O
+                         net (fo=1, routed)           0.520    13.271    genblk5[0].IRQ[0]_i_660_n_0
+    SLICE_X59Y51         CARRY4 (Prop_carry4_DI[2]_CO[3])
+                                                      0.398    13.669 r  genblk5[0].IRQ_reg[0]_i_464/CO[3]
+                         net (fo=3, routed)           1.309    14.978    genblk5[0].IRQ_reg[0]_i_464_n_0
+    SLICE_X61Y45         LUT5 (Prop_lut5_I1_O)        0.124    15.102 r  genblk5[0].IRQ[0]_i_1001/O
+                         net (fo=2, routed)           0.416    15.518    genblk5[0].IRQ[0]_i_1001_n_0
+    SLICE_X60Y46         LUT3 (Prop_lut3_I0_O)        0.116    15.634 r  genblk5[0].IRQ[0]_i_695/O
+                         net (fo=12, routed)          1.152    16.786    genblk5[0].IRQ[0]_i_695_n_0
+    SLICE_X58Y49         LUT4 (Prop_lut4_I3_O)        0.350    17.136 r  genblk5[0].IRQ[0]_i_494/O
+                         net (fo=3, routed)           1.156    18.292    output_priority[0][1][14][7]
+    SLICE_X58Y47         LUT5 (Prop_lut5_I4_O)        0.360    18.652 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_209/O
+                         net (fo=1, routed)           0.000    18.652    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_209_n_0
+    SLICE_X58Y47         CARRY4 (Prop_carry4_DI[3]_CO[3])
+                                                      0.338    18.990 f  genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_83/CO[3]
+                         net (fo=3, routed)           1.050    20.041    genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_83_n_0
+    SLICE_X58Y43         LUT5 (Prop_lut5_I3_O)        0.150    20.191 f  genblk5[0].IRQ[0]_i_492/O
+                         net (fo=13, routed)          0.384    20.574    genblk5[0].IRQ[0]_i_492_n_0
+    SLICE_X58Y44         LUT3 (Prop_lut3_I2_O)        0.348    20.922 f  genblk5[0].IRQ[0]_i_495/O
+                         net (fo=12, routed)          0.725    21.647    genblk5[0].IRQ[0]_i_495_n_0
+    SLICE_X54Y44         LUT6 (Prop_lut6_I3_O)        0.124    21.771 r  genblk5[0].IRQ[0]_i_684/O
+                         net (fo=1, routed)           1.165    22.936    genblk5[0].IRQ[0]_i_684_n_0
+    SLICE_X49Y39         LUT5 (Prop_lut5_I4_O)        0.152    23.088 r  genblk5[0].IRQ[0]_i_485/O
+                         net (fo=2, routed)           0.626    23.714    genblk5[0].IRQ[0]_i_485_n_0
+    SLICE_X49Y40         LUT3 (Prop_lut3_I0_O)        0.332    24.046 r  genblk5[0].IRQ[0]_i_338/O
+                         net (fo=1, routed)           0.000    24.046    genblk5[0].IRQ[0]_i_338_n_0
+    SLICE_X49Y40         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532    24.578 f  genblk5[0].IRQ_reg[0]_i_177/CO[3]
+                         net (fo=3, routed)           0.758    25.336    genblk5[0].IRQ_reg[0]_i_177_n_0
+    SLICE_X50Y40         LUT5 (Prop_lut5_I3_O)        0.124    25.460 f  genblk5[0].IRQ[0]_i_367/O
+                         net (fo=13, routed)          0.610    26.069    genblk5[0].IRQ[0]_i_367_n_0
+    SLICE_X47Y40         LUT3 (Prop_lut3_I2_O)        0.124    26.193 f  genblk5[0].IRQ[0]_i_372/O
+                         net (fo=12, routed)          0.946    27.139    genblk5[0].IRQ[0]_i_372_n_0
+    SLICE_X46Y40         LUT6 (Prop_lut6_I3_O)        0.124    27.263 r  genblk5[0].IRQ[0]_i_687/O
+                         net (fo=1, routed)           0.876    28.139    genblk5[0].IRQ[0]_i_687_n_0
+    SLICE_X41Y39         LUT5 (Prop_lut5_I4_O)        0.150    28.289 r  genblk5[0].IRQ[0]_i_488/O
+                         net (fo=2, routed)           0.832    29.121    genblk5[0].IRQ[0]_i_488_n_0
+    SLICE_X41Y40         LUT3 (Prop_lut3_I0_O)        0.326    29.447 r  genblk5[0].IRQ[0]_i_345/O
+                         net (fo=1, routed)           0.000    29.447    genblk5[0].IRQ[0]_i_345_n_0
+    SLICE_X41Y40         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    29.997 f  genblk5[0].IRQ_reg[0]_i_180/CO[3]
+                         net (fo=2, routed)           0.834    30.831    genblk5[0].IRQ_reg[0]_i_180_n_0
+    SLICE_X42Y41         LUT5 (Prop_lut5_I3_O)        0.124    30.955 f  genblk5[0].IRQ[0]_i_215/O
+                         net (fo=13, routed)          0.500    31.455    genblk5[0].IRQ[0]_i_215_n_0
+    SLICE_X42Y41         LUT3 (Prop_lut3_I2_O)        0.124    31.579 f  genblk5[0].IRQ[0]_i_220/O
+                         net (fo=12, routed)          0.736    32.314    genblk5[0].IRQ[0]_i_220_n_0
+    SLICE_X42Y43         LUT6 (Prop_lut6_I3_O)        0.124    32.438 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_269/O
+                         net (fo=1, routed)           1.174    33.612    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_269_n_0
+    SLICE_X40Y63         LUT5 (Prop_lut5_I4_O)        0.124    33.736 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_131/O
+                         net (fo=2, routed)           0.809    34.545    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_131_n_0
+    SLICE_X41Y61         LUT3 (Prop_lut3_I0_O)        0.124    34.669 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_55/O
+                         net (fo=1, routed)           0.000    34.669    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_55_n_0
+    SLICE_X41Y61         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    35.219 f  genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_24/CO[3]
+                         net (fo=2, routed)           0.860    36.079    genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_24_n_0
+    SLICE_X43Y59         LUT5 (Prop_lut5_I1_O)        0.124    36.203 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_11/O
+                         net (fo=6, routed)           0.737    36.940    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_11_n_0
+    SLICE_X44Y63         LUT6 (Prop_lut6_I2_O)        0.124    37.064 r  genblk1[0].genblk1[6].interrupt_states[0][6][1]_i_4/O
+                         net (fo=32, routed)          1.031    38.094    genblk1[0].genblk1[6].interrupt_states[0][6][1]_i_4_n_0
+    SLICE_X43Y67         LUT2 (Prop_lut2_I0_O)        0.152    38.246 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_5/O
+                         net (fo=15, routed)          0.904    39.151    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_5_n_0
+    SLICE_X39Y72         LUT2 (Prop_lut2_I0_O)        0.332    39.483 r  genblk2[0].genblk1[22].interrupt_states[0][22][1]_i_5/O
+                         net (fo=11, routed)          0.851    40.333    genblk2[0].genblk1[22].interrupt_states[0][22][1]_i_5_n_0
+    SLICE_X39Y70         LUT2 (Prop_lut2_I0_O)        0.152    40.485 r  genblk2[0].genblk1[18].interrupt_states[0][18][1]_i_5/O
+                         net (fo=3, routed)           1.000    41.485    genblk2[0].genblk1[18].interrupt_states[0][18][1]_i_5_n_0
+    SLICE_X38Y87         LUT6 (Prop_lut6_I2_O)        0.326    41.811 r  genblk2[0].genblk1[18].interrupt_states[0][18][1]_i_3/O
+                         net (fo=2, routed)           0.816    42.627    genblk2[0].genblk1[18].interrupt_states[0][18][1]_i_3_n_0
+    SLICE_X37Y87         LUT6 (Prop_lut6_I2_O)        0.124    42.751 r  genblk2[0].genblk1[18].interrupt_states[0][18][0]_i_1/O
+                         net (fo=1, routed)           0.000    42.751    genblk2[0].genblk1[18].interrupt_states[0][18][0]_i_1_n_0
+    SLICE_X37Y87         FDCE                                         r  genblk2[0].genblk1[18].interrupt_states_reg[0][18][0]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_in rise edge)    40.000    40.000 r  
+    E15                                               0.000    40.000 r  clk_in (IN)
+                         net (fo=0)                   0.000    40.000    clk_in
+    E15                  IBUF (Prop_ibuf_I_O)         0.831    40.831 r  clk_in_IBUF_inst/O
+                         net (fo=1, routed)           1.911    42.742    clk_in_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.091    42.833 r  clk_in_IBUF_BUFG_inst/O
+                         net (fo=4597, routed)        1.515    44.348    clk_in_IBUF_BUFG
+    SLICE_X37Y87         FDCE                                         r  genblk2[0].genblk1[18].interrupt_states_reg[0][18][0]/C
+                         clock pessimism              0.322    44.671    
+                         clock uncertainty           -0.035    44.635    
+    SLICE_X37Y87         FDCE (Setup_fdce_C_D)        0.029    44.664    genblk2[0].genblk1[18].interrupt_states_reg[0][18][0]
+  -------------------------------------------------------------------
+                         required time                         44.664    
+                         arrival time                         -42.751    
+  -------------------------------------------------------------------
+                         slack                                  1.913    
+
+Slack (MET) :             2.138ns  (required time - arrival time)
+  Source:                 ICDIPR_S_reg[14][25]/C
+                            (rising edge-triggered cell FDCE clocked by clk_in  {rise@0.000ns fall@20.000ns period=40.000ns})
+  Destination:            genblk3[48].interrupt_states_S_reg[48][1]/D
+                            (rising edge-triggered cell FDCE clocked by clk_in  {rise@0.000ns fall@20.000ns period=40.000ns})
+  Path Group:             clk_in
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            40.000ns  (clk_in rise@40.000ns - clk_in rise@0.000ns)
+  Data Path Delay:        37.740ns  (logic 9.595ns (25.424%)  route 28.145ns (74.576%))
+  Logic Levels:           38  (CARRY4=6 LUT2=2 LUT3=8 LUT4=4 LUT5=11 LUT6=7)
+  Clock Path Skew:        -0.118ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.342ns = ( 44.342 - 40.000 ) 
+    Source Clock Delay      (SCD):    4.711ns
+    Clock Pessimism Removal (CPR):    0.250ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_in rise edge)     0.000     0.000 r  
+    E15                                               0.000     0.000 r  clk_in (IN)
+                         net (fo=0)                   0.000     0.000    clk_in
+    E15                  IBUF (Prop_ibuf_I_O)         0.965     0.965 r  clk_in_IBUF_inst/O
+                         net (fo=1, routed)           2.016     2.980    clk_in_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.096     3.076 r  clk_in_IBUF_BUFG_inst/O
+                         net (fo=4597, routed)        1.634     4.711    clk_in_IBUF_BUFG
+    SLICE_X46Y53         FDCE                                         r  ICDIPR_S_reg[14][25]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X46Y53         FDCE (Prop_fdce_C_Q)         0.518     5.229 r  ICDIPR_S_reg[14][25]/Q
+                         net (fo=29, routed)          1.744     6.973    ICDIPR_S_reg_n_0_[14][25]
+    SLICE_X62Y51         LUT4 (Prop_lut4_I0_O)        0.124     7.097 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_519/O
+                         net (fo=1, routed)           0.000     7.097    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_519_n_0
+    SLICE_X62Y51         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.513     7.610 r  genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_358/CO[3]
+                         net (fo=3, routed)           0.952     8.562    genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_358_n_0
+    SLICE_X62Y48         LUT6 (Prop_lut6_I1_O)        0.124     8.686 r  genblk5[0].IRQ[0]_i_1042/O
+                         net (fo=2, routed)           0.703     9.389    genblk5[0].IRQ[0]_i_1042_n_0
+    SLICE_X64Y50         LUT3 (Prop_lut3_I0_O)        0.120     9.509 f  genblk5[0].IRQ[0]_i_976/O
+                         net (fo=16, routed)          0.985    10.494    genblk5[0].IRQ[0]_i_976_n_0
+    SLICE_X60Y51         LUT4 (Prop_lut4_I2_O)        0.327    10.821 r  genblk5[0].IRQ[0]_i_1039/O
+                         net (fo=1, routed)           0.846    11.667    genblk5[0].IRQ[0]_i_1039_n_0
+    SLICE_X60Y51         LUT5 (Prop_lut5_I4_O)        0.153    11.820 r  genblk5[0].IRQ[0]_i_972/O
+                         net (fo=2, routed)           0.599    12.419    genblk5[0].IRQ[0]_i_972_n_0
+    SLICE_X59Y50         LUT5 (Prop_lut5_I0_O)        0.331    12.750 r  genblk5[0].IRQ[0]_i_660/O
+                         net (fo=1, routed)           0.520    13.271    genblk5[0].IRQ[0]_i_660_n_0
+    SLICE_X59Y51         CARRY4 (Prop_carry4_DI[2]_CO[3])
+                                                      0.398    13.669 r  genblk5[0].IRQ_reg[0]_i_464/CO[3]
+                         net (fo=3, routed)           1.309    14.978    genblk5[0].IRQ_reg[0]_i_464_n_0
+    SLICE_X61Y45         LUT5 (Prop_lut5_I1_O)        0.124    15.102 r  genblk5[0].IRQ[0]_i_1001/O
+                         net (fo=2, routed)           0.416    15.518    genblk5[0].IRQ[0]_i_1001_n_0
+    SLICE_X60Y46         LUT3 (Prop_lut3_I0_O)        0.116    15.634 r  genblk5[0].IRQ[0]_i_695/O
+                         net (fo=12, routed)          1.152    16.786    genblk5[0].IRQ[0]_i_695_n_0
+    SLICE_X58Y49         LUT4 (Prop_lut4_I3_O)        0.350    17.136 r  genblk5[0].IRQ[0]_i_494/O
+                         net (fo=3, routed)           1.156    18.292    output_priority[0][1][14][7]
+    SLICE_X58Y47         LUT5 (Prop_lut5_I4_O)        0.360    18.652 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_209/O
+                         net (fo=1, routed)           0.000    18.652    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_209_n_0
+    SLICE_X58Y47         CARRY4 (Prop_carry4_DI[3]_CO[3])
+                                                      0.338    18.990 f  genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_83/CO[3]
+                         net (fo=3, routed)           1.050    20.041    genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_83_n_0
+    SLICE_X58Y43         LUT5 (Prop_lut5_I3_O)        0.150    20.191 f  genblk5[0].IRQ[0]_i_492/O
+                         net (fo=13, routed)          0.384    20.574    genblk5[0].IRQ[0]_i_492_n_0
+    SLICE_X58Y44         LUT3 (Prop_lut3_I2_O)        0.348    20.922 f  genblk5[0].IRQ[0]_i_495/O
+                         net (fo=12, routed)          0.725    21.647    genblk5[0].IRQ[0]_i_495_n_0
+    SLICE_X54Y44         LUT6 (Prop_lut6_I3_O)        0.124    21.771 r  genblk5[0].IRQ[0]_i_684/O
+                         net (fo=1, routed)           1.165    22.936    genblk5[0].IRQ[0]_i_684_n_0
+    SLICE_X49Y39         LUT5 (Prop_lut5_I4_O)        0.152    23.088 r  genblk5[0].IRQ[0]_i_485/O
+                         net (fo=2, routed)           0.626    23.714    genblk5[0].IRQ[0]_i_485_n_0
+    SLICE_X49Y40         LUT3 (Prop_lut3_I0_O)        0.332    24.046 r  genblk5[0].IRQ[0]_i_338/O
+                         net (fo=1, routed)           0.000    24.046    genblk5[0].IRQ[0]_i_338_n_0
+    SLICE_X49Y40         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532    24.578 f  genblk5[0].IRQ_reg[0]_i_177/CO[3]
+                         net (fo=3, routed)           0.758    25.336    genblk5[0].IRQ_reg[0]_i_177_n_0
+    SLICE_X50Y40         LUT5 (Prop_lut5_I3_O)        0.124    25.460 f  genblk5[0].IRQ[0]_i_367/O
+                         net (fo=13, routed)          0.610    26.069    genblk5[0].IRQ[0]_i_367_n_0
+    SLICE_X47Y40         LUT3 (Prop_lut3_I2_O)        0.124    26.193 f  genblk5[0].IRQ[0]_i_372/O
+                         net (fo=12, routed)          0.946    27.139    genblk5[0].IRQ[0]_i_372_n_0
+    SLICE_X46Y40         LUT6 (Prop_lut6_I3_O)        0.124    27.263 r  genblk5[0].IRQ[0]_i_687/O
+                         net (fo=1, routed)           0.876    28.139    genblk5[0].IRQ[0]_i_687_n_0
+    SLICE_X41Y39         LUT5 (Prop_lut5_I4_O)        0.150    28.289 r  genblk5[0].IRQ[0]_i_488/O
+                         net (fo=2, routed)           0.832    29.121    genblk5[0].IRQ[0]_i_488_n_0
+    SLICE_X41Y40         LUT3 (Prop_lut3_I0_O)        0.326    29.447 r  genblk5[0].IRQ[0]_i_345/O
+                         net (fo=1, routed)           0.000    29.447    genblk5[0].IRQ[0]_i_345_n_0
+    SLICE_X41Y40         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    29.997 f  genblk5[0].IRQ_reg[0]_i_180/CO[3]
+                         net (fo=2, routed)           0.834    30.831    genblk5[0].IRQ_reg[0]_i_180_n_0
+    SLICE_X42Y41         LUT5 (Prop_lut5_I3_O)        0.124    30.955 f  genblk5[0].IRQ[0]_i_215/O
+                         net (fo=13, routed)          0.500    31.455    genblk5[0].IRQ[0]_i_215_n_0
+    SLICE_X42Y41         LUT3 (Prop_lut3_I2_O)        0.124    31.579 f  genblk5[0].IRQ[0]_i_220/O
+                         net (fo=12, routed)          0.736    32.314    genblk5[0].IRQ[0]_i_220_n_0
+    SLICE_X42Y43         LUT6 (Prop_lut6_I3_O)        0.124    32.438 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_269/O
+                         net (fo=1, routed)           1.174    33.612    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_269_n_0
+    SLICE_X40Y63         LUT5 (Prop_lut5_I4_O)        0.124    33.736 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_131/O
+                         net (fo=2, routed)           0.809    34.545    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_131_n_0
+    SLICE_X41Y61         LUT3 (Prop_lut3_I0_O)        0.124    34.669 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_55/O
+                         net (fo=1, routed)           0.000    34.669    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_55_n_0
+    SLICE_X41Y61         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    35.219 f  genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_24/CO[3]
+                         net (fo=2, routed)           0.860    36.079    genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_24_n_0
+    SLICE_X43Y59         LUT5 (Prop_lut5_I1_O)        0.124    36.203 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_11/O
+                         net (fo=6, routed)           1.017    37.219    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_11_n_0
+    SLICE_X44Y63         LUT6 (Prop_lut6_I2_O)        0.124    37.343 f  genblk1[0].genblk1[2].interrupt_states[0][2][1]_i_5/O
+                         net (fo=34, routed)          0.981    38.324    genblk1[0].genblk1[2].interrupt_states[0][2][1]_i_5_n_0
+    SLICE_X55Y64         LUT2 (Prop_lut2_I0_O)        0.120    38.444 f  genblk3[57].interrupt_states_S[57][1]_i_6/O
+                         net (fo=6, routed)           1.058    39.502    genblk3[57].interrupt_states_S[57][1]_i_6_n_0
+    SLICE_X54Y61         LUT2 (Prop_lut2_I1_O)        0.353    39.855 f  genblk3[56].interrupt_states_S[56][1]_i_7/O
+                         net (fo=2, routed)           0.769    40.624    genblk3[56].interrupt_states_S[56][1]_i_7_n_0
+    SLICE_X61Y61         LUT6 (Prop_lut6_I1_O)        0.328    40.952 f  genblk3[48].interrupt_states_S[48][1]_i_4/O
+                         net (fo=1, routed)           0.606    41.558    genblk3[48].interrupt_states_S[48][1]_i_4_n_0
+    SLICE_X61Y54         LUT4 (Prop_lut4_I1_O)        0.118    41.676 f  genblk3[48].interrupt_states_S[48][1]_i_3/O
+                         net (fo=2, routed)           0.448    42.124    genblk3[48].interrupt_states_S[48][1]_i_3_n_0
+    SLICE_X61Y54         LUT6 (Prop_lut6_I1_O)        0.326    42.450 r  genblk3[48].interrupt_states_S[48][1]_i_1/O
+                         net (fo=1, routed)           0.000    42.450    genblk3[48].interrupt_states_S[48][1]_i_1_n_0
+    SLICE_X61Y54         FDCE                                         r  genblk3[48].interrupt_states_S_reg[48][1]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_in rise edge)    40.000    40.000 r  
+    E15                                               0.000    40.000 r  clk_in (IN)
+                         net (fo=0)                   0.000    40.000    clk_in
+    E15                  IBUF (Prop_ibuf_I_O)         0.831    40.831 r  clk_in_IBUF_inst/O
+                         net (fo=1, routed)           1.911    42.742    clk_in_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.091    42.833 r  clk_in_IBUF_BUFG_inst/O
+                         net (fo=4597, routed)        1.509    44.342    clk_in_IBUF_BUFG
+    SLICE_X61Y54         FDCE                                         r  genblk3[48].interrupt_states_S_reg[48][1]/C
+                         clock pessimism              0.250    44.593    
+                         clock uncertainty           -0.035    44.557    
+    SLICE_X61Y54         FDCE (Setup_fdce_C_D)        0.031    44.588    genblk3[48].interrupt_states_S_reg[48][1]
+  -------------------------------------------------------------------
+                         required time                         44.588    
+                         arrival time                         -42.450    
+  -------------------------------------------------------------------
+                         slack                                  2.138    
+
+Slack (MET) :             2.140ns  (required time - arrival time)
+  Source:                 ICDIPR_S_reg[14][25]/C
+                            (rising edge-triggered cell FDCE clocked by clk_in  {rise@0.000ns fall@20.000ns period=40.000ns})
+  Destination:            genblk2[0].genblk1[18].interrupt_states_reg[0][18][1]/D
+                            (rising edge-triggered cell FDCE clocked by clk_in  {rise@0.000ns fall@20.000ns period=40.000ns})
+  Path Group:             clk_in
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            40.000ns  (clk_in rise@40.000ns - clk_in rise@0.000ns)
+  Data Path Delay:        37.816ns  (logic 9.436ns (24.953%)  route 28.380ns (75.047%))
+  Logic Levels:           38  (CARRY4=6 LUT2=3 LUT3=8 LUT4=3 LUT5=12 LUT6=6)
+  Clock Path Skew:        -0.040ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.348ns = ( 44.348 - 40.000 ) 
+    Source Clock Delay      (SCD):    4.711ns
+    Clock Pessimism Removal (CPR):    0.322ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_in rise edge)     0.000     0.000 r  
+    E15                                               0.000     0.000 r  clk_in (IN)
+                         net (fo=0)                   0.000     0.000    clk_in
+    E15                  IBUF (Prop_ibuf_I_O)         0.965     0.965 r  clk_in_IBUF_inst/O
+                         net (fo=1, routed)           2.016     2.980    clk_in_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.096     3.076 r  clk_in_IBUF_BUFG_inst/O
+                         net (fo=4597, routed)        1.634     4.711    clk_in_IBUF_BUFG
+    SLICE_X46Y53         FDCE                                         r  ICDIPR_S_reg[14][25]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X46Y53         FDCE (Prop_fdce_C_Q)         0.518     5.229 r  ICDIPR_S_reg[14][25]/Q
+                         net (fo=29, routed)          1.744     6.973    ICDIPR_S_reg_n_0_[14][25]
+    SLICE_X62Y51         LUT4 (Prop_lut4_I0_O)        0.124     7.097 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_519/O
+                         net (fo=1, routed)           0.000     7.097    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_519_n_0
+    SLICE_X62Y51         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.513     7.610 r  genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_358/CO[3]
+                         net (fo=3, routed)           0.952     8.562    genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_358_n_0
+    SLICE_X62Y48         LUT6 (Prop_lut6_I1_O)        0.124     8.686 r  genblk5[0].IRQ[0]_i_1042/O
+                         net (fo=2, routed)           0.703     9.389    genblk5[0].IRQ[0]_i_1042_n_0
+    SLICE_X64Y50         LUT3 (Prop_lut3_I0_O)        0.120     9.509 f  genblk5[0].IRQ[0]_i_976/O
+                         net (fo=16, routed)          0.985    10.494    genblk5[0].IRQ[0]_i_976_n_0
+    SLICE_X60Y51         LUT4 (Prop_lut4_I2_O)        0.327    10.821 r  genblk5[0].IRQ[0]_i_1039/O
+                         net (fo=1, routed)           0.846    11.667    genblk5[0].IRQ[0]_i_1039_n_0
+    SLICE_X60Y51         LUT5 (Prop_lut5_I4_O)        0.153    11.820 r  genblk5[0].IRQ[0]_i_972/O
+                         net (fo=2, routed)           0.599    12.419    genblk5[0].IRQ[0]_i_972_n_0
+    SLICE_X59Y50         LUT5 (Prop_lut5_I0_O)        0.331    12.750 r  genblk5[0].IRQ[0]_i_660/O
+                         net (fo=1, routed)           0.520    13.271    genblk5[0].IRQ[0]_i_660_n_0
+    SLICE_X59Y51         CARRY4 (Prop_carry4_DI[2]_CO[3])
+                                                      0.398    13.669 r  genblk5[0].IRQ_reg[0]_i_464/CO[3]
+                         net (fo=3, routed)           1.309    14.978    genblk5[0].IRQ_reg[0]_i_464_n_0
+    SLICE_X61Y45         LUT5 (Prop_lut5_I1_O)        0.124    15.102 r  genblk5[0].IRQ[0]_i_1001/O
+                         net (fo=2, routed)           0.416    15.518    genblk5[0].IRQ[0]_i_1001_n_0
+    SLICE_X60Y46         LUT3 (Prop_lut3_I0_O)        0.116    15.634 r  genblk5[0].IRQ[0]_i_695/O
+                         net (fo=12, routed)          1.152    16.786    genblk5[0].IRQ[0]_i_695_n_0
+    SLICE_X58Y49         LUT4 (Prop_lut4_I3_O)        0.350    17.136 r  genblk5[0].IRQ[0]_i_494/O
+                         net (fo=3, routed)           1.156    18.292    output_priority[0][1][14][7]
+    SLICE_X58Y47         LUT5 (Prop_lut5_I4_O)        0.360    18.652 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_209/O
+                         net (fo=1, routed)           0.000    18.652    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_209_n_0
+    SLICE_X58Y47         CARRY4 (Prop_carry4_DI[3]_CO[3])
+                                                      0.338    18.990 f  genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_83/CO[3]
+                         net (fo=3, routed)           1.050    20.041    genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_83_n_0
+    SLICE_X58Y43         LUT5 (Prop_lut5_I3_O)        0.150    20.191 f  genblk5[0].IRQ[0]_i_492/O
+                         net (fo=13, routed)          0.384    20.574    genblk5[0].IRQ[0]_i_492_n_0
+    SLICE_X58Y44         LUT3 (Prop_lut3_I2_O)        0.348    20.922 f  genblk5[0].IRQ[0]_i_495/O
+                         net (fo=12, routed)          0.725    21.647    genblk5[0].IRQ[0]_i_495_n_0
+    SLICE_X54Y44         LUT6 (Prop_lut6_I3_O)        0.124    21.771 r  genblk5[0].IRQ[0]_i_684/O
+                         net (fo=1, routed)           1.165    22.936    genblk5[0].IRQ[0]_i_684_n_0
+    SLICE_X49Y39         LUT5 (Prop_lut5_I4_O)        0.152    23.088 r  genblk5[0].IRQ[0]_i_485/O
+                         net (fo=2, routed)           0.626    23.714    genblk5[0].IRQ[0]_i_485_n_0
+    SLICE_X49Y40         LUT3 (Prop_lut3_I0_O)        0.332    24.046 r  genblk5[0].IRQ[0]_i_338/O
+                         net (fo=1, routed)           0.000    24.046    genblk5[0].IRQ[0]_i_338_n_0
+    SLICE_X49Y40         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532    24.578 f  genblk5[0].IRQ_reg[0]_i_177/CO[3]
+                         net (fo=3, routed)           0.758    25.336    genblk5[0].IRQ_reg[0]_i_177_n_0
+    SLICE_X50Y40         LUT5 (Prop_lut5_I3_O)        0.124    25.460 f  genblk5[0].IRQ[0]_i_367/O
+                         net (fo=13, routed)          0.610    26.069    genblk5[0].IRQ[0]_i_367_n_0
+    SLICE_X47Y40         LUT3 (Prop_lut3_I2_O)        0.124    26.193 f  genblk5[0].IRQ[0]_i_372/O
+                         net (fo=12, routed)          0.946    27.139    genblk5[0].IRQ[0]_i_372_n_0
+    SLICE_X46Y40         LUT6 (Prop_lut6_I3_O)        0.124    27.263 r  genblk5[0].IRQ[0]_i_687/O
+                         net (fo=1, routed)           0.876    28.139    genblk5[0].IRQ[0]_i_687_n_0
+    SLICE_X41Y39         LUT5 (Prop_lut5_I4_O)        0.150    28.289 r  genblk5[0].IRQ[0]_i_488/O
+                         net (fo=2, routed)           0.832    29.121    genblk5[0].IRQ[0]_i_488_n_0
+    SLICE_X41Y40         LUT3 (Prop_lut3_I0_O)        0.326    29.447 r  genblk5[0].IRQ[0]_i_345/O
+                         net (fo=1, routed)           0.000    29.447    genblk5[0].IRQ[0]_i_345_n_0
+    SLICE_X41Y40         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    29.997 f  genblk5[0].IRQ_reg[0]_i_180/CO[3]
+                         net (fo=2, routed)           0.834    30.831    genblk5[0].IRQ_reg[0]_i_180_n_0
+    SLICE_X42Y41         LUT5 (Prop_lut5_I3_O)        0.124    30.955 f  genblk5[0].IRQ[0]_i_215/O
+                         net (fo=13, routed)          0.500    31.455    genblk5[0].IRQ[0]_i_215_n_0
+    SLICE_X42Y41         LUT3 (Prop_lut3_I2_O)        0.124    31.579 f  genblk5[0].IRQ[0]_i_220/O
+                         net (fo=12, routed)          0.736    32.314    genblk5[0].IRQ[0]_i_220_n_0
+    SLICE_X42Y43         LUT6 (Prop_lut6_I3_O)        0.124    32.438 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_269/O
+                         net (fo=1, routed)           1.174    33.612    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_269_n_0
+    SLICE_X40Y63         LUT5 (Prop_lut5_I4_O)        0.124    33.736 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_131/O
+                         net (fo=2, routed)           0.809    34.545    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_131_n_0
+    SLICE_X41Y61         LUT3 (Prop_lut3_I0_O)        0.124    34.669 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_55/O
+                         net (fo=1, routed)           0.000    34.669    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_55_n_0
+    SLICE_X41Y61         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    35.219 f  genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_24/CO[3]
+                         net (fo=2, routed)           0.860    36.079    genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_24_n_0
+    SLICE_X43Y59         LUT5 (Prop_lut5_I1_O)        0.124    36.203 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_11/O
+                         net (fo=6, routed)           0.737    36.940    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_11_n_0
+    SLICE_X44Y63         LUT6 (Prop_lut6_I2_O)        0.124    37.064 r  genblk1[0].genblk1[6].interrupt_states[0][6][1]_i_4/O
+                         net (fo=32, routed)          1.031    38.094    genblk1[0].genblk1[6].interrupt_states[0][6][1]_i_4_n_0
+    SLICE_X43Y67         LUT2 (Prop_lut2_I0_O)        0.152    38.246 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_5/O
+                         net (fo=15, routed)          0.904    39.151    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_5_n_0
+    SLICE_X39Y72         LUT2 (Prop_lut2_I0_O)        0.332    39.483 r  genblk2[0].genblk1[22].interrupt_states[0][22][1]_i_5/O
+                         net (fo=11, routed)          0.851    40.333    genblk2[0].genblk1[22].interrupt_states[0][22][1]_i_5_n_0
+    SLICE_X39Y70         LUT2 (Prop_lut2_I0_O)        0.152    40.485 r  genblk2[0].genblk1[18].interrupt_states[0][18][1]_i_5/O
+                         net (fo=3, routed)           1.000    41.485    genblk2[0].genblk1[18].interrupt_states[0][18][1]_i_5_n_0
+    SLICE_X38Y87         LUT6 (Prop_lut6_I2_O)        0.326    41.811 r  genblk2[0].genblk1[18].interrupt_states[0][18][1]_i_3/O
+                         net (fo=2, routed)           0.591    42.402    genblk2[0].genblk1[18].interrupt_states[0][18][1]_i_3_n_0
+    SLICE_X37Y87         LUT5 (Prop_lut5_I1_O)        0.124    42.526 r  genblk2[0].genblk1[18].interrupt_states[0][18][1]_i_1/O
+                         net (fo=1, routed)           0.000    42.526    genblk2[0].genblk1[18].interrupt_states[0][18][1]_i_1_n_0
+    SLICE_X37Y87         FDCE                                         r  genblk2[0].genblk1[18].interrupt_states_reg[0][18][1]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_in rise edge)    40.000    40.000 r  
+    E15                                               0.000    40.000 r  clk_in (IN)
+                         net (fo=0)                   0.000    40.000    clk_in
+    E15                  IBUF (Prop_ibuf_I_O)         0.831    40.831 r  clk_in_IBUF_inst/O
+                         net (fo=1, routed)           1.911    42.742    clk_in_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.091    42.833 r  clk_in_IBUF_BUFG_inst/O
+                         net (fo=4597, routed)        1.515    44.348    clk_in_IBUF_BUFG
+    SLICE_X37Y87         FDCE                                         r  genblk2[0].genblk1[18].interrupt_states_reg[0][18][1]/C
+                         clock pessimism              0.322    44.671    
+                         clock uncertainty           -0.035    44.635    
+    SLICE_X37Y87         FDCE (Setup_fdce_C_D)        0.031    44.666    genblk2[0].genblk1[18].interrupt_states_reg[0][18][1]
+  -------------------------------------------------------------------
+                         required time                         44.666    
+                         arrival time                         -42.526    
+  -------------------------------------------------------------------
+                         slack                                  2.140    
+
+Slack (MET) :             2.172ns  (required time - arrival time)
+  Source:                 ICDIPR_S_reg[14][25]/C
+                            (rising edge-triggered cell FDCE clocked by clk_in  {rise@0.000ns fall@20.000ns period=40.000ns})
+  Destination:            genblk3[56].interrupt_states_S_reg[56][1]/D
+                            (rising edge-triggered cell FDCE clocked by clk_in  {rise@0.000ns fall@20.000ns period=40.000ns})
+  Path Group:             clk_in
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            40.000ns  (clk_in rise@40.000ns - clk_in rise@0.000ns)
+  Data Path Delay:        37.705ns  (logic 9.635ns (25.554%)  route 28.070ns (74.446%))
+  Logic Levels:           38  (CARRY4=6 LUT2=2 LUT3=8 LUT4=4 LUT5=11 LUT6=7)
+  Clock Path Skew:        -0.117ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.343ns = ( 44.343 - 40.000 ) 
+    Source Clock Delay      (SCD):    4.711ns
+    Clock Pessimism Removal (CPR):    0.250ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_in rise edge)     0.000     0.000 r  
+    E15                                               0.000     0.000 r  clk_in (IN)
+                         net (fo=0)                   0.000     0.000    clk_in
+    E15                  IBUF (Prop_ibuf_I_O)         0.965     0.965 r  clk_in_IBUF_inst/O
+                         net (fo=1, routed)           2.016     2.980    clk_in_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.096     3.076 r  clk_in_IBUF_BUFG_inst/O
+                         net (fo=4597, routed)        1.634     4.711    clk_in_IBUF_BUFG
+    SLICE_X46Y53         FDCE                                         r  ICDIPR_S_reg[14][25]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X46Y53         FDCE (Prop_fdce_C_Q)         0.518     5.229 r  ICDIPR_S_reg[14][25]/Q
+                         net (fo=29, routed)          1.744     6.973    ICDIPR_S_reg_n_0_[14][25]
+    SLICE_X62Y51         LUT4 (Prop_lut4_I0_O)        0.124     7.097 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_519/O
+                         net (fo=1, routed)           0.000     7.097    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_519_n_0
+    SLICE_X62Y51         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.513     7.610 r  genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_358/CO[3]
+                         net (fo=3, routed)           0.952     8.562    genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_358_n_0
+    SLICE_X62Y48         LUT6 (Prop_lut6_I1_O)        0.124     8.686 r  genblk5[0].IRQ[0]_i_1042/O
+                         net (fo=2, routed)           0.703     9.389    genblk5[0].IRQ[0]_i_1042_n_0
+    SLICE_X64Y50         LUT3 (Prop_lut3_I0_O)        0.120     9.509 f  genblk5[0].IRQ[0]_i_976/O
+                         net (fo=16, routed)          0.985    10.494    genblk5[0].IRQ[0]_i_976_n_0
+    SLICE_X60Y51         LUT4 (Prop_lut4_I2_O)        0.327    10.821 r  genblk5[0].IRQ[0]_i_1039/O
+                         net (fo=1, routed)           0.846    11.667    genblk5[0].IRQ[0]_i_1039_n_0
+    SLICE_X60Y51         LUT5 (Prop_lut5_I4_O)        0.153    11.820 r  genblk5[0].IRQ[0]_i_972/O
+                         net (fo=2, routed)           0.599    12.419    genblk5[0].IRQ[0]_i_972_n_0
+    SLICE_X59Y50         LUT5 (Prop_lut5_I0_O)        0.331    12.750 r  genblk5[0].IRQ[0]_i_660/O
+                         net (fo=1, routed)           0.520    13.271    genblk5[0].IRQ[0]_i_660_n_0
+    SLICE_X59Y51         CARRY4 (Prop_carry4_DI[2]_CO[3])
+                                                      0.398    13.669 r  genblk5[0].IRQ_reg[0]_i_464/CO[3]
+                         net (fo=3, routed)           1.309    14.978    genblk5[0].IRQ_reg[0]_i_464_n_0
+    SLICE_X61Y45         LUT5 (Prop_lut5_I1_O)        0.124    15.102 r  genblk5[0].IRQ[0]_i_1001/O
+                         net (fo=2, routed)           0.416    15.518    genblk5[0].IRQ[0]_i_1001_n_0
+    SLICE_X60Y46         LUT3 (Prop_lut3_I0_O)        0.116    15.634 r  genblk5[0].IRQ[0]_i_695/O
+                         net (fo=12, routed)          1.152    16.786    genblk5[0].IRQ[0]_i_695_n_0
+    SLICE_X58Y49         LUT4 (Prop_lut4_I3_O)        0.350    17.136 r  genblk5[0].IRQ[0]_i_494/O
+                         net (fo=3, routed)           1.156    18.292    output_priority[0][1][14][7]
+    SLICE_X58Y47         LUT5 (Prop_lut5_I4_O)        0.360    18.652 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_209/O
+                         net (fo=1, routed)           0.000    18.652    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_209_n_0
+    SLICE_X58Y47         CARRY4 (Prop_carry4_DI[3]_CO[3])
+                                                      0.338    18.990 f  genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_83/CO[3]
+                         net (fo=3, routed)           1.050    20.041    genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_83_n_0
+    SLICE_X58Y43         LUT5 (Prop_lut5_I3_O)        0.150    20.191 f  genblk5[0].IRQ[0]_i_492/O
+                         net (fo=13, routed)          0.384    20.574    genblk5[0].IRQ[0]_i_492_n_0
+    SLICE_X58Y44         LUT3 (Prop_lut3_I2_O)        0.348    20.922 f  genblk5[0].IRQ[0]_i_495/O
+                         net (fo=12, routed)          0.725    21.647    genblk5[0].IRQ[0]_i_495_n_0
+    SLICE_X54Y44         LUT6 (Prop_lut6_I3_O)        0.124    21.771 r  genblk5[0].IRQ[0]_i_684/O
+                         net (fo=1, routed)           1.165    22.936    genblk5[0].IRQ[0]_i_684_n_0
+    SLICE_X49Y39         LUT5 (Prop_lut5_I4_O)        0.152    23.088 r  genblk5[0].IRQ[0]_i_485/O
+                         net (fo=2, routed)           0.626    23.714    genblk5[0].IRQ[0]_i_485_n_0
+    SLICE_X49Y40         LUT3 (Prop_lut3_I0_O)        0.332    24.046 r  genblk5[0].IRQ[0]_i_338/O
+                         net (fo=1, routed)           0.000    24.046    genblk5[0].IRQ[0]_i_338_n_0
+    SLICE_X49Y40         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532    24.578 f  genblk5[0].IRQ_reg[0]_i_177/CO[3]
+                         net (fo=3, routed)           0.758    25.336    genblk5[0].IRQ_reg[0]_i_177_n_0
+    SLICE_X50Y40         LUT5 (Prop_lut5_I3_O)        0.124    25.460 f  genblk5[0].IRQ[0]_i_367/O
+                         net (fo=13, routed)          0.610    26.069    genblk5[0].IRQ[0]_i_367_n_0
+    SLICE_X47Y40         LUT3 (Prop_lut3_I2_O)        0.124    26.193 f  genblk5[0].IRQ[0]_i_372/O
+                         net (fo=12, routed)          0.946    27.139    genblk5[0].IRQ[0]_i_372_n_0
+    SLICE_X46Y40         LUT6 (Prop_lut6_I3_O)        0.124    27.263 r  genblk5[0].IRQ[0]_i_687/O
+                         net (fo=1, routed)           0.876    28.139    genblk5[0].IRQ[0]_i_687_n_0
+    SLICE_X41Y39         LUT5 (Prop_lut5_I4_O)        0.150    28.289 r  genblk5[0].IRQ[0]_i_488/O
+                         net (fo=2, routed)           0.832    29.121    genblk5[0].IRQ[0]_i_488_n_0
+    SLICE_X41Y40         LUT3 (Prop_lut3_I0_O)        0.326    29.447 r  genblk5[0].IRQ[0]_i_345/O
+                         net (fo=1, routed)           0.000    29.447    genblk5[0].IRQ[0]_i_345_n_0
+    SLICE_X41Y40         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    29.997 f  genblk5[0].IRQ_reg[0]_i_180/CO[3]
+                         net (fo=2, routed)           0.834    30.831    genblk5[0].IRQ_reg[0]_i_180_n_0
+    SLICE_X42Y41         LUT5 (Prop_lut5_I3_O)        0.124    30.955 f  genblk5[0].IRQ[0]_i_215/O
+                         net (fo=13, routed)          0.500    31.455    genblk5[0].IRQ[0]_i_215_n_0
+    SLICE_X42Y41         LUT3 (Prop_lut3_I2_O)        0.124    31.579 f  genblk5[0].IRQ[0]_i_220/O
+                         net (fo=12, routed)          0.736    32.314    genblk5[0].IRQ[0]_i_220_n_0
+    SLICE_X42Y43         LUT6 (Prop_lut6_I3_O)        0.124    32.438 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_269/O
+                         net (fo=1, routed)           1.174    33.612    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_269_n_0
+    SLICE_X40Y63         LUT5 (Prop_lut5_I4_O)        0.124    33.736 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_131/O
+                         net (fo=2, routed)           0.809    34.545    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_131_n_0
+    SLICE_X41Y61         LUT3 (Prop_lut3_I0_O)        0.124    34.669 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_55/O
+                         net (fo=1, routed)           0.000    34.669    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_55_n_0
+    SLICE_X41Y61         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    35.219 f  genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_24/CO[3]
+                         net (fo=2, routed)           0.860    36.079    genblk2[0].genblk1[30].interrupt_states_reg[0][30][1]_i_24_n_0
+    SLICE_X43Y59         LUT5 (Prop_lut5_I1_O)        0.124    36.203 r  genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_11/O
+                         net (fo=6, routed)           1.017    37.219    genblk2[0].genblk1[30].interrupt_states[0][30][1]_i_11_n_0
+    SLICE_X44Y63         LUT6 (Prop_lut6_I2_O)        0.124    37.343 f  genblk1[0].genblk1[2].interrupt_states[0][2][1]_i_5/O
+                         net (fo=34, routed)          0.981    38.324    genblk1[0].genblk1[2].interrupt_states[0][2][1]_i_5_n_0
+    SLICE_X55Y64         LUT2 (Prop_lut2_I0_O)        0.120    38.444 f  genblk3[57].interrupt_states_S[57][1]_i_6/O
+                         net (fo=6, routed)           1.058    39.502    genblk3[57].interrupt_states_S[57][1]_i_6_n_0
+    SLICE_X54Y61         LUT2 (Prop_lut2_I1_O)        0.353    39.855 f  genblk3[56].interrupt_states_S[56][1]_i_7/O
+                         net (fo=2, routed)           0.736    40.591    genblk3[56].interrupt_states_S[56][1]_i_7_n_0
+    SLICE_X62Y60         LUT6 (Prop_lut6_I0_O)        0.328    40.919 f  genblk3[56].interrupt_states_S[56][1]_i_5/O
+                         net (fo=1, routed)           0.646    41.565    genblk3[56].interrupt_states_S[56][1]_i_5_n_0
+    SLICE_X64Y60         LUT4 (Prop_lut4_I1_O)        0.152    41.717 f  genblk3[56].interrupt_states_S[56][1]_i_3/O
+                         net (fo=2, routed)           0.366    42.083    genblk3[56].interrupt_states_S[56][1]_i_3_n_0
+    SLICE_X65Y60         LUT6 (Prop_lut6_I1_O)        0.332    42.415 r  genblk3[56].interrupt_states_S[56][1]_i_1/O
+                         net (fo=1, routed)           0.000    42.415    genblk3[56].interrupt_states_S[56][1]_i_1_n_0
+    SLICE_X65Y60         FDCE                                         r  genblk3[56].interrupt_states_S_reg[56][1]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_in rise edge)    40.000    40.000 r  
+    E15                                               0.000    40.000 r  clk_in (IN)
+                         net (fo=0)                   0.000    40.000    clk_in
+    E15                  IBUF (Prop_ibuf_I_O)         0.831    40.831 r  clk_in_IBUF_inst/O
+                         net (fo=1, routed)           1.911    42.742    clk_in_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.091    42.833 r  clk_in_IBUF_BUFG_inst/O
+                         net (fo=4597, routed)        1.510    44.343    clk_in_IBUF_BUFG
+    SLICE_X65Y60         FDCE                                         r  genblk3[56].interrupt_states_S_reg[56][1]/C
+                         clock pessimism              0.250    44.594    
+                         clock uncertainty           -0.035    44.558    
+    SLICE_X65Y60         FDCE (Setup_fdce_C_D)        0.029    44.587    genblk3[56].interrupt_states_S_reg[56][1]
+  -------------------------------------------------------------------
+                         required time                         44.587    
+                         arrival time                         -42.415    
+  -------------------------------------------------------------------
+                         slack                                  2.172    
+
+
+
+
+
+Min Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             0.177ns  (arrival time - required time)
+  Source:                 genblk1[1].genblk1[8].interrupt_states_reg[1][8][1]/C
+                            (rising edge-triggered cell FDCE clocked by clk_in  {rise@0.000ns fall@20.000ns period=40.000ns})
+  Destination:            genblk1[1].genblk1[8].interrupt_states_reg[1][8][0]/D
+                            (rising edge-triggered cell FDCE clocked by clk_in  {rise@0.000ns fall@20.000ns period=40.000ns})
+  Path Group:             clk_in
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_in rise@0.000ns - clk_in rise@0.000ns)
+  Data Path Delay:        0.311ns  (logic 0.186ns (59.721%)  route 0.125ns (40.279%))
+  Logic Levels:           1  (LUT6=1)
+  Clock Path Skew:        0.013ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    1.939ns
+    Source Clock Delay      (SCD):    1.422ns
+    Clock Pessimism Removal (CPR):    0.503ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_in rise edge)     0.000     0.000 r  
+    E15                                               0.000     0.000 r  clk_in (IN)
+                         net (fo=0)                   0.000     0.000    clk_in
+    E15                  IBUF (Prop_ibuf_I_O)         0.193     0.193 r  clk_in_IBUF_inst/O
+                         net (fo=1, routed)           0.640     0.834    clk_in_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.026     0.860 r  clk_in_IBUF_BUFG_inst/O
+                         net (fo=4597, routed)        0.563     1.422    clk_in_IBUF_BUFG
+    SLICE_X67Y66         FDCE                                         r  genblk1[1].genblk1[8].interrupt_states_reg[1][8][1]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X67Y66         FDCE (Prop_fdce_C_Q)         0.141     1.563 f  genblk1[1].genblk1[8].interrupt_states_reg[1][8][1]/Q
+                         net (fo=9, routed)           0.125     1.689    genblk1[1].genblk1[8].interrupt_states_reg_n_0_[1][8][1]
+    SLICE_X66Y66         LUT6 (Prop_lut6_I0_O)        0.045     1.734 r  genblk1[1].genblk1[8].interrupt_states[1][8][0]_i_1/O
+                         net (fo=1, routed)           0.000     1.734    genblk1[1].genblk1[8].interrupt_states[1][8][0]_i_1_n_0
+    SLICE_X66Y66         FDCE                                         r  genblk1[1].genblk1[8].interrupt_states_reg[1][8][0]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_in rise edge)     0.000     0.000 r  
+    E15                                               0.000     0.000 r  clk_in (IN)
+                         net (fo=0)                   0.000     0.000    clk_in
+    E15                  IBUF (Prop_ibuf_I_O)         0.382     0.382 r  clk_in_IBUF_inst/O
+                         net (fo=1, routed)           0.695     1.077    clk_in_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.029     1.106 r  clk_in_IBUF_BUFG_inst/O
+                         net (fo=4597, routed)        0.833     1.939    clk_in_IBUF_BUFG
+    SLICE_X66Y66         FDCE                                         r  genblk1[1].genblk1[8].interrupt_states_reg[1][8][0]/C
+                         clock pessimism             -0.503     1.435    
+    SLICE_X66Y66         FDCE (Hold_fdce_C_D)         0.121     1.556    genblk1[1].genblk1[8].interrupt_states_reg[1][8][0]
+  -------------------------------------------------------------------
+                         required time                         -1.556    
+                         arrival time                           1.734    
+  -------------------------------------------------------------------
+                         slack                                  0.177    
+
+Slack (MET) :             0.191ns  (arrival time - required time)
+  Source:                 genblk3[36].interrupt_states_S_reg[36][1]/C
+                            (rising edge-triggered cell FDCE clocked by clk_in  {rise@0.000ns fall@20.000ns period=40.000ns})
+  Destination:            genblk3[36].interrupt_states_S_reg[36][0]/D
+                            (rising edge-triggered cell FDCE clocked by clk_in  {rise@0.000ns fall@20.000ns period=40.000ns})
+  Path Group:             clk_in
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_in rise@0.000ns - clk_in rise@0.000ns)
+  Data Path Delay:        0.324ns  (logic 0.186ns (57.400%)  route 0.138ns (42.600%))
+  Logic Levels:           1  (LUT5=1)
+  Clock Path Skew:        0.013ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    1.947ns
+    Source Clock Delay      (SCD):    1.429ns
+    Clock Pessimism Removal (CPR):    0.504ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_in rise edge)     0.000     0.000 r  
+    E15                                               0.000     0.000 r  clk_in (IN)
+                         net (fo=0)                   0.000     0.000    clk_in
+    E15                  IBUF (Prop_ibuf_I_O)         0.193     0.193 r  clk_in_IBUF_inst/O
+                         net (fo=1, routed)           0.640     0.834    clk_in_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.026     0.860 r  clk_in_IBUF_BUFG_inst/O
+                         net (fo=4597, routed)        0.570     1.429    clk_in_IBUF_BUFG
+    SLICE_X35Y53         FDCE                                         r  genblk3[36].interrupt_states_S_reg[36][1]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X35Y53         FDCE (Prop_fdce_C_Q)         0.141     1.570 r  genblk3[36].interrupt_states_S_reg[36][1]/Q
+                         net (fo=26, routed)          0.138     1.708    genblk3[36].interrupt_states_S_reg_n_0_[36][1]
+    SLICE_X34Y53         LUT5 (Prop_lut5_I2_O)        0.045     1.753 r  genblk3[36].interrupt_states_S[36][0]_i_1/O
+                         net (fo=1, routed)           0.000     1.753    genblk3[36].interrupt_states_S[36][0]_i_1_n_0
+    SLICE_X34Y53         FDCE                                         r  genblk3[36].interrupt_states_S_reg[36][0]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_in rise edge)     0.000     0.000 r  
+    E15                                               0.000     0.000 r  clk_in (IN)
+                         net (fo=0)                   0.000     0.000    clk_in
+    E15                  IBUF (Prop_ibuf_I_O)         0.382     0.382 r  clk_in_IBUF_inst/O
+                         net (fo=1, routed)           0.695     1.077    clk_in_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.029     1.106 r  clk_in_IBUF_BUFG_inst/O
+                         net (fo=4597, routed)        0.841     1.947    clk_in_IBUF_BUFG
+    SLICE_X34Y53         FDCE                                         r  genblk3[36].interrupt_states_S_reg[36][0]/C
+                         clock pessimism             -0.504     1.442    
+    SLICE_X34Y53         FDCE (Hold_fdce_C_D)         0.120     1.562    genblk3[36].interrupt_states_S_reg[36][0]
+  -------------------------------------------------------------------
+                         required time                         -1.562    
+                         arrival time                           1.753    
+  -------------------------------------------------------------------
+                         slack                                  0.191    
+
+Slack (MET) :             0.192ns  (arrival time - required time)
+  Source:                 genblk1[2].genblk1[7].interrupt_states_reg[2][7][1]/C
+                            (rising edge-triggered cell FDCE clocked by clk_in  {rise@0.000ns fall@20.000ns period=40.000ns})
+  Destination:            genblk1[2].genblk1[7].SGI_CPU_regs_reg[2][7][0]/D
+                            (rising edge-triggered cell FDRE clocked by clk_in  {rise@0.000ns fall@20.000ns period=40.000ns})
+  Path Group:             clk_in
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_in rise@0.000ns - clk_in rise@0.000ns)
+  Data Path Delay:        0.297ns  (logic 0.186ns (62.703%)  route 0.111ns (37.297%))
+  Logic Levels:           1  (LUT6=1)
+  Clock Path Skew:        0.013ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    1.937ns
+    Source Clock Delay      (SCD):    1.420ns
+    Clock Pessimism Removal (CPR):    0.503ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_in rise edge)     0.000     0.000 r  
+    E15                                               0.000     0.000 r  clk_in (IN)
+                         net (fo=0)                   0.000     0.000    clk_in
+    E15                  IBUF (Prop_ibuf_I_O)         0.193     0.193 r  clk_in_IBUF_inst/O
+                         net (fo=1, routed)           0.640     0.834    clk_in_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.026     0.860 r  clk_in_IBUF_BUFG_inst/O
+                         net (fo=4597, routed)        0.561     1.420    clk_in_IBUF_BUFG
+    SLICE_X68Y81         FDCE                                         r  genblk1[2].genblk1[7].interrupt_states_reg[2][7][1]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X68Y81         FDCE (Prop_fdce_C_Q)         0.141     1.561 r  genblk1[2].genblk1[7].interrupt_states_reg[2][7][1]/Q
+                         net (fo=15, routed)          0.111     1.672    genblk1[2].genblk1[7].interrupt_states_reg_n_0_[2][7][1]
+    SLICE_X69Y81         LUT6 (Prop_lut6_I2_O)        0.045     1.717 r  genblk1[2].genblk1[7].SGI_CPU_regs[2][7][0]_i_1/O
+                         net (fo=1, routed)           0.000     1.717    genblk1[2].genblk1[7].SGI_CPU_regs[2][7][0]_i_1_n_0
+    SLICE_X69Y81         FDRE                                         r  genblk1[2].genblk1[7].SGI_CPU_regs_reg[2][7][0]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_in rise edge)     0.000     0.000 r  
+    E15                                               0.000     0.000 r  clk_in (IN)
+                         net (fo=0)                   0.000     0.000    clk_in
+    E15                  IBUF (Prop_ibuf_I_O)         0.382     0.382 r  clk_in_IBUF_inst/O
+                         net (fo=1, routed)           0.695     1.077    clk_in_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.029     1.106 r  clk_in_IBUF_BUFG_inst/O
+                         net (fo=4597, routed)        0.831     1.937    clk_in_IBUF_BUFG
+    SLICE_X69Y81         FDRE                                         r  genblk1[2].genblk1[7].SGI_CPU_regs_reg[2][7][0]/C
+                         clock pessimism             -0.503     1.433    
+    SLICE_X69Y81         FDRE (Hold_fdre_C_D)         0.092     1.525    genblk1[2].genblk1[7].SGI_CPU_regs_reg[2][7][0]
+  -------------------------------------------------------------------
+                         required time                         -1.525    
+                         arrival time                           1.717    
+  -------------------------------------------------------------------
+                         slack                                  0.192    
+
+Slack (MET) :             0.205ns  (arrival time - required time)
+  Source:                 genblk2[2].genblk1[26].interrupt_states_reg[2][26][1]/C
+                            (rising edge-triggered cell FDCE clocked by clk_in  {rise@0.000ns fall@20.000ns period=40.000ns})
+  Destination:            genblk2[2].genblk1[26].interrupt_states_reg[2][26][0]/D
+                            (rising edge-triggered cell FDCE clocked by clk_in  {rise@0.000ns fall@20.000ns period=40.000ns})
+  Path Group:             clk_in
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_in rise@0.000ns - clk_in rise@0.000ns)
+  Data Path Delay:        0.339ns  (logic 0.186ns (54.788%)  route 0.153ns (45.212%))
+  Logic Levels:           1  (LUT5=1)
+  Clock Path Skew:        0.013ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    1.936ns
+    Source Clock Delay      (SCD):    1.421ns
+    Clock Pessimism Removal (CPR):    0.501ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_in rise edge)     0.000     0.000 r  
+    E15                                               0.000     0.000 r  clk_in (IN)
+                         net (fo=0)                   0.000     0.000    clk_in
+    E15                  IBUF (Prop_ibuf_I_O)         0.193     0.193 r  clk_in_IBUF_inst/O
+                         net (fo=1, routed)           0.640     0.834    clk_in_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.026     0.860 r  clk_in_IBUF_BUFG_inst/O
+                         net (fo=4597, routed)        0.562     1.421    clk_in_IBUF_BUFG
+    SLICE_X13Y74         FDCE                                         r  genblk2[2].genblk1[26].interrupt_states_reg[2][26][1]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X13Y74         FDCE (Prop_fdce_C_Q)         0.141     1.562 r  genblk2[2].genblk1[26].interrupt_states_reg[2][26][1]/Q
+                         net (fo=12, routed)          0.153     1.716    genblk2[2].genblk1[26].interrupt_states_reg_n_0_[2][26][1]
+    SLICE_X14Y74         LUT5 (Prop_lut5_I1_O)        0.045     1.761 r  genblk2[2].genblk1[26].interrupt_states[2][26][0]_i_1/O
+                         net (fo=1, routed)           0.000     1.761    genblk2[2].genblk1[26].interrupt_states[2][26][0]_i_1_n_0
+    SLICE_X14Y74         FDCE                                         r  genblk2[2].genblk1[26].interrupt_states_reg[2][26][0]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_in rise edge)     0.000     0.000 r  
+    E15                                               0.000     0.000 r  clk_in (IN)
+                         net (fo=0)                   0.000     0.000    clk_in
+    E15                  IBUF (Prop_ibuf_I_O)         0.382     0.382 r  clk_in_IBUF_inst/O
+                         net (fo=1, routed)           0.695     1.077    clk_in_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.029     1.106 r  clk_in_IBUF_BUFG_inst/O
+                         net (fo=4597, routed)        0.830     1.936    clk_in_IBUF_BUFG
+    SLICE_X14Y74         FDCE                                         r  genblk2[2].genblk1[26].interrupt_states_reg[2][26][0]/C
+                         clock pessimism             -0.501     1.434    
+    SLICE_X14Y74         FDCE (Hold_fdce_C_D)         0.121     1.555    genblk2[2].genblk1[26].interrupt_states_reg[2][26][0]
+  -------------------------------------------------------------------
+                         required time                         -1.555    
+                         arrival time                           1.761    
+  -------------------------------------------------------------------
+                         slack                                  0.205    
+
+Slack (MET) :             0.216ns  (arrival time - required time)
+  Source:                 genblk1[3].genblk1[3].SGI_CPU_regs_reg[3][3][1]/C
+                            (rising edge-triggered cell FDRE clocked by clk_in  {rise@0.000ns fall@20.000ns period=40.000ns})
+  Destination:            genblk1[3].genblk1[3].SGI_CPU_regs_reg[3][3][1]/D
+                            (rising edge-triggered cell FDRE clocked by clk_in  {rise@0.000ns fall@20.000ns period=40.000ns})
+  Path Group:             clk_in
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_in rise@0.000ns - clk_in rise@0.000ns)
+  Data Path Delay:        0.308ns  (logic 0.186ns (60.417%)  route 0.122ns (39.583%))
+  Logic Levels:           1  (LUT4=1)
+  Clock Path Skew:        0.000ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    1.941ns
+    Source Clock Delay      (SCD):    1.423ns
+    Clock Pessimism Removal (CPR):    0.517ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_in rise edge)     0.000     0.000 r  
+    E15                                               0.000     0.000 r  clk_in (IN)
+                         net (fo=0)                   0.000     0.000    clk_in
+    E15                  IBUF (Prop_ibuf_I_O)         0.193     0.193 r  clk_in_IBUF_inst/O
+                         net (fo=1, routed)           0.640     0.834    clk_in_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.026     0.860 r  clk_in_IBUF_BUFG_inst/O
+                         net (fo=4597, routed)        0.564     1.423    clk_in_IBUF_BUFG
+    SLICE_X67Y86         FDRE                                         r  genblk1[3].genblk1[3].SGI_CPU_regs_reg[3][3][1]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X67Y86         FDRE (Prop_fdre_C_Q)         0.141     1.564 r  genblk1[3].genblk1[3].SGI_CPU_regs_reg[3][3][1]/Q
+                         net (fo=2, routed)           0.122     1.686    genblk1[3].genblk1[3].SGI_CPU_regs_reg[3][3]__0[1]
+    SLICE_X67Y86         LUT4 (Prop_lut4_I3_O)        0.045     1.731 r  genblk1[3].genblk1[3].SGI_CPU_regs[3][3][1]_i_1/O
+                         net (fo=1, routed)           0.000     1.731    genblk1[3].genblk1[3].SGI_CPU_regs[3][3][1]_i_1_n_0
+    SLICE_X67Y86         FDRE                                         r  genblk1[3].genblk1[3].SGI_CPU_regs_reg[3][3][1]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_in rise edge)     0.000     0.000 r  
+    E15                                               0.000     0.000 r  clk_in (IN)
+                         net (fo=0)                   0.000     0.000    clk_in
+    E15                  IBUF (Prop_ibuf_I_O)         0.382     0.382 r  clk_in_IBUF_inst/O
+                         net (fo=1, routed)           0.695     1.077    clk_in_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.029     1.106 r  clk_in_IBUF_BUFG_inst/O
+                         net (fo=4597, routed)        0.835     1.941    clk_in_IBUF_BUFG
+    SLICE_X67Y86         FDRE                                         r  genblk1[3].genblk1[3].SGI_CPU_regs_reg[3][3][1]/C
+                         clock pessimism             -0.517     1.423    
+    SLICE_X67Y86         FDRE (Hold_fdre_C_D)         0.092     1.515    genblk1[3].genblk1[3].SGI_CPU_regs_reg[3][3][1]
+  -------------------------------------------------------------------
+                         required time                         -1.515    
+                         arrival time                           1.731    
+  -------------------------------------------------------------------
+                         slack                                  0.216    
+
+Slack (MET) :             0.223ns  (arrival time - required time)
+  Source:                 genblk1[2].genblk1[1].interrupt_states_reg[2][1][0]/C
+                            (rising edge-triggered cell FDCE clocked by clk_in  {rise@0.000ns fall@20.000ns period=40.000ns})
+  Destination:            genblk1[2].genblk1[1].interrupt_states_reg[2][1][1]/D
+                            (rising edge-triggered cell FDCE clocked by clk_in  {rise@0.000ns fall@20.000ns period=40.000ns})
+  Path Group:             clk_in
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_in rise@0.000ns - clk_in rise@0.000ns)
+  Data Path Delay:        0.328ns  (logic 0.209ns (63.797%)  route 0.119ns (36.203%))
+  Logic Levels:           1  (LUT6=1)
+  Clock Path Skew:        0.013ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    1.942ns
+    Source Clock Delay      (SCD):    1.424ns
+    Clock Pessimism Removal (CPR):    0.504ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_in rise edge)     0.000     0.000 r  
+    E15                                               0.000     0.000 r  clk_in (IN)
+                         net (fo=0)                   0.000     0.000    clk_in
+    E15                  IBUF (Prop_ibuf_I_O)         0.193     0.193 r  clk_in_IBUF_inst/O
+                         net (fo=1, routed)           0.640     0.834    clk_in_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.026     0.860 r  clk_in_IBUF_BUFG_inst/O
+                         net (fo=4597, routed)        0.565     1.424    clk_in_IBUF_BUFG
+    SLICE_X66Y87         FDCE                                         r  genblk1[2].genblk1[1].interrupt_states_reg[2][1][0]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X66Y87         FDCE (Prop_fdce_C_Q)         0.164     1.588 r  genblk1[2].genblk1[1].interrupt_states_reg[2][1][0]/Q
+                         net (fo=14, routed)          0.119     1.707    genblk1[2].genblk1[1].interrupt_states_reg_n_0_[2][1][0]
+    SLICE_X67Y87         LUT6 (Prop_lut6_I4_O)        0.045     1.752 r  genblk1[2].genblk1[1].interrupt_states[2][1][1]_i_1/O
+                         net (fo=1, routed)           0.000     1.752    genblk1[2].genblk1[1].interrupt_states[2][1][1]_i_1_n_0
+    SLICE_X67Y87         FDCE                                         r  genblk1[2].genblk1[1].interrupt_states_reg[2][1][1]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_in rise edge)     0.000     0.000 r  
+    E15                                               0.000     0.000 r  clk_in (IN)
+                         net (fo=0)                   0.000     0.000    clk_in
+    E15                  IBUF (Prop_ibuf_I_O)         0.382     0.382 r  clk_in_IBUF_inst/O
+                         net (fo=1, routed)           0.695     1.077    clk_in_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.029     1.106 r  clk_in_IBUF_BUFG_inst/O
+                         net (fo=4597, routed)        0.836     1.942    clk_in_IBUF_BUFG
+    SLICE_X67Y87         FDCE                                         r  genblk1[2].genblk1[1].interrupt_states_reg[2][1][1]/C
+                         clock pessimism             -0.504     1.437    
+    SLICE_X67Y87         FDCE (Hold_fdce_C_D)         0.092     1.529    genblk1[2].genblk1[1].interrupt_states_reg[2][1][1]
+  -------------------------------------------------------------------
+                         required time                         -1.529    
+                         arrival time                           1.752    
+  -------------------------------------------------------------------
+                         slack                                  0.223    
+
+Slack (MET) :             0.225ns  (arrival time - required time)
+  Source:                 genblk1[2].genblk1[0].SGI_CPU_regs_reg[2][0][1]/C
+                            (rising edge-triggered cell FDRE clocked by clk_in  {rise@0.000ns fall@20.000ns period=40.000ns})
+  Destination:            genblk1[2].genblk1[0].SGI_CPU_regs_reg[2][0][1]/D
+                            (rising edge-triggered cell FDRE clocked by clk_in  {rise@0.000ns fall@20.000ns period=40.000ns})
+  Path Group:             clk_in
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_in rise@0.000ns - clk_in rise@0.000ns)
+  Data Path Delay:        0.317ns  (logic 0.186ns (58.702%)  route 0.131ns (41.298%))
+  Logic Levels:           1  (LUT4=1)
+  Clock Path Skew:        0.000ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    1.936ns
+    Source Clock Delay      (SCD):    1.419ns
+    Clock Pessimism Removal (CPR):    0.516ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_in rise edge)     0.000     0.000 r  
+    E15                                               0.000     0.000 r  clk_in (IN)
+                         net (fo=0)                   0.000     0.000    clk_in
+    E15                  IBUF (Prop_ibuf_I_O)         0.193     0.193 r  clk_in_IBUF_inst/O
+                         net (fo=1, routed)           0.640     0.834    clk_in_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.026     0.860 r  clk_in_IBUF_BUFG_inst/O
+                         net (fo=4597, routed)        0.560     1.419    clk_in_IBUF_BUFG
+    SLICE_X68Y80         FDRE                                         r  genblk1[2].genblk1[0].SGI_CPU_regs_reg[2][0][1]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X68Y80         FDRE (Prop_fdre_C_Q)         0.141     1.560 r  genblk1[2].genblk1[0].SGI_CPU_regs_reg[2][0][1]/Q
+                         net (fo=2, routed)           0.131     1.691    genblk1[2].genblk1[0].SGI_CPU_regs_reg[2][0]__0[1]
+    SLICE_X68Y80         LUT4 (Prop_lut4_I3_O)        0.045     1.736 r  genblk1[2].genblk1[0].SGI_CPU_regs[2][0][1]_i_1/O
+                         net (fo=1, routed)           0.000     1.736    genblk1[2].genblk1[0].SGI_CPU_regs[2][0][1]_i_1_n_0
+    SLICE_X68Y80         FDRE                                         r  genblk1[2].genblk1[0].SGI_CPU_regs_reg[2][0][1]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_in rise edge)     0.000     0.000 r  
+    E15                                               0.000     0.000 r  clk_in (IN)
+                         net (fo=0)                   0.000     0.000    clk_in
+    E15                  IBUF (Prop_ibuf_I_O)         0.382     0.382 r  clk_in_IBUF_inst/O
+                         net (fo=1, routed)           0.695     1.077    clk_in_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.029     1.106 r  clk_in_IBUF_BUFG_inst/O
+                         net (fo=4597, routed)        0.830     1.936    clk_in_IBUF_BUFG
+    SLICE_X68Y80         FDRE                                         r  genblk1[2].genblk1[0].SGI_CPU_regs_reg[2][0][1]/C
+                         clock pessimism             -0.516     1.419    
+    SLICE_X68Y80         FDRE (Hold_fdre_C_D)         0.092     1.511    genblk1[2].genblk1[0].SGI_CPU_regs_reg[2][0][1]
+  -------------------------------------------------------------------
+                         required time                         -1.511    
+                         arrival time                           1.736    
+  -------------------------------------------------------------------
+                         slack                                  0.225    
+
+Slack (MET) :             0.225ns  (arrival time - required time)
+  Source:                 genblk1[1].genblk1[1].SGI_CPU_regs_reg[1][1][1]/C
+                            (rising edge-triggered cell FDRE clocked by clk_in  {rise@0.000ns fall@20.000ns period=40.000ns})
+  Destination:            genblk1[1].genblk1[1].SGI_CPU_regs_reg[1][1][1]/D
+                            (rising edge-triggered cell FDRE clocked by clk_in  {rise@0.000ns fall@20.000ns period=40.000ns})
+  Path Group:             clk_in
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_in rise@0.000ns - clk_in rise@0.000ns)
+  Data Path Delay:        0.317ns  (logic 0.186ns (58.663%)  route 0.131ns (41.337%))
+  Logic Levels:           1  (LUT4=1)
+  Clock Path Skew:        0.000ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    1.933ns
+    Source Clock Delay      (SCD):    1.417ns
+    Clock Pessimism Removal (CPR):    0.515ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_in rise edge)     0.000     0.000 r  
+    E15                                               0.000     0.000 r  clk_in (IN)
+                         net (fo=0)                   0.000     0.000    clk_in
+    E15                  IBUF (Prop_ibuf_I_O)         0.193     0.193 r  clk_in_IBUF_inst/O
+                         net (fo=1, routed)           0.640     0.834    clk_in_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.026     0.860 r  clk_in_IBUF_BUFG_inst/O
+                         net (fo=4597, routed)        0.558     1.417    clk_in_IBUF_BUFG
+    SLICE_X64Y77         FDRE                                         r  genblk1[1].genblk1[1].SGI_CPU_regs_reg[1][1][1]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X64Y77         FDRE (Prop_fdre_C_Q)         0.141     1.558 r  genblk1[1].genblk1[1].SGI_CPU_regs_reg[1][1][1]/Q
+                         net (fo=2, routed)           0.131     1.689    genblk1[1].genblk1[1].SGI_CPU_regs_reg[1][1]__0[1]
+    SLICE_X64Y77         LUT4 (Prop_lut4_I3_O)        0.045     1.734 r  genblk1[1].genblk1[1].SGI_CPU_regs[1][1][1]_i_1/O
+                         net (fo=1, routed)           0.000     1.734    genblk1[1].genblk1[1].SGI_CPU_regs[1][1][1]_i_1_n_0
+    SLICE_X64Y77         FDRE                                         r  genblk1[1].genblk1[1].SGI_CPU_regs_reg[1][1][1]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_in rise edge)     0.000     0.000 r  
+    E15                                               0.000     0.000 r  clk_in (IN)
+                         net (fo=0)                   0.000     0.000    clk_in
+    E15                  IBUF (Prop_ibuf_I_O)         0.382     0.382 r  clk_in_IBUF_inst/O
+                         net (fo=1, routed)           0.695     1.077    clk_in_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.029     1.106 r  clk_in_IBUF_BUFG_inst/O
+                         net (fo=4597, routed)        0.827     1.933    clk_in_IBUF_BUFG
+    SLICE_X64Y77         FDRE                                         r  genblk1[1].genblk1[1].SGI_CPU_regs_reg[1][1][1]/C
+                         clock pessimism             -0.515     1.417    
+    SLICE_X64Y77         FDRE (Hold_fdre_C_D)         0.092     1.509    genblk1[1].genblk1[1].SGI_CPU_regs_reg[1][1][1]
+  -------------------------------------------------------------------
+                         required time                         -1.509    
+                         arrival time                           1.734    
+  -------------------------------------------------------------------
+                         slack                                  0.225    
+
+Slack (MET) :             0.229ns  (arrival time - required time)
+  Source:                 genblk1[0].genblk1[4].interrupt_states_reg[0][4][0]/C
+                            (rising edge-triggered cell FDCE clocked by clk_in  {rise@0.000ns fall@20.000ns period=40.000ns})
+  Destination:            genblk1[0].genblk1[4].interrupt_states_reg[0][4][1]/D
+                            (rising edge-triggered cell FDCE clocked by clk_in  {rise@0.000ns fall@20.000ns period=40.000ns})
+  Path Group:             clk_in
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_in rise@0.000ns - clk_in rise@0.000ns)
+  Data Path Delay:        0.362ns  (logic 0.209ns (57.702%)  route 0.153ns (42.298%))
+  Logic Levels:           1  (LUT6=1)
+  Clock Path Skew:        0.013ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    1.930ns
+    Source Clock Delay      (SCD):    1.416ns
+    Clock Pessimism Removal (CPR):    0.500ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_in rise edge)     0.000     0.000 r  
+    E15                                               0.000     0.000 r  clk_in (IN)
+                         net (fo=0)                   0.000     0.000    clk_in
+    E15                  IBUF (Prop_ibuf_I_O)         0.193     0.193 r  clk_in_IBUF_inst/O
+                         net (fo=1, routed)           0.640     0.834    clk_in_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.026     0.860 r  clk_in_IBUF_BUFG_inst/O
+                         net (fo=4597, routed)        0.557     1.416    clk_in_IBUF_BUFG
+    SLICE_X54Y81         FDCE                                         r  genblk1[0].genblk1[4].interrupt_states_reg[0][4][0]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X54Y81         FDCE (Prop_fdce_C_Q)         0.164     1.580 r  genblk1[0].genblk1[4].interrupt_states_reg[0][4][0]/Q
+                         net (fo=9, routed)           0.153     1.733    genblk1[0].genblk1[4].interrupt_states_reg_n_0_[0][4][0]
+    SLICE_X54Y80         LUT6 (Prop_lut6_I1_O)        0.045     1.778 r  genblk1[0].genblk1[4].interrupt_states[0][4][1]_i_1/O
+                         net (fo=1, routed)           0.000     1.778    genblk1[0].genblk1[4].interrupt_states[0][4][1]_i_1_n_0
+    SLICE_X54Y80         FDCE                                         r  genblk1[0].genblk1[4].interrupt_states_reg[0][4][1]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_in rise edge)     0.000     0.000 r  
+    E15                                               0.000     0.000 r  clk_in (IN)
+                         net (fo=0)                   0.000     0.000    clk_in
+    E15                  IBUF (Prop_ibuf_I_O)         0.382     0.382 r  clk_in_IBUF_inst/O
+                         net (fo=1, routed)           0.695     1.077    clk_in_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.029     1.106 r  clk_in_IBUF_BUFG_inst/O
+                         net (fo=4597, routed)        0.824     1.930    clk_in_IBUF_BUFG
+    SLICE_X54Y80         FDCE                                         r  genblk1[0].genblk1[4].interrupt_states_reg[0][4][1]/C
+                         clock pessimism             -0.500     1.429    
+    SLICE_X54Y80         FDCE (Hold_fdce_C_D)         0.120     1.549    genblk1[0].genblk1[4].interrupt_states_reg[0][4][1]
+  -------------------------------------------------------------------
+                         required time                         -1.549    
+                         arrival time                           1.778    
+  -------------------------------------------------------------------
+                         slack                                  0.229    
+
+Slack (MET) :             0.236ns  (arrival time - required time)
+  Source:                 genblk1[3].genblk1[3].interrupt_states_reg[3][3][0]/C
+                            (rising edge-triggered cell FDCE clocked by clk_in  {rise@0.000ns fall@20.000ns period=40.000ns})
+  Destination:            genblk1[3].genblk1[3].interrupt_states_reg[3][3][0]/D
+                            (rising edge-triggered cell FDCE clocked by clk_in  {rise@0.000ns fall@20.000ns period=40.000ns})
+  Path Group:             clk_in
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_in rise@0.000ns - clk_in rise@0.000ns)
+  Data Path Delay:        0.327ns  (logic 0.186ns (56.960%)  route 0.141ns (43.040%))
+  Logic Levels:           1  (LUT6=1)
+  Clock Path Skew:        0.000ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    1.941ns
+    Source Clock Delay      (SCD):    1.423ns
+    Clock Pessimism Removal (CPR):    0.517ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_in rise edge)     0.000     0.000 r  
+    E15                                               0.000     0.000 r  clk_in (IN)
+                         net (fo=0)                   0.000     0.000    clk_in
+    E15                  IBUF (Prop_ibuf_I_O)         0.193     0.193 r  clk_in_IBUF_inst/O
+                         net (fo=1, routed)           0.640     0.834    clk_in_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.026     0.860 r  clk_in_IBUF_BUFG_inst/O
+                         net (fo=4597, routed)        0.564     1.423    clk_in_IBUF_BUFG
+    SLICE_X59Y89         FDCE                                         r  genblk1[3].genblk1[3].interrupt_states_reg[3][3][0]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X59Y89         FDCE (Prop_fdce_C_Q)         0.141     1.564 r  genblk1[3].genblk1[3].interrupt_states_reg[3][3][0]/Q
+                         net (fo=13, routed)          0.141     1.705    genblk1[3].genblk1[3].interrupt_states_reg_n_0_[3][3][0]
+    SLICE_X59Y89         LUT6 (Prop_lut6_I5_O)        0.045     1.750 r  genblk1[3].genblk1[3].interrupt_states[3][3][0]_i_1/O
+                         net (fo=1, routed)           0.000     1.750    genblk1[3].genblk1[3].interrupt_states[3][3][0]_i_1_n_0
+    SLICE_X59Y89         FDCE                                         r  genblk1[3].genblk1[3].interrupt_states_reg[3][3][0]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_in rise edge)     0.000     0.000 r  
+    E15                                               0.000     0.000 r  clk_in (IN)
+                         net (fo=0)                   0.000     0.000    clk_in
+    E15                  IBUF (Prop_ibuf_I_O)         0.382     0.382 r  clk_in_IBUF_inst/O
+                         net (fo=1, routed)           0.695     1.077    clk_in_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.029     1.106 r  clk_in_IBUF_BUFG_inst/O
+                         net (fo=4597, routed)        0.835     1.941    clk_in_IBUF_BUFG
+    SLICE_X59Y89         FDCE                                         r  genblk1[3].genblk1[3].interrupt_states_reg[3][3][0]/C
+                         clock pessimism             -0.517     1.423    
+    SLICE_X59Y89         FDCE (Hold_fdce_C_D)         0.091     1.514    genblk1[3].genblk1[3].interrupt_states_reg[3][3][0]
+  -------------------------------------------------------------------
+                         required time                         -1.514    
+                         arrival time                           1.750    
+  -------------------------------------------------------------------
+                         slack                                  0.236    
+
+
+
+
+
+Pulse Width Checks
+--------------------------------------------------------------------------------------
+Clock Name:         clk_in
+Waveform(ns):       { 0.000 20.000 }
+Period(ns):         40.000
+Sources:            { clk_in }
+
+Check Type        Corner  Lib Pin  Reference Pin  Required(ns)  Actual(ns)  Slack(ns)  Location        Pin
+Min Period        n/a     BUFG/I   n/a            2.155         40.000      37.845     BUFGCTRL_X0Y16  clk_in_IBUF_BUFG_inst/I
+Min Period        n/a     FDRE/C   n/a            1.000         40.000      39.000     SLICE_X47Y94    ICCABPR_reg[0][0]/C
+Min Period        n/a     FDRE/C   n/a            1.000         40.000      39.000     SLICE_X45Y108   ICCABPR_reg[0][10]/C
+Min Period        n/a     FDRE/C   n/a            1.000         40.000      39.000     SLICE_X39Y108   ICCABPR_reg[0][11]/C
+Min Period        n/a     FDRE/C   n/a            1.000         40.000      39.000     SLICE_X42Y106   ICCABPR_reg[0][12]/C
+Min Period        n/a     FDRE/C   n/a            1.000         40.000      39.000     SLICE_X39Y108   ICCABPR_reg[0][13]/C
+Min Period        n/a     FDRE/C   n/a            1.000         40.000      39.000     SLICE_X38Y106   ICCABPR_reg[0][14]/C
+Min Period        n/a     FDRE/C   n/a            1.000         40.000      39.000     SLICE_X45Y108   ICCABPR_reg[0][15]/C
+Min Period        n/a     FDRE/C   n/a            1.000         40.000      39.000     SLICE_X48Y104   ICCABPR_reg[0][16]/C
+Min Period        n/a     FDRE/C   n/a            1.000         40.000      39.000     SLICE_X49Y106   ICCABPR_reg[0][17]/C
+Low Pulse Width   Slow    FDRE/C   n/a            0.500         20.000      19.500     SLICE_X38Y106   ICCABPR_reg[0][14]/C
+Low Pulse Width   Slow    FDRE/C   n/a            0.500         20.000      19.500     SLICE_X38Y104   ICCABPR_reg[0][18]/C
+Low Pulse Width   Slow    FDRE/C   n/a            0.500         20.000      19.500     SLICE_X38Y106   ICCABPR_reg[0][20]/C
+Low Pulse Width   Slow    FDRE/C   n/a            0.500         20.000      19.500     SLICE_X35Y108   ICCABPR_reg[0][23]/C
+Low Pulse Width   Slow    FDRE/C   n/a            0.500         20.000      19.500     SLICE_X38Y104   ICCABPR_reg[0][24]/C
+Low Pulse Width   Slow    FDRE/C   n/a            0.500         20.000      19.500     SLICE_X38Y104   ICCABPR_reg[0][26]/C
+Low Pulse Width   Slow    FDRE/C   n/a            0.500         20.000      19.500     SLICE_X38Y106   ICCABPR_reg[0][28]/C
+Low Pulse Width   Slow    FDRE/C   n/a            0.500         20.000      19.500     SLICE_X40Y106   ICCABPR_reg[1][12]/C
+Low Pulse Width   Slow    FDRE/C   n/a            0.500         20.000      19.500     SLICE_X39Y106   ICCABPR_reg[1][14]/C
+Low Pulse Width   Slow    FDRE/C   n/a            0.500         20.000      19.500     SLICE_X39Y106   ICCABPR_reg[1][20]/C
+High Pulse Width  Slow    FDRE/C   n/a            0.500         20.000      19.500     SLICE_X44Y95    ICCABPR_reg[0][4]/C
+High Pulse Width  Slow    FDRE/C   n/a            0.500         20.000      19.500     SLICE_X50Y96    ICCABPR_reg[1][25]/C
+High Pulse Width  Slow    FDRE/C   n/a            0.500         20.000      19.500     SLICE_X45Y94    ICCABPR_reg[2][0]/C
+High Pulse Width  Slow    FDRE/C   n/a            0.500         20.000      19.500     SLICE_X45Y94    ICCABPR_reg[2][2]/C
+High Pulse Width  Slow    FDRE/C   n/a            0.500         20.000      19.500     SLICE_X43Y96    ICCABPR_reg[2][4]/C
+High Pulse Width  Slow    FDRE/C   n/a            0.500         20.000      19.500     SLICE_X44Y94    ICCABPR_reg[3][0]/C
+High Pulse Width  Slow    FDRE/C   n/a            0.500         20.000      19.500     SLICE_X44Y94    ICCABPR_reg[3][2]/C
+High Pulse Width  Slow    FDRE/C   n/a            0.500         20.000      19.500     SLICE_X44Y96    ICCABPR_reg[3][4]/C
+High Pulse Width  Slow    FDSE/C   n/a            0.500         20.000      19.500     SLICE_X42Y88    ICCICR_reg[1]/C
+High Pulse Width  Slow    FDSE/C   n/a            0.500         20.000      19.500     SLICE_X42Y88    ICCICR_reg[2]/C
+
+
+

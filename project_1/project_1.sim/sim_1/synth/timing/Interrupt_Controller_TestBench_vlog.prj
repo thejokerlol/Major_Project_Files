@@ -1,6 +1,6 @@
 # compile verilog/system verilog design source files
-verilog xil_defaultlib  "Interrupt_Controller_TestBench_time_synth.v"
-verilog xil_defaultlib  "../../../../project_1.srcs/sim_1/new/Interrupt_Controller_TestBench.v"
+verilog xil_defaultlib  "Interrupt_Controller_TestBench_time_synth.v" --include "../../../../project_1.srcs/sources_1/ip/ila_0/ila_v5_1/hdl/verilog" --include "../../../../project_1.srcs/sources_1/ip/ila_0/ltlib_v1_0/hdl/verilog" --include "../../../../project_1.srcs/sources_1/ip/ila_0/xsdbs_v1_0/hdl/verilog" --include "../../../../project_1.srcs/sources_1/ip/vio_0/ltlib_v1_0/hdl/verilog" --include "../../../../project_1.srcs/sources_1/ip/vio_0/vio_v3_0/hdl" --include "../../../../project_1.srcs/sources_1/ip/vio_0/xsdbs_v1_0/hdl/verilog"
+verilog xil_defaultlib  "../../../../project_1.srcs/sim_1/new/Interrupt_Controller_TestBench.v" --include "../../../../project_1.srcs/sources_1/ip/ila_0/ila_v5_1/hdl/verilog" --include "../../../../project_1.srcs/sources_1/ip/ila_0/ltlib_v1_0/hdl/verilog" --include "../../../../project_1.srcs/sources_1/ip/ila_0/xsdbs_v1_0/hdl/verilog" --include "../../../../project_1.srcs/sources_1/ip/vio_0/ltlib_v1_0/hdl/verilog" --include "../../../../project_1.srcs/sources_1/ip/vio_0/vio_v3_0/hdl" --include "../../../../project_1.srcs/sources_1/ip/vio_0/xsdbs_v1_0/hdl/verilog"
 
 # compile glbl module
 verilog xil_defaultlib "glbl.v"
